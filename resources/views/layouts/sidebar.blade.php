@@ -36,26 +36,32 @@
               </x-nav-link> --}}
                             <div class="py-1 my-1">
                                 <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                                    <img src="Icons/dashboard.svg" class="w-4 mr-2" alt="">
+                                    <img src="/Icons/dashboard.svg" class="w-4 mr-2" alt="">
                                     {{ __('Dashboard') }}
                                 </x-nav-link>
                             </div>
                             <div class="py-1 my-1">
                                 <x-nav-link :href="route('category')" :active="request()->routeIs('category')">
-                                    <img src="Icons/category.svg" class="w-4 mr-2" alt="">
+                                    <img src="/Icons/category.svg" class="w-4 mr-2" alt="">
                                     {{ __('Category') }}
                                 </x-nav-link>
                             </div>
                             <div class="py-1 my-1">
                                 <x-nav-link :href="route('product')" :active="request()->routeIs('product')">
-                                    <img src="Icons/package.svg" class="w-4 mr-2" alt="">
+                                    <img src="/Icons/package.svg" class="w-4 mr-2" alt="">
                                     {{ __('Product') }}
                                 </x-nav-link>
                             </div>
                             <div class="py-1 my-1">
                                 <x-nav-link :href="route('pages')" :active="request()->routeIs('pages')">
-                                    <img src="Icons/page.svg" class="w-4 mr-2" alt="">
+                                    <img src="/Icons/page.svg" class="w-4 mr-2" alt="">
                                     {{ __('Pages') }}
+                                </x-nav-link>
+                            </div>
+                            <div class="py-1 my-1">
+                                <x-nav-link href="/menuBuilder" :active="request()->routeIs('menuBuilder')">
+                                    <img src="/Icons/menu.svg" class="w-4 mr-2" alt="">
+                                    {{ __('Menubuilder') }}
                                 </x-nav-link>
                             </div>
 
@@ -146,10 +152,11 @@
                 <button @click="open = ! open"
                     class="inline-flex flex-col items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex flex-col': ! open }" class="inline-flex flex-col" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex flex-col': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path :class="{'hidden': open, 'inline-flex flex-col': ! open }" class="inline-flex flex-col"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                        <path :class="{'hidden': ! open, 'inline-flex flex-col': open }" class="hidden"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>

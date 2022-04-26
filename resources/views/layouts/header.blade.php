@@ -3,9 +3,9 @@
     <div class="flex justify-between">
 
         <div class="flex ">
-            <a href="http://jay.master.net/dashboard/">
+            <a href="http://{{ tenant('domain') }}/dashboard/">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    {{ __('Shop') }}
+                    {{ __('Shopstable') }}
                 </h2>
             </a>
         </div>

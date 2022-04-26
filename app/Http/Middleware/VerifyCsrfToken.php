@@ -12,9 +12,11 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        'http://jay.master.net/web_builder/*',
-        'http://jay.master.net/pageBuilder',
-        'http://jay.master.net/pageBuilder/*',
-        'http://jay.master.net/dashboard/*/*',
+        'http://*/web_builder/*',
+        'http://*/pageBuilder',
+        'http://*/pageBuilder/*',
+        'http://*/dashboard/*/*',
+        'http://*/menuBuilder/',
+        'http://*/menuBuilder/*',
     ];
 }

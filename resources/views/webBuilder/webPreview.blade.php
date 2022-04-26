@@ -96,8 +96,8 @@
             type: 'remote',
             // autosave: true,
             // stepsBeforeSave: 3,
-            // urlStore: 'http://jay.master.net/web_builder/screenDataSave/{{ $id }}',
-            urlLoad: 'http://jay.master.net/web_builder/screenDataLoad/{{ $id }}',
+            // urlStore: 'http://{{ tenant('domain') }}/web_builder/screenDataSave/{{ $id }}',
+            urlLoad: 'http://{{ tenant('domain') }}/web_builder/screenDataLoad/{{ $id }}',
             // For custom parameters/headers on requests
             // params: {
             //     "_token": {{ csrf_token() }},

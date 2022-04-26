@@ -112,8 +112,8 @@
             type: 'remote',
             autosave: true,
             stepsBeforeSave: 3,
-            urlStore: 'http://jay.master.net/web_builder/screenDataSave/{{ $id }}',
-            urlLoad: 'http://jay.master.net/web_builder/screenDataLoad/{{ $id }}',
+            urlStore: 'http://{{ tenant('domain') }}/web_builder/screenDataSave/{{ $id }}',
+            urlLoad: 'http://{{ tenant('domain') }}/web_builder/screenDataLoad/{{ $id }}',
             // For custom parameters/headers on requests
             // params: {
             //     "_token": {{ csrf_token() }},
@@ -123,7 +123,7 @@
         assetManager: {
 
             // Upload endpoint, set `false` to disable upload, default `false`
-            upload: 'http://jay.master.net/web_builder/screenImageUpload/{{ $id }}',
+            upload: 'http://{{ tenant('domain') }}/web_builder/screenImageUpload/{{ $id }}',
 
             // The name used in POST to pass uploaded files, default: `'files'`
             uploadName: 'files',
@@ -150,8 +150,8 @@
         console.log('changwe', e);
     })
     editor.on('change:changesCount', e => {
-        // var newUrl = "http://jay.master.net/web_view/{{ $id }}";
-        // window.location.href = "http://jay.master.net/web_view/{{ $id }}";
+        // var newUrl = "http://{{ tenant('domain') }}/web_view/{{ $id }}";
+        // window.location.href = "http://{{ tenant('domain') }}/web_view/{{ $id }}";
     });
     editor.on('asset:upload:response', (response) => {
         console.log('upLoaded ', response);

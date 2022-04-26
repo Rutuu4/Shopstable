@@ -19,6 +19,7 @@
 
     <!-- Scripts -->
     <script src="/js/app.js" defer></script>
+    <script src="/js/webBuilder.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"
         integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -70,7 +71,7 @@
         }
 
         /* .canvas [data-handle] {
-            
+
         } */
 
         .canvas [data-handle].hover {
@@ -235,7 +236,7 @@
 
 
     <div class="mt-5 mx-10 flex justify-between ">
-        <a href="http://jay.master.net/pageBuilder/{{ $id }}">
+        <a href="http://{{ tenant('domain') }}/pageBuilder/{{ $id }}">
             <x-button id="btn2">Web Builder</x-button>
         </a>
         <h1 class="text-xl font-semibold underline text-center">{{ $name }}</h1>
@@ -245,7 +246,7 @@
         $(document).ready(function() {
             $.ajax({
                 type: "GET",
-                url: "http://jay.master.net/publish_page/{{ $id }}",
+                url: "http://{{ tenant('domain') }}/publish_page/{{ $id }}",
                 // context: document.body,
                 success: function() {
                     let pagedata = $.parseHTML(`{{ $pageData }}`);

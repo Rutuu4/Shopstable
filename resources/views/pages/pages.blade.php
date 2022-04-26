@@ -2,6 +2,8 @@
     <link rel="stylesheet" href="//unpkg.com/grapesjs/dist/css/grapes.min.css">
     <script src="//unpkg.com/grapesjs"></script>
 
+    <script src="/js/webBuilder.js" defer></script>
+
     <style>
         .no-scrollbar {
             -ms-overflow-style: none;
@@ -36,6 +38,7 @@
                                 <th class="pb-5">ID</th>
                                 <th class="pb-5">Name</th>
                                 <th class="pb-5">Action</th>
+                                <th class="pb-5">Published Link</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
@@ -56,6 +59,18 @@
                                         <form id="deleteform" action="deletePage/{{ $item->id }}" method="POST">
                                             @csrf</form>
 
+                                    </td>
+
+                                    <td class="py-2">
+                                        @if ($item->is_publish == 1)
+                                            <a class="hover:text-blue-300"
+                                                href="http://{{ tenant('domain') }}/pageBuilderPreview/{{ $item->id }}"><img
+                                                    class="mx-auto w-5" src="/Icons/eye.png" alt=""></a>
+                                        @else
+                                            <a class="hover:text-blue-300"
+                                                href="http://{{ tenant('domain') }}/pageBuilderPreview/{{ $item->id }}"><img
+                                                    class="mx-auto w-5" src="/Icons/hidden_eye.png" alt=""></a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

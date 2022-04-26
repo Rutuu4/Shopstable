@@ -11,11 +11,14 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PageBuilder;
 use App\Http\Controllers\pageBuilderPreview;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WebBuilderController;
+use App\Models\Menubuilder;
+use App\Models\Pages;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -42,7 +45,17 @@ Route::middleware([
 
     // Page Routing
     Route::get('/', function () {
-        return view('tenant');
+        // $data = Pages::select('pageData')->first();
+        $nav_item = Menubuilder::get();
+        $name = Pages::select('name')->first();
+        // dd($data['pageData']);
+        if (empty($nav_item)) {
+            # code...
+            return view('tenant');
+        }
+        if (!empty($nav_item)) {
+            return view('tenant', ['nav_item' => $nav_item]);
+        }
     });
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
@@ -63,7 +76,7 @@ Route::middleware([
     // Product API
     Route::get('/product', [ProductController::class, 'show'])->middleware(['auth'])->name('product');
     Route::get('/addProduct', [ProductController::class, 'show_category'])->middleware(['auth'])->name('add_product_route');
-    Route::post('/addProduct', [Prodpublish_pageuctController::class, 'addProduct'])->middleware(['auth'])->name('addProduct');
+    Route::post('/addProduct', [ProductController::class, 'addProduct'])->middleware(['auth'])->name('addProduct');
     Route::post('/uploadProductImage', [ProductController::class, 'uploadProductImage'])->name('uploadProductImage');
     Route::post('/deleteProduct/{id}', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
 
@@ -92,8 +105,9 @@ Route::middleware([
     Route::get('/web_view/{id}', [WebBuilderController::class, 'webView'])->middleware(['auth'])->name('previewPageData');
 
     // PageBuilder
-    Route::resource('pageBuilder', PageBuilder::class);
-    Route::resource('pageBuilderPreview', pageBuilderPreview::class);
+    Route::resource('pageBuilder', PageBuilder::class)->middleware(['auth']);
+    Route::resource('pageBuilderPreview', pageBuilderPreview::class)->middleware(['auth']);
+    Route::resource('menuBuilder', MenuController::class)->middleware(['auth']);
     // Auth Routing
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])

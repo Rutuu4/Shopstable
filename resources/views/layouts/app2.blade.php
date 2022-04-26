@@ -19,6 +19,7 @@
 
     <!-- Scripts -->
     <script src="/js/app.js" defer></script>
+    <script src="/js/webBuilder.js" defer></script>
 </head>
 
 <body class="font-sans antialiased">

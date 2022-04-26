@@ -69,7 +69,7 @@
         }
 
         /* .canvas [data-handle] {
-            
+
         } */
 
         .canvas [data-handle].hover {
@@ -250,14 +250,14 @@
 
             <div class="flex justify-between ml-2 mr-6">
                 <div class="">
-                    <a href="http://jay.master.net/pageBuilderPreview/{{ $id }}">
+                    <a href="http://{{ tenant('domain') }}/pageBuilderPreview/{{ $id }}">
                         <x-button id="Preview">Preview
                         </x-button>
                     </a>
-                    <a href="http://jay.master.net/publish_page/{{ $id }}">
+                    {{-- <a href="http://"+{{ tenant('domain') }}+"/publish_page/{{ $id }}">
                         <x-button id="preview_publish">Preview Publish
                         </x-button>
-                    </a>
+                    </a> --}}
                 </div>
                 <h1 class="text-xl font-semibold  text-center">Title: {{ $name }}</h1>
                 <div>
@@ -279,6 +279,7 @@
                         </div>
                     </div>
                     <ul id="js-templates">
+
                         <li data-label="hero_page_1">
                             <x-delete-element />
 
@@ -920,7 +921,9 @@
                         <li data-label="image_1">
                             <x-delete-element />
                             <div data-handle>
-                                <img src="/images/1649314192.jpg" alt="">
+                                <section class="text-gray-600 body-font">
+                                    <img src="/images/1649314192.jpg" alt="">
+                                </section>
                             </div>
                         </li>
                         <li data-label="image_2">
@@ -1008,29 +1011,33 @@
                 </library>
             </main>
         </div>
-
     </div>
 
     <script>
         console.clear();
-
-
         // var el = document.getElementById('canvas');
         // var sortable = Sortable.create(el, {
         //     animation: 150,
         // });
+        // $(document).on('click', '.menu_item_delete', function(e) {
+        //     console.log('menu_item_delete',
+        //         this.parentNode.id);
+        //     $("#" + this.parentNode.parentNode.id).remove();
+        // })
+        // $(".deleteElement").click(function() {});
 
         $(document).ready(function() {
             $.ajax({
                 type: "GET",
-                url: "http://jay.master.net/pageBuilder/{{ $id }}",
+                url: "http://{{ tenant('domain') }}/pageBuilder/{{ $id }}",
                 // context: document.body,
                 success: function() {
-
                     let pagedata = $.parseHTML(`{{ $pageData }}`);
+                    let assets = $.parseHTML(`{{ $assets }}`);
+                    console.log('pagedata', pagedata[0]['data']);
                     // pagedata = pagedata[0];
                     if (pagedata[0] !== undefined) {
-                        document.getElementById("canvas").innerHTML += pagedata[0]['data'];
+                        document.getElementById("canvas").innerHTML = pagedata[0]['data'];
                     }
                     // document.getElementById("canvas").innerHTML += '<P>sdsasf</P>';
                 }
@@ -1045,13 +1052,20 @@
                 _self.dragElements = [];
 
                 $(".toolbox [draggable=true]").each(function() {
-                    console.log($(".deleteElement").length);
+                    // document.getElementsByClassName('deleteElement').addEventListener('click', function(e) {
+                    //     // print current order
+                    //     console.log(this.parentNode.id);
+                    //     $("#" + this.parentNode.parentNode.id).remove();
+                    //     this.stopPropagation();
+                    // });
 
-                    $('.deleteElement').click(function() {
-                        console.log(this.parentNode.id);
-                        $('#' + this.parentNode.parentNode.id).remove();
-                    });
                     $(this).on("dragstart", function() {
+                        var deleteButtonElement = $("#js-templates").find('[data-label="' + $(this)
+                            .data("template") + '"]')[0].childNodes[1].childNodes[1];
+
+                        deleteButtonElement.setAttribute("id", Math.floor(Math.random() * 9999999));
+
+                        deleteButtonElement.parentNode.classList.add('z-10');
                         _self.currentDragItem = $("#js-templates")
                             .find('[data-label="' + $(this).data("template") + '"]')
                             // .clone()
@@ -1059,15 +1073,21 @@
 
                         let count = Math.floor(Math.random() * 9999999);
 
-                        $(".deleteElement").attr('id', Date.now().toString(36) + Math.random()
-                            .toString(36).substr(2));
+                        // $("#js-templates")
+                        //     .find('[data-label="' + $(this).data("template") + '"]')[0].childNodes[1].childNodes[1].;
 
-                        // console.log(" <div id= '" + count + "'>" +
+
+                        console.log(deleteButtonElement);
+                        // $(".deleteElement").attr('id', Date.now().toString(36) + Math.random()
+                        //     .toString(36).substr(2));
+
+                        // console.log  (" <div id= '" + count + "'>" +
                         //     _self.currentDragItem + "< /div>");
 
                         _self.currentDragItem = " <div id= '" + count + "'" +
                             "class='border my-10' onclick='toggleBorder(event)'>" +
                             _self.currentDragItem + "</div>"
+                        console.log(_self.currentDragItem);
                         // $(this).data("template").attr("id", 'testId');
                     });
                 });
@@ -1115,9 +1135,10 @@
 
         $("#savePage").click(function() {
             let canvasData = $("#canvas").html();
+            console.log(canvasData);
             $.ajax({
                 type: "PUT",
-                url: "http://jay.master.net/pageBuilder/{{ $id }}",
+                url: "http://{{ tenant('domain') }}/pageBuilder/{{ $id }}",
                 data: {
                     pageData: canvasData
                 },
@@ -1129,7 +1150,7 @@
             let canvasData = $("#canvas").html();
             $.ajax({
                 type: "PUT",
-                url: "http://jay.master.net/dashboard/update/{{ $id }}",
+                url: "http://{{ tenant('domain') }}/dashboard/update/{{ $id }}",
                 data: {
                     pageData: canvasData
                 },
@@ -1161,6 +1182,7 @@
             $(this).addClass('classname');
         });
     </script>
+    <script src="/js/webBuilder.js"></script>
 </body>
 
 </html>

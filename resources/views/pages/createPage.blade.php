@@ -179,8 +179,8 @@
             autosave: false,
             setStepsBeforeSave: 1,
             type: 'remote',
-            urlStore: 'http://jay.master.net/pageData/{{ $id }}',
-            urlLoad: 'http://jay.master.net/savePage/{{ $id }}',
+            urlStore: 'http://{{ tenant('domain') }}/pageData/{{ $id }}',
+            urlLoad: 'http://{{ tenant('domain') }}/savePage/{{ $id }}',
             contentTypeJson: true,
         },
 

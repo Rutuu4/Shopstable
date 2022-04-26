@@ -11,7 +11,8 @@
     <div id='toolbox' class="h-screen overflow-y-auto toolbox px-6 border-r divide-y">
         {{-- <ul class="divide-y"> --}}
         {{-- Navbar --}}
-        <div class="">
+      
+        {{-- <div class="">
             <button class="dropdown-btn flex items-center">
                 <h1 class='my-2 font-medium tracking-wide'>Navbar</h1>
                 <i class="fa fa-caret-down ml-5 "></i>
@@ -21,7 +22,7 @@
                     class='rounded px-4 py-2 hover:bg-sky-400 hover:text-white  ml-4 my-2 text-xs font-medium tracking-wide'
                     data-template="navbar">Navbar 1</p>
             </div>
-        </div>
+        </div> --}}
 
 
         {{-- Hero  Page --}}
