@@ -407,7 +407,7 @@
 <body class="antialiased">
   <div class="relative flex items-top justify-center min-h-screen sm:items-center py-4 sm:pt-0">
 
-    @if (Route::has('login'))
+    @if (Route::has('login') && env('ALLOW_REGISTRATION'))
     <div class="hidden px-6 py-4 sm:block">
       @auth
       <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
