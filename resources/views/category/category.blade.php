@@ -4,7 +4,7 @@
     <script>
         var dropzone = new Dropzone('#file-upload', {
             previewTemplate: document.querySelector('#preview-template').innerHTML,
-            parallelUploads: 3,
+            parallelUploads: 3, 
             thumbnailHeight: 150,
             thumbnailWidth: 150,
             maxFilesize: 5,

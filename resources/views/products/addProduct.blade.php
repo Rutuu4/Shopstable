@@ -171,7 +171,7 @@
 
                                 <div>
                                     <x-label for="productShortDescription" :value="__('Short Description')" />
-                                    <textarea id="productShortDescription" class="w-1/2 block mt-1 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    <textarea id="productShortDescription" class="w-1/2 h-40 block mt-1 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                         type="text" name="productShortDescription" required autofocus></textarea>
 
                                 </div>

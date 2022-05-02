@@ -117,7 +117,7 @@
             height: 100%;
             overflow-x: auto;
             margin-top: 0px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            /* border: 1px solid rgba(255, 255, 255, 0.3); */
         }
 
         section th {
@@ -254,6 +254,10 @@
                         <x-button id="Preview">Preview
                         </x-button>
                     </a>
+                    <a href="http://{{ tenant('domain') }}/pages">
+                        <x-button id="Preview">back
+                        </x-button>
+                    </a>
                     {{-- <a href="http://"+{{ tenant('domain') }}+"/publish_page/{{ $id }}">
                         <x-button id="preview_publish">Preview Publish
                         </x-button>
@@ -266,8 +270,23 @@
                 </div>
             </div>
             <main>
-                <div class="uiDraggable ml-2 mr-6">
-                    <div id="canvas" class="h-screen overflow-y-auto canvas active rounded-lg" data-handle></div>
+                <div class="flex gap-4 ml-2 mr-6 mt-5 justify-end">
+                    <div onClick='changeColor("indigo", this)'
+                        class="changeColorClass rounded-full bg-indigo-500 w-5 h-5" autoFocus></div>
+                    <div onClick='changeColor("orange", this)'
+                        class="changeColorClass rounded-full bg-orange-500 w-5 h-5" autoFocus></div>
+                    <div onClick='changeColor("red", this)' class="changeColorClass rounded-full bg-red-500 w-5 h-5"
+                        autoFocus></div>
+                    <div onClick='changeColor("blue", this)' class="changeColorClass rounded-full bg-blue-500 w-5 h-5"
+                        autoFocus></div>
+                    <div onClick='changeColor("pink", this)' class="changeColorClass rounded-full bg-pink-500 w-5 h-5"
+                        autoFocus></div>
+                    <div onClick='changeColor("green", this)' class="changeColorClass rounded-full bg-green-500 w-5 h-5"
+                        autoFocus></div>
+                </div>
+                <div class=" uiDraggable ml-2 mr-6">
+                    <div id="canvas" class="pageBody h-screen overflow-y-auto canvas active rounded-lg" data-handle>
+                    </div>
                 </div>
 
                 <library style="display: none">
@@ -284,7 +303,6 @@
                             <x-delete-element />
 
                             <div class="hero_page_1" data-handle data-placeholder='hero_page_1'>
-
                                 <section class="text-gray-600 body-font">
                                     <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
                                         <div class="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded"
@@ -439,6 +457,168 @@
                                 </footer>
                             </div>
                         </li>
+                        <li data-label="category_grid">
+                            <x-delete-element />
+                            <div data-handle>
+                                <div class="">
+                                    <div class="">
+                                        <div class="text-center mx-auto mb-[60px] max-w-[510px]">
+                                            <h2
+                                                class="changebg font-bold text-3xl sm:text-4xl md:text-[40px] text-dark mb-4
+                                            ">
+                                                category
+                                            </h2>
+                                            <p class="text-base text-body-color">
+                                                There are many variations of passages of Lorem Ipsum available but the
+                                                majority
+                                                have
+                                                suffered alteration in some form.
+                                            </p>
+                                        </div>
+                                        <div class="category_grid_1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- <div data-handle> --}}
+                            {{-- <section class="text-gray-600 body-font">
+                                    <div class="container px-5 py-24 mx-auto"> --}}
+                            {{-- {{ $category_data }} --}}
+                            {{-- <section class="">
+                                            <div class="flex flex-wrap justify-center -mx-4">
+                                                <div class="w-full px-4">
+                                                    <div class="text-center mx-auto mb-[60px] lg:mb-20 max-w-[510px]">
+                                                        <h2
+                                                            class="font-bold text-3xl sm:text-4xl md:text-[40px] text-dark mb-4">
+                                                            Category
+                                                        </h2>
+                                                        <p class="text-base text-body-color">
+                                                            There are many variations of passages of Lorem Ipsum
+                                                            available
+                                                            but the majority have suffered alteration in some form.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-wrap -mx-4">
+
+                                                @foreach ($category_data as $item)
+                                                    <x-delete-element />
+                                                    <div data-handle class="w-full md:w-1/2 lg:w-1/3 px-4">
+                                                        <div class="">
+                                                            <div class="max-w-[370px] mx-auto mb-10">
+                                                                <div class="rounded overflow-hidden mb-8">
+                                                                    <img src="/{{ $item->category_image }}"
+                                                                        alt="image" class="w-full" />
+                                                                </div>
+                                                                <div>
+                                                                    <span
+                                                                        class=" bg-primary rounded inline-block text-center py-1 px-4 text-xs leading-loose font-semibold text-white mb-5">
+                                                                        Dec 22, 2023
+                                                                    </span>
+                                                                    <h3>
+                                                                        <a href="javascript:void(0)"
+                                                                            class=" font-semibold text-xl sm:text-2xl lg:text-xl xl:text-2xl mb-4 inline-block text-dark hover:text-primary ">
+                                                                            {{ $item->title }}
+                                                                        </a>
+                                                                    </h3>
+                                                                    <p class="text-base text-body-color">
+                                                                        {{ $item->description }}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </section>
+
+                                    </div>
+                                </section> --}}
+                            {{-- </div> --}}
+                        </li>
+                        <li data-label="product_grid">
+                            <x-delete-element />
+                            <div data-handle>
+                                <div class="">
+                                    <div class="">
+
+                                        <div class="text-center mx-auto mb-[60px] max-w-[510px]">
+                                            <h2
+                                                class="font-bold text-3xl sm:text-4xl md:text-[40px] text-dark mb-4
+                                            ">
+                                                product
+                                            </h2>
+                                            <p class="text-base text-body-color">
+                                                There are many variations of passages of Lorem Ipsum available but the
+                                                majority
+                                                have
+                                                suffered alteration in some form.
+                                            </p>
+                                        </div>
+                                        <div class="product_grid_1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- <div data-handle> --}}
+                            {{-- <section class="text-gray-600 body-font">
+                                    <div class="container px-5 py-24 mx-auto"> --}}
+                            {{-- {{ $product_data }} --}}
+                            {{-- <section class="">
+                                            <div class="flex flex-wrap justify-center -mx-4">
+                                                <div class="w-full px-4">
+                                                    <div class="text-center mx-auto mb-[60px] lg:mb-20 max-w-[510px]">
+                                                        <h2
+                                                            class="font-bold text-3xl sm:text-4xl md:text-[40px] text-dark mb-4">
+                                                            product
+                                                        </h2>
+                                                        <p class="text-base text-body-color">
+                                                            There are many variations of passages of Lorem Ipsum
+                                                            available
+                                                            but the majority have suffered alteration in some form.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-wrap -mx-4">
+
+                                                @foreach ($product_data as $item)
+                                                    <x-delete-element />
+                                                    <div data-handle class="w-full md:w-1/2 lg:w-1/3 px-4">
+                                                        <div class="">
+                                                            <div class="max-w-[370px] mx-auto mb-10">
+                                                                <div class="rounded overflow-hidden mb-8">
+                                                                    <img src="/{{ $item->product_image }}"
+                                                                        alt="image" class="w-full" />
+                                                                </div>
+                                                                <div>
+                                                                    <span
+                                                                        class=" bg-primary rounded inline-block text-center py-1 px-4 text-xs leading-loose font-semibold text-white mb-5">
+                                                                        Dec 22, 2023
+                                                                    </span>
+                                                                    <h3>
+                                                                        <a href="javascript:void(0)"
+                                                                            class=" font-semibold text-xl sm:text-2xl lg:text-xl xl:text-2xl mb-4 inline-block text-dark hover:text-primary ">
+                                                                            {{ $item->title }}
+                                                                        </a>
+                                                                    </h3>
+                                                                    <p class="text-base text-body-color">
+                                                                        {{ $item->description }}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </section>
+
+                                    </div>
+                                </section> --}}
+                            {{-- </div> --}}
                         </li>
                         <li data-label="pricing_1">
                             <x-delete-element />
@@ -1009,6 +1189,46 @@
 
                     </ul>
                 </library>
+                <div class="add_style_model transition duration-500 ease-in-out hidden">
+                    <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+                        aria-modal="">
+                        <div
+                            class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+
+                            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true">
+                            </div>
+
+                            <!-- This element is to trick the browser into centering the modal contents. -->
+                            <span
+                                class="hidden transition duration-500 ease-in-out sm:inline-block sm:align-middle sm:h-screen"
+                                aria-hidden="true">&#8203;</span>
+                            <div
+                                class="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                    <div class="sm:flex sm:items-start">
+
+                                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                            <x-label for="margin" :value="__('margin')" />
+                                            <x-input id="margin" class="block mt-1 w-full " type="text" name="margin"
+                                                required autofocus />
+
+
+                                            <x-label for="padding" :value="__('padding')" class="mt-4" />
+                                            <x-input id="padding" class="block mt-1 w-full " type="text" name="padding"
+                                                required autofocus />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                    <button id='add_menu_item_save' type="button"
+                                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Save</button>
+                                    <button type="button"
+                                        class="cancel_model mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
@@ -1026,23 +1246,7 @@
         // })
         // $(".deleteElement").click(function() {});
 
-        $(document).ready(function() {
-            $.ajax({
-                type: "GET",
-                url: "http://{{ tenant('domain') }}/pageBuilder/{{ $id }}",
-                // context: document.body,
-                success: function() {
-                    let pagedata = $.parseHTML(`{{ $pageData }}`);
-                    let assets = $.parseHTML(`{{ $assets }}`);
-                    console.log('pagedata', pagedata[0]['data']);
-                    // pagedata = pagedata[0];
-                    if (pagedata[0] !== undefined) {
-                        document.getElementById("canvas").innerHTML = pagedata[0]['data'];
-                    }
-                    // document.getElementById("canvas").innerHTML += '<P>sdsasf</P>';
-                }
-            });
-        });
+
 
         $.app = $.app || {};
 
@@ -1085,7 +1289,7 @@
                         //     _self.currentDragItem + "< /div>");
 
                         _self.currentDragItem = " <div id= '" + count + "'" +
-                            "class='border my-10' onclick='toggleBorder(event)'>" +
+                            "class='my-10 transition duration-500 ease-in-out' onmouseover='toggleBorder(event)' onmouseout='toggleBorder(event)'>" +
                             _self.currentDragItem + "</div>"
                         console.log(_self.currentDragItem);
                         // $(this).data("template").attr("id", 'testId');
@@ -1182,6 +1386,132 @@
             $(this).addClass('classname');
         });
     </script>
+
+
+    @if (!empty($pageData))
+        <script>
+            $(document).ready(function() {
+                // $('.changeColorClass').addClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
+                console.log(($(".pageBody").html()));
+                $.ajax({
+                    type: "GET",
+                    url: "http://{{ tenant('domain') }}/pageBuilder/{{ $id }}",
+                    // context: document.body,
+                    success: function() {
+                        let pagedata = $.parseHTML(`{{ $pageData }}`);
+                        console.log('pagedata', pagedata[0]['data']);
+                        // pagedata = pagedata[0];
+                        if (pagedata[0] !== undefined) {
+                            document.getElementById("canvas").innerHTML = pagedata[0]['data'];
+
+                            if ({!! !empty($category_data) !!}) {
+
+
+                                $(".category_grid_1")[0].innerHTML = '';
+                                if ({!! json_encode($category_data->toArray()) !!}.length < 2) {
+                                    $(".category_grid_1").addClass('grid grid-cols-2 px-6');
+                                } else {
+                                    $(".category_grid_1").addClass('grid grid-cols-3 gap-4 px-6');
+                                }
+
+                                $.ajax({
+                                    type: "GET",
+                                    url: "http://{{ tenant('domain') }}/menuBuilder",
+                                    context: document.body,
+                                }).done((data) => {
+                                    //
+
+                                    var category_datas = {!! json_encode($category_data->toArray()) !!};
+                                    console.log('asAS', category_datas);
+
+                                    for (let index = 0; index < category_datas
+                                        .length; index++) {
+                                        // const element = array[index];
+                                        // console.log(category_datas.length);
+                                        console.log('asdadaf', $(".category_grid_1")[0]);
+                                        $(".category_grid_1")[0].innerHTML += `
+                        <div class="flex justify-center">
+                          <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
+                            <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                                <img class='h-40 object-fill w-full' src="/` + category_datas[index][
+                                                'category_image'
+                                            ] + `" alt="" class='rounded-lg'/>
+                            </a>
+                            <div class="p-6">
+                              <h5 class="text-gray-900 text-xl font-medium mb-2"> ` + category_datas[index]
+                                            ['title'] + `</h5>
+                              <p class="text-gray-700 text-base">
+                                Some quick example text to build on the card title and make up the bulk of the card's
+                                content.
+                              </p>
+
+                            </div>
+                          </div>
+                        </div>
+            `;
+                                    }
+                                    // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
+                                    // order ? order : [];;
+                                });;
+
+                            }
+
+                            if ({!! !empty($product_data) !!}) {
+
+                                $(".product_grid_1")[0].innerHTML = '';
+                                if ({!! json_encode($product_data->toArray()) !!}.length < 2) {
+                                    $(".product_grid_1").addClass('grid grid-cols-2 px-6');
+                                } else {
+                                    $(".product_grid_1").addClass('grid grid-cols-3 gap-4 px-6');
+                                }
+
+                                $.ajax({
+                                    type: "GET",
+                                    url: "http://{{ tenant('domain') }}/menuBuilder",
+                                    context: document.body,
+                                }).done((data) => {
+                                    //
+
+                                    var product_datas = {!! json_encode($product_data->toArray()) !!};
+                                    var product_image = {!! json_encode($product_image->toArray()) !!};
+                                    console.log('asAS', product_datas);
+
+                                    for (let index = 0; index < product_datas
+                                        .length; index++) {
+                                        // const element = array[index];
+                                        // console.log(product_datas.length);
+                                        console.log('asdadaf', $(".product_grid_1")[0]);
+                                        $(".product_grid_1")[0].innerHTML +=
+                                            `
+                                <div class="flex justify-center">
+                                  <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
+                                    <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                                        <img class='h-40 object-fill w-full' src="/` + product_image[
+                                                index]['imageName'] + `" alt="" class='rounded-lg'/>
+                                    </a>
+                                    <div class="p-6">
+                                      <h5 class="text-gray-900 text-xl font-medium mb-2"> ` +
+                                            product_datas[index]['title'] + `</h5>
+                                      <p class="text-gray-700 text-base">
+                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        content.
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                            `
+                                    }
+                                    // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
+                                    // order ? order : [];;
+                                });;
+                            }
+                        }
+                        // document.getElementById("canvas").innerHTML += '<P>sdsasf</P>';
+                    }
+                });
+            });
+        </script>
+    @endif
     <script src="/js/webBuilder.js"></script>
 </body>
 

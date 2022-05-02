@@ -23,7 +23,7 @@
     {{-- <link rel="stylesheet" href="/css/app.css"> --}}
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/@tailwindcss/forms@0.2.1/dist/forms.min.css" rel="stylesheet">
-
+<link rel="stylesheet" href="css/style.css">
     <!-- Scripts -->
     <script src="/js/app.js" defer></script>
     <script src="/js/webBuilder.js" defer></script>

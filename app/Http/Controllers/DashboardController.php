@@ -36,7 +36,7 @@ class DashboardController extends Controller
         try {
             Pages::where('id', $id)
                 ->update([
-                    // 'name' => $request->pageData,    
+                    // 'name' => $request->pageData,
                     'is_publish' => true,
                     'publish_data' => $request->pageData
                 ]);

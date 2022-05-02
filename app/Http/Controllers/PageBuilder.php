@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pages;
+use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class PageBuilder extends Controller
@@ -41,7 +43,8 @@ class PageBuilder extends Controller
             // dd($request->pagaData);
             Pages::insert([
                 'name' => 'heloo',
-                'pageData' => $request->pagaData
+                'pageData' => $request->pagaData,
+                'category_data' => $request->category_data,
             ]);
             return response()->json(['success' => "uploaded", 'data' => $request->data]);
         } catch (Exception $e) {
@@ -63,9 +66,21 @@ class PageBuilder extends Controller
         $Pages = Pages::where('id', $id);
         $data = $Pages->select('pageData')->first();
         $assets = $Pages->select('assets')->first();
+        $category_data = DB::table('category')->get();
+        $product_data = DB::table('product')->get();
+        $product_image = DB::table('product_image')->get();
+        $category_data ? $category_data : '';
+        // echo '<pre>';
+        // print_r($category_data);
+        // exit;
         $name = $Pages->select('name')->first();
-        // dd($data['pageData']);
-        return view('PageBuilder.page', ['pageData' => $data['pageData'], 'id' => $id, 'name' => $name['name'], 'assets' => $assets['assets']]);
+
+        return view('PageBuilder.page', [
+            'category_data' => $category_data,
+            'product_data' => $product_data,
+            'product_image' => $product_image,
+            'pageData' => $data['pageData'], 'id' => $id, 'name' => $name['name'], 'assets' => $assets['assets']
+        ]);
     }
 
     /**
@@ -89,12 +104,13 @@ class PageBuilder extends Controller
     public function update(Request $request, $id)
     {
         try {
+            // dd($request->pageData);
             Pages::where('id', $id)
                 ->update([
                     // 'name' => $request->pageData,
                     'pageData' => $request->pageData,
                 ]);
-            return response()->json(['success' => "uploaded", 'pageData' => $request->pagaData]);
+            return response()->json(['success' => "uploaded", 'pageData' => $request->pageData]);
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);

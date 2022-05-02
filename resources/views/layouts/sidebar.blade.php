@@ -16,7 +16,7 @@
                     <div @click.away="open = false"
                         class="flex flex-col w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0"
                         x-data="{ open: false }">
-                        <div class="flex-shrink-0 py-4 flex flex-row items-center justify-between">
+                        <div class="flex-shrink-0 py-4  flex flex-row items-center justify-between">
                             {{-- <a href="#" class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Flowtrail UI</a> --}}
                             <button class="rounded-lg md:hidden rounded-lg focus:outline-none focus:shadow-outline"
                                 @click="open = !open">
@@ -30,10 +30,9 @@
                                 </svg>
                             </button>
                         </div>
-                        <nav :class="{'block': open, 'hidden': !open}"
+                        <nav :class="{ 'block': open, 'hidden': !open }"
                             class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
-                            {{-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-              </x-nav-link> --}}
+
                             <div class="py-1 my-1">
                                 <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                                     <img src="/Icons/dashboard.svg" class="w-4 mr-2" alt="">
@@ -152,10 +151,10 @@
                 <button @click="open = ! open"
                     class="inline-flex flex-col items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex flex-col': ! open }" class="inline-flex flex-col"
+                        <path :class="{ 'hidden': open, 'inline-flex flex-col': !open }" class="inline-flex flex-col"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex flex-col': open }" class="hidden"
+                        <path :class="{ 'hidden': !open, 'inline-flex flex-col': open }" class="hidden"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>

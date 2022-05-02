@@ -3,7 +3,7 @@
     <script src="//unpkg.com/grapesjs"></script>
 
     <script src="/js/webBuilder.js" defer></script>
-
+    <link rel="stylesheet" href="/CSS/style.css">
     <style>
         .no-scrollbar {
             -ms-overflow-style: none;
@@ -63,18 +63,45 @@
 
                                     <td class="py-2">
                                         @if ($item->is_publish == 1)
-                                            <a class="hover:text-blue-300"
-                                                href="http://{{ tenant('domain') }}/pageBuilderPreview/{{ $item->id }}"><img
-                                                    class="mx-auto w-5" src="/Icons/eye.png" alt=""></a>
+                                            <div class="flex items-center justify-center">
+                                                <div x-data="{ tooltip: false }" class="relative z-30 inline-flex">
+                                                    <div x-on:mouseover="tooltip = true"
+                                                        x-on:mouseleave="tooltip = false"
+                                                        class="rounded-md px-3 py-2  text-white cursor-pointer">
+                                                        <a title="Hello from speech bubble!"
+                                                            class="tooltip hover:text-blue-300"
+                                                            href="http://{{ tenant('domain') }}/pageBuilderPreview/{{ $item->id }}"><img
+                                                                class="mx-auto w-5" src="/Icons/eye.png" alt=""></a>
+
+                                                    </div>
+                                                    <div class="relative" x-cloak
+                                                        x-show.transition.origin.top="tooltip">
+                                                        <div
+                                                            class="absolute top-0 z-10 w-44 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
+                                                            view publish page
+                                                        </div>
+                                                        <svg class="absolute z-10 w-6 h-6 text-orange-500 transform -translate-x-12 -translate-y-3 fill-current stroke-current"
+                                                            width="8" height="8">
+                                                            <rect x="12" y="-10" width="8" height="8"
+                                                                transform="rotate(45)" />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+
+                                            </div>
                                         @else
-                                            <a class="hover:text-blue-300"
+                                            <a title="Hello from speech bubble!" class="tooltip hover:text-blue-300"
                                                 href="http://{{ tenant('domain') }}/pageBuilderPreview/{{ $item->id }}"><img
                                                     class="mx-auto w-5" src="/Icons/hidden_eye.png" alt=""></a>
                                         @endif
+
+
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
+
+
                     </table>
                     {{ $pages->links() }}
 

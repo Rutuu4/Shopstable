@@ -108,7 +108,8 @@ class MenuController extends Controller
                 ->update([
                     // 'name' => $request->pageData,
                     'nav_item_name' => $request->nav_item_name,
-                    'nav_item_link' => $link
+                    'nav_item_link' => $link,
+                    'nav_item_id' => $id
                 ]);
             Session::flash('message', 'Item successfully Updated!');
             return response()->json(['success' => "uploaded", 'assets' => $request->nav_item_name]);

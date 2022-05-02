@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('pageData')->nullable();
             $table->boolean('is_publish')->default(0);
             $table->text('publish_data')->nullable();
+            $table->text('category_data')->nullable();
             $table->text('assets')->nullable();
             $table->text('components')->nullable();
             $table->text('html')->nullable();

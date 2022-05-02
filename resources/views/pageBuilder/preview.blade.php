@@ -19,7 +19,6 @@
 
     <!-- Scripts -->
     <script src="/js/app.js" defer></script>
-    <script src="/js/webBuilder.js" defer></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"
         integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA=="
@@ -75,9 +74,9 @@
 
         } */
 
-        .canvas [data-handle].hover {
+        /* .canvas [data-handle].hover {
             border: 1px solid orange;
-        }
+        } */
 
         .img-pos {}
 
@@ -234,32 +233,165 @@
         } */
 
     </style>
-
-    <div class="mt-5 mx-10 flex justify-between ">
+    <div class="py-4 px-24 flex justify-between border-b-4 ">
         <a href="http://{{ tenant('domain') }}/pageBuilder/{{ $id }}">
             <x-button id="btn2">Web Builder
             </x-button>
         </a>
         <h1 class="text-xl font-semibold underline text-center">{{ $name }}</h1>
     </div>
-    <div id="canvas" class="canvas mx-10" data-handle></div>
-    <script>
-        $(document).ready(function() {
-            $.ajax({
-                type: "GET",
-                url: "http://{{ tenant('domain') }}/pageBuilder/{{ $id }}",
-                // context: document.body,
-                success: function() {
+    <header class="text-gray-600 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+                    viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+                <span class="ml-3 text-xl">Shopstable</span>
+            </a>
 
-                    let pagedata = $.parseHTML(`{{ $pageData }}`);
-                    // pagedata = pagedata[0];
-                    console.log(pagedata);
-                    document.getElementById("canvas").innerHTML += pagedata[0]['data'];
-                    // document.getElementById("canvas").innerHTML += '<P>sdsasf</P>';
-                }
+            @if (!empty($navbar))
+                <div
+                    class="md:mr-auto md:ml-4 md:py-1 md:pl-4  md:border-gray-400 flex flex-wrap text-base justify-center">
+                    @foreach ($navbar as $item)
+                        <a target="_blank" href={{ $item->nav_item_link }} class="mx-2">
+                            {{ $item->nav_item_name }}
+                        </a>
+                    @endforeach
+                </div>
+            @endif
+
+        </div>
+    </header>
+
+
+    <div id="canvas" class="canvas mx-10" data-handle></div>
+
+    @if (!empty($pageData))
+        <script>
+            $(document).ready(function() {
+                $.ajax({
+                    type: "GET",
+                    url: "http://{{ tenant('domain') }}/pageBuilder/{{ $id }}",
+                    // context: document.body,
+                    success: function() {
+                        let pagedata = $.parseHTML(`{{ $pageData }}`);
+                        console.log('pagedata', pagedata[0]['data']);
+                        // pagedata = pagedata[0];
+                        if (pagedata[0] !== undefined) {
+                            document.getElementById("canvas").innerHTML = pagedata[0]['data'];
+
+                            if ({!! !empty($category_data) !!}) {
+
+
+                                $(".category_grid_1")[0].innerHTML = '';
+                                if ({!! json_encode($category_data->toArray()) !!}.length < 2) {
+                                    $(".category_grid_1").addClass('grid grid-cols-2 px-6');
+                                } else {
+                                    $(".category_grid_1").addClass('grid grid-cols-3 gap-4 px-6');
+                                }
+
+                                $.ajax({
+                                    type: "GET",
+                                    url: "http://{{ tenant('domain') }}/menuBuilder",
+                                    context: document.body,
+                                }).done((data) => {
+                                    //
+
+                                    var category_datas = {!! json_encode($category_data->toArray()) !!};
+                                    console.log('asAS', category_datas);
+
+                                    for (let index = 0; index < category_datas
+                                        .length; index++) {
+                                        // const element = array[index];
+                                        // console.log(category_datas.length);
+                                        console.log('asdadaf', $(".category_grid_1")[0]);
+                                        $(".category_grid_1")[0].innerHTML += `
+                                <div class="flex justify-center">
+                                  <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
+                                    <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                                        <img class='h-40 object-fill w-full' src="/` + category_datas[index][
+                                                'category_image'
+                                            ] + `" alt="" class='rounded-lg'/>
+                                    </a>
+                                    <div class="p-6">
+                                      <h5 class="text-gray-900 text-xl font-medium mb-2"> ` + category_datas[index]
+                                            ['title'] + `</h5>
+                                      <p class="text-gray-700 text-base">
+                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        content.
+                                      </p>
+
+                                    </div>
+                                  </div>
+                                </div>
+                    `;
+                                    }
+                                    // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
+                                    // order ? order : [];;
+                                });;
+
+                            }
+
+                            if ({!! !empty($product_data) !!}) {
+
+                                $(".product_grid_1")[0].innerHTML = '';
+                                if ({!! json_encode($product_data->toArray()) !!}.length < 2) {
+                                    $(".product_grid_1").addClass('grid grid-cols-2 px-6');
+                                } else {
+                                    $(".product_grid_1").addClass('grid grid-cols-3 gap-4 px-6');
+                                }
+
+                                $.ajax({
+                                    type: "GET",
+                                    url: "http://{{ tenant('domain') }}/menuBuilder",
+                                    context: document.body,
+                                }).done((data) => {
+                                    //
+
+                                    var product_datas = {!! json_encode($product_data->toArray()) !!};
+                                    var product_image = {!! json_encode($product_image->toArray()) !!};
+                                    console.log('asAS', product_datas);
+
+                                    for (let index = 0; index < product_datas
+                                        .length; index++) {
+                                        // const element = array[index];
+                                        // console.log(product_datas.length);
+                                        console.log('asdadaf', $(".product_grid_1")[0]);
+                                        $(".product_grid_1")[0].innerHTML +=
+                                            `
+                                        <div class="flex justify-center">
+                                          <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
+                                            <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                                                <img class='h-40 object-fill w-full' src="/` + product_image[
+                                                index]['imageName'] + `" alt="" class='rounded-lg'/>
+                                            </a>
+                                            <div class="p-6">
+                                              <h5 class="text-gray-900 text-xl font-medium mb-2"> ` +
+                                            product_datas[index]['title'] + `</h5>
+                                              <p class="text-gray-700 text-base">
+                                                Some quick example text to build on the card title and make up the bulk of the card's
+                                                content.
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    `
+                                    }
+                                    // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
+                                    // order ? order : [];;
+                                });;
+                            }
+                        }
+                        // document.getElementById("canvas").innerHTML += '<P>sdsasf</P>';
+                    }
+                });
             });
-        });
-    </script>
+
+            console.log('sadsad');
+        </script>
+    @endif
 </body>
 
 </html>

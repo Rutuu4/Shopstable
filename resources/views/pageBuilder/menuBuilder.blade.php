@@ -266,11 +266,16 @@
                                             </div>
                                             <div class="flex">
                                                 <button
-                                                    class="menu_item_edit px-4 py-2 border hover:bg-green-400 hover:text-white hover:bg-opacity-70">
-                                                    edit</button>
-                                                <button
                                                     class="menu_item_delete px-4 py-2 border hover:bg-red-400 hover:text-white hover:bg-opacity-70">
                                                     delete</button>
+
+                                                    <button
+                                        class="menu_item_edit border p-1.5 rounded-lg hover:bg-indigo-400"><img
+                                                src="/Icons/edit.svg" alt=""></button>
+                                    <button
+                                        class="menu_item_delete border p-1.5 rounded-lg hover:bg-red-400">
+                                        <img src=" Icons/delete.svg" alt="" />
+                                        </button>
                                             </div>
                                         </div>`;
 
@@ -288,12 +293,34 @@
     <script>
         // console.clear();
         var simpleList = document.getElementById('simpleList');
-
         var sortable = new Sortable(simpleList, {
-            animation: 150,
-            group: "menuBuilderGroup",
+                animation: 150,
+                group: "menuBuilderGroup",
 
-            onEnd: function(event, ui) {
+                onStart: function(evt) {
+                    originalList = [...document.querySelectorAll("#items > div")].map(el => el.id);
+                },
+
+                onSort: function(e) {
+                    var items = e.to.children;
+                    var result = [];
+                    for (var i = items.length / 2; i < items.length; i++) {
+                        result.push($(items[i]).data('id'));
+                        console.log(e.target.childNodes[2].id, sortable.toArray()[i]);
+                        e.target.childNodes[2].id = sortable.toArray()[i]
+                        // e. = sortable.toArray()[i];
+                        $.ajax({
+                            type: "PUT",
+                            url: "http://{{ tenant('domain') }}/menuBuilder/" + e.target.childNodes[2].id,
+                            data: {
+                                nav_item_name: $('#menu_name').val(),
+                                nav_item_link: $('#menu_link').val(),
+                            },
+                            success: 'success',
+                        });
+                    }
+                },
+                // onEnd: function(event, ui) {
                 // var data = $(this).sortable('serialize');
 
                 // POST to server using $.post or $.ajax
@@ -317,14 +344,17 @@
 
             //     }
             // }
-        });
+        );
+
+
+
 
 
 
         // create sortable and save instance
 
         // save initial order
-        var initialOrder = sortable.toArray();
+
 
         // document.getElementById('saveCurrOrder').addEventListener('click', function(e) {
         //     // print current order
@@ -379,13 +409,13 @@
                                     <img class='w-5 mr-2' src="/Icons/dragholder.svg" alt="">
                                     <div class="menuItemName">` + menu_item_name + `</div>
                                 </div>
-                                <div class="flex">
+                                <div class="flex gap-4">
                                     <button
-                                        class="menu_item_edit px-4 py-2 border hover:bg-green-400 hover:text-white hover:bg-opacity-70">
-                                        edit</button>
+                                        class="menu_item_edit border p-1.5 rounded-lg hover:bg-indigo-400"><img
+                                                src="/Icons/edit.svg" alt=""></button>
                                     <button
-                                        class="menu_item_delete px-4 py-2 border hover:bg-red-400 hover:text-white hover:bg-opacity-70">
-                                        delete</button>
+                                        class="menu_item_delete border p-1.5 rounded-lg hover:bg-red-400">
+                                        <img src=" Icons/delete.svg" alt="" /></button>
                                 </div>
                             </div>`);
             console.log('sdasd', menu_item_id);
@@ -574,10 +604,6 @@
 
         } */
 
-    .canvas[data - handle].hover {
-        border: 1 px solid orange;
-    }
-
     .img - pos {}
 
     .img - pos.close {}
@@ -711,20 +737,20 @@
 
 
 
-    div[data - placeholder]: not([data - placeholder=""]): empty::before {
-        content: attr(data - placeholder);
+    div[data-placeholder]:not([data-placeholder=""]):empty::before {
+        content: attr(data-placeholder);
     }
 
     /* div:empty::before {
             content: 'fallback placeholder';
         } */
 
-    *: empty::before {
+    *:empty::before {
         color: grey;
     }
 
-    *[data - placeholder]: not([data - placeholder=""]): empty::before {
-        content: attr(data - placeholder);
+    *[data-placeholder]:not([data-placeholder=""]):empty::before {
+        content: attr(data-placeholder);
     }
 
     /*

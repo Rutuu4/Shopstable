@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menubuilder;
 use App\Models\Pages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class pageBuilderPreview extends Controller
 {
@@ -49,8 +51,20 @@ class pageBuilderPreview extends Controller
         $Pages = Pages::where('id', $id);
         $data = $Pages->select('pageData')->first();
         $name = $Pages->select('name')->first();
-        // dd($data['pageData']);
-        return view('PageBuilder.preview', ['pageData' => $data['pageData'], 'id' => $id, 'name' => $name['name']]);
+        $category_data = DB::table('category')->get();
+        $product_data = DB::table('product')->get();
+        $product_image = DB::table('product_image')->get();
+        $navbar = Menubuilder::get();
+
+        return view('PageBuilder.preview', [
+            'category_data' => $category_data,
+            'product_data' => $product_data,
+            'product_image' => $product_image,
+            'pageData' => $data['pageData'],
+            'id' => $id,
+            'name' => $name['name'],
+            'navbar' => $navbar
+        ]);
     }
 
     /**
