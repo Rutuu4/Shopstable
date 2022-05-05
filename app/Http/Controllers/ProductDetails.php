@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menubuilder;
-use App\Models\Pages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class pageBuilderPreview extends Controller
+class ProductDetails extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +14,12 @@ class pageBuilderPreview extends Controller
      */
     public function index()
     {
-        //
+        $productDetail = DB::table('product')
+            ->join('product_image', 'product_image.product_id', 'product.id')
+            ->where('product_image.isFeatured', true)
+            ->select('product.id', 'product_image.imageName', 'product.title', 'product.price', 'product.status', 'product.isFeatured')
+            ->paginate(5);
+        return view('products.productDetail', ['productDetail' => $productDetail]);
     }
 
     /**
@@ -37,7 +40,6 @@ class pageBuilderPreview extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -48,25 +50,12 @@ class pageBuilderPreview extends Controller
      */
     public function show($id)
     {
-        $Pages = Pages::where('id', $id);
-        $data = $Pages->select('pageData')->first();
-        $name = $Pages->select('name')->first();
-        $category_data = DB::table('category')->get();
-        $product_data = DB::table('product')
-            ->join('product_image', 'product_image.product_id', 'product.id', 'left')
-            ->where('product_image.isFeatured', true)->select('product.*', 'product_image.imageName', 'product_image.isFeatured')->get();
-        $product_image = DB::table('product_image')->get();
-        $navbar = Menubuilder::get();
-
-        return view('PageBuilder.preview', [
-            'category_data' => $category_data,
-            'product_data' => $product_data,
-            'product_image' => $product_image,
-            'pageData' => $data['pageData'],
-            'id' => $id,
-            'name' => $name['name'],
-            'navbar' => $navbar
-        ]);
+        $productDetail = DB::table('product')
+            ->join('product_image', 'product_image.product_id', 'product.id')
+            ->where('product.id', $id)
+            ->select('product.*', 'product_image.imageName', 'product_image.isFeatured')
+            ->get();
+        return view('products.productDetail', ['productDetail' => $productDetail, 'id' => $id,]);
     }
 
     /**

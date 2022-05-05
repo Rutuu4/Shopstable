@@ -316,10 +316,12 @@
                                                 adipisicing elit. Alias cupiditate impedit inventore doloribus totam
                                                 excepturi perferendis accusantium! Odit, quis optio.</p>
                                             <div class="flex justify-center">
+                                                <button onmouseover="toggleAddLink(this)" contenteditable=" true"
+                                                    class="h-10 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+                                                <x-linkelement />
+                                                <x-link-data-model />
                                                 <button contenteditable="true"
-                                                    class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
-                                                <button contenteditable="true"
-                                                    class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button>
+                                                    class="h-10 ml-4  inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button>
                                             </div>
                                         </div>
                                     </div>
@@ -1189,6 +1191,10 @@
 
                     </ul>
                 </library>
+
+                {{-- Add Link Model --}}
+
+                {{-- add_style_model --}}
                 <div class="add_style_model transition duration-500 ease-in-out hidden">
                     <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
                         aria-modal="">
@@ -1231,6 +1237,7 @@
                 </div>
             </main>
         </div>
+
     </div>
 
     <script>
@@ -1363,6 +1370,28 @@
         });
         const editables = document.querySelectorAll("[contenteditable]");
 
+
+        function saveLinkData(e) {
+            var link_name = $('#link_name').val();
+            var link_data = $('#link_data').val();
+            var link_id = (performance.now().toString(36) + Math.random().toString(36)).replace(/\./g, "");
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "http://{{ tenant('domain') }}/linkData",
+                data: {
+                    page_id: link_id,
+                    component_className: link_name,
+                    link_name: link_name,
+                    link_data: link_data,
+                },
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+        }
         // save edits
         editables.forEach(el => {
             el.addEventListener("blur", () => {
@@ -1379,6 +1408,7 @@
                 }
             }
         }
+
 
         var selector = '.classname';
         $(selector).on('click', function() {
@@ -1483,23 +1513,24 @@
                                         console.log('asdadaf', $(".product_grid_1")[0]);
                                         $(".product_grid_1")[0].innerHTML +=
                                             `
-                                <div class="flex justify-center">
-                                  <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
-                                    <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                                        <img class='h-40 object-fill w-full' src="/` + product_image[
-                                                index]['imageName'] + `" alt="" class='rounded-lg'/>
-                                    </a>
-                                    <div class="p-6">
-                                      <h5 class="text-gray-900 text-xl font-medium mb-2"> ` +
+                                            <div class="flex justify-center">
+                                                <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
+                                                    <a href="http://{{ tenant('domain') }}/productDetail/` +
+                                            product_datas[
+                                                index]['id'] + `" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                                                        <img class='h-40 object-fill w-full' src="/` + product_image[
+                                                index]['imageName'] + `" alt="" class='rounded-lg' />
+                                                        <div class="p-6">
+                                                            <h5 class="text-gray-900 text-xl font-medium mb-2"> ` +
                                             product_datas[index]['title'] + `</h5>
-                                      <p class="text-gray-700 text-base">
-                                        Some quick example text to build on the card title and make up the bulk of the card's
-                                        content.
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                            `
+                                                            <p class="text-gray-700 text-base">
+                                                                Some quick example text to build on the card title and make up the bulk of the card'scontent.
+                                                            </p>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            `
                                     }
                                     // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
                                     // order ? order : [];;

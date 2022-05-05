@@ -11,11 +11,13 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LinkDataController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PageBuilder;
 use App\Http\Controllers\pageBuilderPreview;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductDetails;
 use App\Http\Controllers\WebBuilderController;
 use App\Models\Menubuilder;
 use App\Models\Pages;
@@ -108,6 +110,10 @@ Route::middleware([
     Route::resource('pageBuilder', PageBuilder::class)->middleware(['auth']);
     Route::resource('pageBuilderPreview', pageBuilderPreview::class)->middleware(['auth']);
     Route::resource('menuBuilder', MenuController::class)->middleware(['auth']);
+    Route::resource('linkData', LinkDataController::class)->middleware(['auth']);
+    Route::resource('productDetail', ProductDetails::class)->middleware(['auth']);
+
+
     // Auth Routing
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])

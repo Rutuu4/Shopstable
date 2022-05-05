@@ -241,27 +241,31 @@
         <h1 class="text-xl font-semibold underline text-center">{{ $name }}</h1>
     </div>
     <header class="text-gray-600 body-font">
-        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-            <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
-                    stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
-                    viewBox="0 0 24 24">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                </svg>
-                <span class="ml-3 text-xl">Shopstable</span>
-            </a>
+        <div class="flex justify-between">
 
-            @if (!empty($navbar))
-                <div
-                    class="md:mr-auto md:ml-4 md:py-1 md:pl-4  md:border-gray-400 flex flex-wrap text-base justify-center">
-                    @foreach ($navbar as $item)
-                        <a target="_blank" href={{ $item->nav_item_link }} class="mx-2">
-                            {{ $item->nav_item_name }}
-                        </a>
-                    @endforeach
-                </div>
-            @endif
+            <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+                <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2"
+                        class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    <span class="ml-3 text-xl">Shopstable</span>
+                </a>
 
+                @if (!empty($navbar))
+                    <div
+                        class="md:mr-auto md:ml-4 md:py-1 md:pl-4  md:border-gray-400 flex flex-wrap text-base justify-center">
+                        @foreach ($navbar as $item)
+                            <a target="_blank" href={{ $item->nav_item_link }} class="mx-2">
+                                {{ $item->nav_item_name }}
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+
+            <button class="mr-6 text-xl" onclick="history.back()">back</button>
         </div>
     </header>
 
@@ -271,6 +275,8 @@
     @if (!empty($pageData))
         <script>
             $(document).ready(function() {
+                // $('.changeColorClass').addClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
+                console.log(($(".pageBody").html()));
                 $.ajax({
                     type: "GET",
                     url: "http://{{ tenant('domain') }}/pageBuilder/{{ $id }}",
@@ -308,25 +314,25 @@
                                         // console.log(category_datas.length);
                                         console.log('asdadaf', $(".category_grid_1")[0]);
                                         $(".category_grid_1")[0].innerHTML += `
-                                <div class="flex justify-center">
-                                  <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
-                                    <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                                        <img class='h-40 object-fill w-full' src="/` + category_datas[index][
+                        <div class="flex justify-center">
+                          <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
+                            <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                                <img class='h-40 object-fill w-full' src="/` + category_datas[index][
                                                 'category_image'
                                             ] + `" alt="" class='rounded-lg'/>
-                                    </a>
-                                    <div class="p-6">
-                                      <h5 class="text-gray-900 text-xl font-medium mb-2"> ` + category_datas[index]
+                            </a>
+                            <div class="p-6">
+                              <h5 class="text-gray-900 text-xl font-medium mb-2"> ` + category_datas[index]
                                             ['title'] + `</h5>
-                                      <p class="text-gray-700 text-base">
-                                        Some quick example text to build on the card title and make up the bulk of the card's
-                                        content.
-                                      </p>
+                              <p class="text-gray-700 text-base">
+                                Some quick example text to build on the card title and make up the bulk of the card's
+                                content.
+                              </p>
 
-                                    </div>
-                                  </div>
-                                </div>
-                    `;
+                            </div>
+                          </div>
+                        </div>
+            `;
                                     }
                                     // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
                                     // order ? order : [];;
@@ -361,23 +367,24 @@
                                         console.log('asdadaf', $(".product_grid_1")[0]);
                                         $(".product_grid_1")[0].innerHTML +=
                                             `
-                                        <div class="flex justify-center">
-                                          <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
-                                            <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                                                <img class='h-40 object-fill w-full' src="/` + product_image[
-                                                index]['imageName'] + `" alt="" class='rounded-lg'/>
-                                            </a>
-                                            <div class="p-6">
-                                              <h5 class="text-gray-900 text-xl font-medium mb-2"> ` +
+                                            <div class="flex justify-center">
+                                                <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
+                                                    <a href="http://{{ tenant('domain') }}/productDetail/` +
+                                            product_datas[
+                                                index]['id'] + `" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                                                        <img class='h-40 object-fill w-full' src="/` + product_image[
+                                                index]['imageName'] + `" alt="" class='rounded-lg' />
+                                                        <div class="p-6">
+                                                            <h5 class="text-gray-900 text-xl font-medium mb-2"> ` +
                                             product_datas[index]['title'] + `</h5>
-                                              <p class="text-gray-700 text-base">
-                                                Some quick example text to build on the card title and make up the bulk of the card's
-                                                content.
-                                              </p>
+                                                            <p class="text-gray-700 text-base">
+                                                                Some quick example text to build on the card title and make up the bulk of the card'scontent.
+                                                            </p>
+                                                        </div>
+                                                    </a>
+                                                </div>
                                             </div>
-                                          </div>
-                                        </div>
-                                    `
+                                            `
                                     }
                                     // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
                                     // order ? order : [];;
@@ -388,8 +395,6 @@
                     }
                 });
             });
-
-            console.log('sadsad');
         </script>
     @endif
 </body>

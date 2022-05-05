@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Menubuilder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,20 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('menubuilders', function (Blueprint $table) {
+        Schema::create('item_links', function (Blueprint $table) {
             $table->id();
-            $table->string('nav_item_name');
-            $table->text('nav_item_link');
-            $table->string('nav_item_id');
+            $table->string('page_id');
+            $table->string('component_className');
+            $table->string('link_name');
+            $table->text('link_data');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
-
-        Menubuilder::insert([
-            'nav_item_name' => "Dashboard",
-            'nav_item_link' => "dashboard",
-            'nav_item_id' => "dashboard",
-        ]);
     }
 
     /**
@@ -37,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menubuilders');
+        Schema::dropIfExists('item_links');
     }
 };

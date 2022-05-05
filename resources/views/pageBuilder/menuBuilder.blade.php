@@ -264,18 +264,11 @@
                                                 <img class='w-5 mr-2' src="/Icons/dragholder.svg" alt="">
                                                 <div class="menuItemName">` + nav_items[index]['nav_item_name'] + `</div>
                                             </div>
-                                            <div class="flex">
-                                                <button
-                                                    class="menu_item_delete px-4 py-2 border hover:bg-red-400 hover:text-white hover:bg-opacity-70">
-                                                    delete</button>
-
-                                                    <button
-                                        class="menu_item_edit border p-1.5 rounded-lg hover:bg-indigo-400"><img
-                                                src="/Icons/edit.svg" alt=""></button>
-                                    <button
-                                        class="menu_item_delete border p-1.5 rounded-lg hover:bg-red-400">
-                                        <img src=" Icons/delete.svg" alt="" />
-                                        </button>
+                                            <div class="flex gap-4">
+                                                <button class="menu_item_edit border p-1.5 rounded-lg hover:bg-indigo-400">
+                                                    <img src="/Icons/edit.svg" alt=""></button>
+                                                <button class="w-10 menu_item_delete border p-1.5 rounded-lg hover:bg-red-400">
+                                                    <img src=" Icons/delete.png" alt="" /></button>
                                             </div>
                                         </div>`;
 
@@ -375,7 +368,7 @@
         // edit name and link
         $(document).on('click', '.menu_item_edit', function(e) {
             $('.edit_menu_item_model').removeClass('hidden');
-            var menu_item_edit_id = e.target.parentNode.parentNode.id;
+            var menu_item_edit_id = e.target.parentNode.parentNode.parentNode.id;
             console.log(menu_item_edit_id);
             $('#edit_menu_item_save').click(function() {
                 // let id = ;
@@ -414,8 +407,8 @@
                                         class="menu_item_edit border p-1.5 rounded-lg hover:bg-indigo-400"><img
                                                 src="/Icons/edit.svg" alt=""></button>
                                     <button
-                                        class="menu_item_delete border p-1.5 rounded-lg hover:bg-red-400">
-                                        <img src=" Icons/delete.svg" alt="" /></button>
+                                        class="w-10 menu_item_delete border p-1.5 rounded-lg hover:bg-red-400">
+                                        <img src=" Icons/delete.png" alt="" /></button>
                                 </div>
                             </div>`);
             console.log('sdasd', menu_item_id);
@@ -434,7 +427,8 @@
 
 
         $(document).on('click', '.menu_item_delete', function(e) {
-            let delete_id = e.target.parentNode.parentNode.id;
+            console.log(e.target.parentNode.parentNode.parentNode.id);
+            let delete_id = e.target.parentNode.parentNode.parentNode.id;
             $.ajax({
                 type: "DELETE",
                 url: "http://{{ tenant('domain') }}/menuBuilder/" + delete_id,
@@ -444,7 +438,7 @@
             }).done((data) => {
                 console.log('item deleted')
             });
-            $('#' + e.target.parentNode.parentNode.id).remove();
+            $('#' + e.target.parentNode.parentNode.parentNode.id).remove();
         });
 
         $(".cancel_model").click(function() {

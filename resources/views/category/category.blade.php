@@ -4,7 +4,7 @@
     <script>
         var dropzone = new Dropzone('#file-upload', {
             previewTemplate: document.querySelector('#preview-template').innerHTML,
-            parallelUploads: 3, 
+            parallelUploads: 3,
             thumbnailHeight: 150,
             thumbnailWidth: 150,
             maxFilesize: 5,
@@ -143,9 +143,9 @@
                                                 src="Icons/edit.svg" alt=""></button>
                                         <form id="deleteform" action="deleteCategory/{{ $item->id }}" method="POST">
                                             @csrf</form>
-                                        <button class="border p-1.5 rounded-lg hover:bg-red-400"
+                                        <button class="w-10 border p-1.5 rounded-lg hover:bg-red-400"
                                             onclick="if (confirm('Delete Category?') == true) {document.getElementById('deleteform').submit();} "><img
-                                                src="Icons/delete.svg" alt="" /></button>
+                                                src="Icons/delete.png" alt="" /></button>
                                     </td>
                                 </tr>
                             @endforeach

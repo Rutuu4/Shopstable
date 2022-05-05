@@ -67,7 +67,9 @@ class PageBuilder extends Controller
         $data = $Pages->select('pageData')->first();
         $assets = $Pages->select('assets')->first();
         $category_data = DB::table('category')->get();
-        $product_data = DB::table('product')->get();
+        $product_data = DB::table('product')
+            ->join('product_image', 'product_image.product_id', 'product.id', 'left')
+            ->where('product_image.isFeatured', true)->select('product.*', 'product_image.imageName', 'product_image.isFeatured')->get();
         $product_image = DB::table('product_image')->get();
         $category_data ? $category_data : '';
         // echo '<pre>';

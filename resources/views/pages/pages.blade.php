@@ -55,7 +55,7 @@
 
                                         <button class="border p-1.5 rounded-lg hover:bg-red-400"
                                             onclick="{document.getElementById('deleteform').submit();} ">
-                                            <img src=" Icons/delete.svg" alt="" /></button>
+                                            <img src=" Icons/delete.png" class='w-5' alt="" /></button>
                                         <form id="deleteform" action="deletePage/{{ $item->id }}" method="POST">
                                             @csrf</form>
 

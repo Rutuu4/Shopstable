@@ -434,7 +434,7 @@
 <div id="1589470" class="border my-10" onclick="toggleBorder(event)">
     <div class="z-10">
         <button onclick="deleteItem(this)" class="hidden deleteElement hover:bg-red-500" id="9004027"><img
-                class="w-10" src="/Icons/delete.svg" alt=""></button>
+                class="w-10" src="/Icons/delete.png" alt=""></button>
     </div>
 
     <script>
@@ -471,7 +471,7 @@
 <div id="2468260" class="border my-10" onclick="toggleBorder(event)">
     <div class="z-10">
         <button onclick="deleteItem(this)" class="hidden deleteElement hover:bg-red-500" id="8803957"><img
-                class="w-10" src="/Icons/delete.svg" alt=""></button>
+                class="w-10" src="/Icons/delete.png" alt=""></button>
     </div>
 
     <script>

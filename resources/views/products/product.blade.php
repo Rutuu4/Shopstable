@@ -74,9 +74,9 @@
                                                 src="Icons/edit.svg" alt=""></button>
                                         <form id="deleteform" action="deleteProduct/{{ $item->id }}" method="POST">
                                             @csrf</form>
-                                        <button class="border p-1.5 rounded-lg hover:bg-red-400"
+                                        <button class="w-10 border p-1.5 rounded-lg hover:bg-red-400"
                                             onclick="if (confirm('Delete product?') == true) {document.getElementById('deleteform').submit();} "><img
-                                                src="Icons/delete.svg" alt="" /></button>
+                                                src="Icons/delete.png" alt="" /></button>
                                     </td>
                                 </tr>
                             @endforeach
