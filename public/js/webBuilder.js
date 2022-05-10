@@ -66,7 +66,7 @@ function saveLinkData(e) {
     // console.log('item_html2', item_html);
     console.log('item_html2', item_html_new);
     $(item_html.parentNode.parentNode.childNodes[1]).replaceWith(
-        `<a href="http://www.live.com/"> ` +
+        `<a href=` + link_data + `> ` +
         item_replace +
         `</a>`);
     console.log('item_html3', item_html.parentNode.parentNode.childNodes);

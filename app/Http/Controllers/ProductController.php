@@ -101,6 +101,8 @@ class ProductController extends Controller
     public function deleteProduct($id)
     {
         Product::where('id', $id)->delete($id);
+        DB::table('product_image')->where('product_id', $id)->delete();
+        DB::table('product_category')->where('product_id', $id)->delete();
         return redirect('product');
     }
 }

@@ -21,7 +21,7 @@ class MenuController extends Controller
     {
         // $Pages = Pages::where('id', $id);
 
-        $nav_item = Menubuilder::get();
+        $nav_item = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
         // dd($data['pageData']);
         if (empty($nav_item)) {
             return view('PageBuilder.menuBuilder',);
@@ -54,7 +54,8 @@ class MenuController extends Controller
             Menubuilder::insert([
                 'nav_item_name' => $request->nav_item_name,
                 'nav_item_link' => $link,
-                'nav_item_id' => $request->nav_item_id
+                'nav_item_id' => $request->nav_item_id,
+                'nav_item_order' => $request->nav_item_order
             ]);
             Session::flash('message', 'Item successfully added!');
             return response()->json(['success' => "uploaded", 'assets' => $request->nav_item_name]);
@@ -88,9 +89,28 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        try {
+            $link = $request->nav_item_link;
+            $nav_item_id = $request->nav_item_id;
+            $nav_item_order = $request->nav_item_order;
+            Menubuilder::where('nav_item_id', $nav_item_id)
+                ->update(
+                    [
+                        // 'name' => $request->pageData,
+                        'nav_item_name' => $request->nav_item_name,
+                        'nav_item_link' => $request->nav_item_link,
+                        'nav_item_id' => $id,
+                        'nav_item_order' => $nav_item_order
+                    ]
+                );
+            Session::flash('message', 'Item successfully Updated!');
+            return response()->json(['success' => "uploaded", 'nav_item_order' => $request->nav_item_order]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
+        }
     }
 
     /**
@@ -104,15 +124,20 @@ class MenuController extends Controller
     {
         try {
             $link = $request->nav_item_link;
+            $nav_item_id = $request->nav_item_id;
+            // $nav_item_order = $request->nav_item_order;
             Menubuilder::where('nav_item_id', $id)
-                ->update([
-                    // 'name' => $request->pageData,
-                    'nav_item_name' => $request->nav_item_name,
-                    'nav_item_link' => $link,
-                    'nav_item_id' => $id
-                ]);
+                ->update(
+                    [
+                        // 'name' => $request->pageData,
+                        'nav_item_name' => $request->nav_item_name,
+                        'nav_item_link' => $request->nav_item_link,
+                        // 'nav_item_id' => $id,
+                        // 'nav_item_order' => $nav_item_order
+                    ]
+                );
             Session::flash('message', 'Item successfully Updated!');
-            return response()->json(['success' => "uploaded", 'assets' => $request->nav_item_name]);
+            return response()->json(['success' => "uploaded", 'nav_item_name' => $request->nav_item_name, 'nav_item_link' => $request->nav_item_link]);
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);

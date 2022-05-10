@@ -290,28 +290,48 @@
                 animation: 150,
                 group: "menuBuilderGroup",
 
-                onStart: function(evt) {
-                    originalList = [...document.querySelectorAll("#items > div")].map(el => el.id);
-                },
+                // onStart: function(evt) {
+                //     originalList = [...document.querySelectorAll("#items > div")].map(el => el.id);
+                // },
 
-                onSort: function(e) {
+                axis: 'y',
+                onSort: function(e, ui) {
                     var items = e.to.children;
                     var result = [];
-                    for (var i = items.length / 2; i < items.length; i++) {
-                        result.push($(items[i]).data('id'));
-                        console.log(e.target.childNodes[2].id, sortable.toArray()[i]);
-                        e.target.childNodes[2].id = sortable.toArray()[i]
+                    // var data = sortable('serialize');
+                    // console.log(sortable.toArray());
+                    for (var i = 0; i < items.length; i++) {
+                        // result.push($(items[i]).data('id'));
+                        // console.log(e.target.childNodes[2].id, sortable.toArray()[i]);
+                        // e.target.childNodes[2].id = sortable.toArray()[i]
                         // e. = sortable.toArray()[i];
+                        // console.log(sortable.toArray());
+                        console.log($(items[i]));
+                        // console.log($('#' + e.target.childNodes[2].id));
                         $.ajax({
                             type: "PUT",
-                            url: "http://{{ tenant('domain') }}/menuBuilder/" + e.target.childNodes[2].id,
+                            url: "http://{{ tenant('domain') }}/menubuilder_link",
                             data: {
-                                nav_item_name: $('#menu_name').val(),
-                                nav_item_link: $('#menu_link').val(),
+                                // nav_item_name: $('#' + e.target.childNodes[2].id).childNodes[1],
+                                // nav_item_link: $('#' + e.target.childNodes[2].id).childNodes[1],
+                                nav_item_id: $(items[i]).attr('id'),
+                                nav_item_order: i,
                             },
                             success: 'success',
                         });
+                        console.log(i);
                     }
+
+                    // $.ajax({
+                    //     type: "POST",
+                    //     url: "http://{{ tenant('domain') }}/menuBuilder",
+                    //     data: {
+                    //         nav_item_name: menu_item_name,
+                    //         nav_item_link: menu_item_link,
+                    //         // nav_item_id: data
+                    //     },
+                    //     success: 'success',
+                    // });
                 },
                 // onEnd: function(event, ui) {
                 // var data = $(this).sortable('serialize');
@@ -389,8 +409,8 @@
             });
         });
 
-        $('#add_menu_item_save').click(function() {
 
+        $('#add_menu_item_save').click(function() {
             var menu_item_name = $('#menu_name').val();
             var menu_item_link = $('#menu_link').val();
             var menu_item_id = (performance.now().toString(36) + Math.random().toString(36)).replace(/\./g, "");
@@ -412,17 +432,18 @@
                                 </div>
                             </div>`);
             console.log('sdasd', menu_item_id);
+
             $.ajax({
                 type: "POST",
                 url: "http://{{ tenant('domain') }}/menuBuilder",
                 data: {
                     nav_item_name: menu_item_name,
                     nav_item_link: menu_item_link,
-                    nav_item_id: menu_item_id
+                    nav_item_id: menu_item_id,
+                    nav_item_order: sortable.toArray().length
                 },
                 success: 'success',
             });
-
         });
 
 

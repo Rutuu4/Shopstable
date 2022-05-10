@@ -256,10 +256,10 @@
                     </a>
                 </a>
 
-                @if (!empty($nav_item))
+                @if (!empty($navbar))
                     <div
                         class="md:mr-auto md:ml-4 md:py-1 md:pl-4  md:border-gray-400 flex flex-wrap text-base justify-center">
-                        @foreach ($nav_item as $item)
+                        @foreach ($navbar as $item)
                             <a target="_blank" href={{ $item->nav_item_link }} class="mx-2">
                                 {{ $item->nav_item_name }}
                             </a>
@@ -267,33 +267,30 @@
                     </div>
                 @endif
             </div>
-
             <button class="mr-6 text-xl" onclick="history.back()">back</button>
         </div>
-    </header>
 
+        </div>
+    </header>
+ 
 
     <div class="py-2 px-6 md:py-4 md:px-24 ">
         @foreach ($productDetail as $item)
-            <div class="relative h-2/3">
+            <div class="relative">
                 <div class="grid grid-cols-2 gap-4">
                     <div class="grid justify-center items-center">
-                        <img class='h-5/6 w-fit mx-auto' src="/{{ $item->imageName }}" alt="">
+                        <img class='h-2/3 w-fit mx-auto' src="/{{ $item->imageName }}" alt="">
                     </div>
                     <div class="">
-                        <h1 class="text-4xl uppercase border-b pb-4 h-fit">{{ $item->title }}</h1>
-                        <p class="py-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos
-                            porro quod, corrupti culpa
-                            deserunt incidunt quos nihil, assumenda ratione adipisci impedit fuga, placeat eius eaque.
+                        <h1 class="text-4xl uppercase border-b pb-4 ">{{ $item->title }}</h1>
+                        <p class="py-4">{{ $item->shortDescription }}
                         </p>
-                        <button class="absolute p-5 bottom-0 bg-gray-600 text-white">ADD TO CART</button>
+                        {{-- <button class="absolute p-5 -bottom-40 bg-gray-600 text-white">ADD TO CART</button> --}}
                     </div>
                 </div>
             </div>
         @endforeach
 
-
-    </div>
 </body>
 
 </html>

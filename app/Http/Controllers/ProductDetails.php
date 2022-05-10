@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menubuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -55,7 +56,8 @@ class ProductDetails extends Controller
             ->where('product.id', $id)
             ->select('product.*', 'product_image.imageName', 'product_image.isFeatured')
             ->get();
-        return view('products.productDetail', ['productDetail' => $productDetail, 'id' => $id,]);
+        $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
+        return view('products.productDetail', ['productDetail' => $productDetail, 'id' => $id, 'navbar' => $navbar]);
     }
 
     /**

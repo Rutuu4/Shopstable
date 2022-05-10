@@ -18,5 +18,6 @@ class VerifyCsrfToken extends Middleware
         'http://*/dashboard/*/*',
         'http://*/menuBuilder/',
         'http://*/menuBuilder/*',
+        'http://*/menubuilder_link',
     ];
 }

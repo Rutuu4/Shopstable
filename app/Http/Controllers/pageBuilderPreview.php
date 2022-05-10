@@ -55,8 +55,9 @@ class pageBuilderPreview extends Controller
         $product_data = DB::table('product')
             ->join('product_image', 'product_image.product_id', 'product.id', 'left')
             ->where('product_image.isFeatured', true)->select('product.*', 'product_image.imageName', 'product_image.isFeatured')->get();
+
         $product_image = DB::table('product_image')->get();
-        $navbar = Menubuilder::get();
+        $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
 
         return view('PageBuilder.preview', [
             'category_data' => $category_data,

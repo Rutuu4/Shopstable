@@ -55,7 +55,7 @@
                                 <form action="{{ route('dropzone.store') }}" method="post"
                                     enctype="multipart/form-data" id="imageUpload" class="dropzone" ">
                     @csrf
-                    <div class="              text-center text-2xl">Drag and drop images!
+                    <div class="               text-center text-2xl">Drag and drop images!
                             </div>
                             <div class="dz-message  text-center">
                                 Accepts max 1 images only.
@@ -150,7 +150,7 @@
                                 <div id="editor" name="description"></div>
                             </div>
 
-                            <input type="hidden"  name='description' id='quillData' />
+                            <input type="hidden" name='description' id='quillData' />
 
                             <!-- Include the Quill library -->
                             <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
@@ -168,7 +168,7 @@
                                         console.log("A user action triggered this change.");
                                     }
                                     //   $('#quillData').value(JSON.stringify(delta));
-                                    document.getElementById('quillData').value = JSON.stringify(delta);
+                                    document.getElementById('quillData').value = quill.root.innerHTML;
                                 });
                             </script>
 

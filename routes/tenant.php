@@ -21,7 +21,10 @@ use App\Http\Controllers\ProductDetails;
 use App\Http\Controllers\WebBuilderController;
 use App\Models\Menubuilder;
 use App\Models\Pages;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
@@ -48,7 +51,7 @@ Route::middleware([
     // Page Routing
     Route::get('/', function () {
         // $data = Pages::select('pageData')->first();
-        $nav_item = Menubuilder::get();
+        $nav_item = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
         $name = Pages::select('name')->first();
         // dd($data['pageData']);
         if (empty($nav_item)) {
@@ -57,6 +60,26 @@ Route::middleware([
         }
         if (!empty($nav_item)) {
             return view('tenant', ['nav_item' => $nav_item]);
+        }
+    });
+
+    Route::put('/menubuilder_link', function (Request $request) {
+        try {
+            $nav_item_id = $request->nav_item_id;
+            $nav_item_order = $request->nav_item_order;
+            Menubuilder::where('nav_item_id', $nav_item_id)
+                ->update(
+                    [
+                        // 'name' => $request->pageData,
+                        'nav_item_id' => $nav_item_id,
+                        'nav_item_order' => $nav_item_order
+                    ]
+                );
+            Session::flash('message', 'Item successfully Updated!');
+            return response()->json(['success' => "uploaded", 'nav_item_order' => $request->nav_item_order]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
         }
     });
 
@@ -112,7 +135,6 @@ Route::middleware([
     Route::resource('menuBuilder', MenuController::class)->middleware(['auth']);
     Route::resource('linkData', LinkDataController::class)->middleware(['auth']);
     Route::resource('productDetail', ProductDetails::class)->middleware(['auth']);
-
 
     // Auth Routing
 

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('nav_item_name');
             $table->text('nav_item_link');
             $table->string('nav_item_id');
+            $table->string('nav_item_order');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

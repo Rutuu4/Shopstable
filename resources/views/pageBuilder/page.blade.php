@@ -316,8 +316,10 @@
                                                 adipisicing elit. Alias cupiditate impedit inventore doloribus totam
                                                 excepturi perferendis accusantium! Odit, quis optio.</p>
                                             <div class="flex justify-center">
-                                                <button onmouseover="toggleAddLink(this)" contenteditable=" true"
-                                                    class="h-10 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+                                                <div class="">
+                                                    <button onmouseover="toggleAddLink(this)" contenteditable=" true"
+                                                        class="h-10 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+                                                </div>
                                                 <x-linkelement />
                                                 <x-link-data-model />
                                                 <button contenteditable="true"
@@ -471,10 +473,7 @@
                                                 category
                                             </h2>
                                             <p class="text-base text-body-color">
-                                                There are many variations of passages of Lorem Ipsum available but the
-                                                majority
-                                                have
-                                                suffered alteration in some form.
+
                                             </p>
                                         </div>
                                         <div class="category_grid_1">
@@ -553,10 +552,6 @@
                                                 product
                                             </h2>
                                             <p class="text-base text-body-color">
-                                                There are many variations of passages of Lorem Ipsum available but the
-                                                majority
-                                                have
-                                                suffered alteration in some form.
                                             </p>
                                         </div>
                                         <div class="product_grid_1">
@@ -1460,25 +1455,24 @@
                                         // console.log(category_datas.length);
                                         console.log('asdadaf', $(".category_grid_1")[0]);
                                         $(".category_grid_1")[0].innerHTML += `
-                        <div class="flex justify-center">
-                          <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
-                            <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                                <img class='h-40 object-fill w-full' src="/` + category_datas[index][
+                <div class="flex justify-center">
+                 <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
+                   <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                       <img class='h-40  object-scale-down w-2/3 mx-auto' src="/` + category_datas[index][
                                                 'category_image'
                                             ] + `" alt="" class='rounded-lg'/>
-                            </a>
-                            <div class="p-6">
-                              <h5 class="text-gray-900 text-xl font-medium mb-2"> ` + category_datas[index]
+                   </a>
+                   <div class="p-6">
+                     <h5 class="text-gray-900 text-xl font-medium mb-2"> ` + category_datas[index]
                                             ['title'] + `</h5>
-                              <p class="text-gray-700 text-base">
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                              </p>
+                     <p class="text-gray-700 text-base">
+                        ` + category_datas[index]['description'] + `
+                     </p>
 
-                            </div>
-                          </div>
-                        </div>
-            `;
+                   </div>
+                 </div>
+                </div>
+`;
                                     }
                                     // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
                                     // order ? order : [];;
@@ -1513,24 +1507,23 @@
                                         console.log('asdadaf', $(".product_grid_1")[0]);
                                         $(".product_grid_1")[0].innerHTML +=
                                             `
-                                            <div class="flex justify-center">
-                                                <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
-                                                    <a href="http://{{ tenant('domain') }}/productDetail/` +
-                                            product_datas[
-                                                index]['id'] + `" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                                                        <img class='h-40 object-fill w-full' src="/` + product_image[
-                                                index]['imageName'] + `" alt="" class='rounded-lg' />
-                                                        <div class="p-6">
-                                                            <h5 class="text-gray-900 text-xl font-medium mb-2"> ` +
+                                <div class="flex justify-center">
+                                    <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
+                                        <a href="http://{{ tenant('domain') }}/productDetail/` +
+                                            product_datas[index]['id'] + `" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                                            <img class='h-40 object-scale-down w-2/3 mx-auto' src="/` +
+                                            product_image[index]['imageName'] + `" alt="" class='rounded-lg' />
+                                            <div class="p-6">
+                                                <h5 class="text-gray-900 text-xl font-medium mb-2"> ` +
                                             product_datas[index]['title'] + `</h5>
-                                                            <p class="text-gray-700 text-base">
-                                                                Some quick example text to build on the card title and make up the bulk of the card'scontent.
-                                                            </p>
-                                                        </div>
-                                                    </a>
-                                                </div>
+                                                <p class="text-gray-700 text-base">
+                                                    ` + product_datas[index]['shortDescription'] + `
+                                                </p>
                                             </div>
-                                            `
+                                        </a>
+                                    </div>
+                                </div>
+                                `
                                     }
                                     // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
                                     // order ? order : [];;
