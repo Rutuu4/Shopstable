@@ -24,6 +24,12 @@
         integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
 
 </head>
 
@@ -227,6 +233,110 @@
             content: attr(data-placeholder);
         }
 
+        .splide__slide img {
+            width: 50%;
+            height: auto;
+            z-index: 9;
+            /* display: flex;
+            justify-content: center;
+            margin-right: auto;
+            margin-left: auto; */
+        }
+
+        .splide__slide {
+            opacity: 0.6;
+            object-fit: cover;
+        }
+
+        .splide__slide.is-active {
+            opacity: 1;
+        }
+
+        .thumbnails {
+            display: flex;
+            margin: 1rem auto 0;
+            padding: 0;
+            justify-content: center;
+        }
+
+        .thumbnail {
+            width: 70px;
+            height: 70px;
+            overflow: hidden;
+            list-style: none;
+            margin: 0 0.2rem;
+            cursor: pointer;
+            opacity: 0.3;
+
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: auto;
+
+        }
+
+        .thumbnail.is-active {
+            opacity: 1;
+
+
+        }
+
+        input[type='number']::-webkit-inner-spin-button,
+        input[type='number']::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .custom-number-input input:focus {
+            outline: none !important;
+        }
+
+        .custom-number-input button:focus {
+            outline: none !important;
+        }
+
+        .home .splide__arrow svg,
+        .site .splide__arrow svg {
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: square;
+            stroke-width: 8px;
+            height: 2.2rem;
+            vertical-align: middle;
+            width: 2.2rem;
+        }
+
+        .splide__arrow.splide__arrow--next {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top: 100px;
+            z-index: 10;
+            fill: #fff;
+            background-color: #000;
+
+        }
+
+
+
+        .splide__arrow.splide__arrow--prev {
+            position: absolute;
+            left: 0;
+            z-index: 10;
+            margin-top: 100px;
+            transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+            fill: #fff;
+            background-color: #000;
+
+
+        }
+
+        #main-carousel {
+            position: relative;
+        }
+
         /*
         div:empty::before {
             content: 'fallback placeholder';
@@ -276,14 +386,48 @@
 
     <div class="py-2 px-6 md:py-4 md:px-24 ">
         @foreach ($productDetail as $item)
-            <div class="relative">
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="mx-auto">
-                        <img class='w-fit h-fit mx-auto' src="/{{ $item->imageName }}" alt="">
+            <div class="">
+                <div class="grid grid-cols-3 gap-8 realtive">
+                    <div class="grid col-span-2 justify-center items-center">
+                        <img class='w-fit block relative overflow-y-auto mx-auto' src="/{{ $item->imageName }}"
+                            alt="">
+
                     </div>
                     <div class="">
                         <h1 class="text-4xl uppercase border-b pb-4 ">{{ $item->title }}</h1>
-                        <p class="py-4 longDescription">
+                        <h1 class="text-lg font-thin font-sans-serif py-4 ">Rs. {{ $item->price }}</h1>
+                        {{-- <div class="text-md py-2 text-stone-500 font-light">Quantity</div> --}}
+
+                        <div class="custom-number-input h-10 w-32">
+                            <label for="custom-input-number" class="w-full text-gray-700 text-sm font-semibold">Quantity
+                            </label>
+                            <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-2 pb-2">
+                                <button data-action="decrement"
+                                    class="text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                                    <span class="m-auto text-2xl font-thin w-5">−</span>
+                                </button>
+                                <input type="number"
+                                    class="outline-none  text-center w-full  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
+                                    name="custom-input-number" value="0" />
+                                <button data-action="increment"
+                                    class="text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                                    <span class="m-auto text-2xl font-thin w-5">+</span>
+                                </button>
+                            </div>
+                        </div>
+
+
+                        {{-- <div class="px-6 py-4 w-1/2 border border-black flex justify-between">
+                                <img class="w-5" src="/Icons/minus.svg" alt="">
+                                <p class="">1</p>
+                                <img class="w-5" src="/Icons/plus.svg" alt="">
+                            </div> --}}
+                        <button class="pb-3 w-full mt-9 px-6 py-4 border border-black font-bold font-xl">Add to
+                            Cart</button>
+                        <button
+                            class="w-full mt-4 px-6 py-4 border border-black font-bold font-xl bg-black text-white">Buy
+                            it Now</button>
+                        <p class="text-xl tracking-wider py-4 text-gray-800">{{ $item->shortDescription }}
                         </p>
                         {{-- <button class="absolute p-5 -bottom-40 bg-gray-600 text-white">ADD TO CART</button> --}}
                     </div>
@@ -291,11 +435,103 @@
             </div>
         @endforeach
 
+        <section id="main-carousel" class="splide  mt-6" aria-label="My Awesome Gallery">
+            <div class="splide__track">
+                <ul class="splide__list static">
+                    @foreach ($productImage as $item)
+                        <li class="splide__slide">
+                            <img class="absolute w-1/2 left-1/4" src="/{{ $item->imageName }}" alt="">
+                        </li>
+                    @endforeach
+
+                    <div class="absolute bottom-0">
+                        <ul id="thumbnails" class="thumbnails ">
+                            @foreach ($productImage as $item)
+                                <li class="thumbnail">
+                                    <img src="/{{ $item->imageName }}" alt="">
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                </ul>
+            </div>
+        </section>
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
         <script>
-            let longDescription = {!! json_encode($item->longDescription) !!};
-            console.log(longDescription);
-            $('.longDescription').html(longDescription);
+            var splide = new Splide('#main-carousel', {
+                pagination: false,
+            });
+
+
+            var thumbnails = document.getElementsByClassName('thumbnail');
+            var current;
+
+            for (var i = 0; i < thumbnails.length; i++) {
+                initThumbnail(thumbnails[i], i);
+            }
+
+            function initThumbnail(thumbnail, index) {
+                thumbnail.addEventListener('click', function() {
+                    splide.go(index);
+                });
+            }
+
+            splide.on('mounted move', function() {
+                var thumbnail = thumbnails[splide.index];
+
+                if (thumbnail) {
+                    if (current) {
+                        current.classList.remove('is-active');
+                    }
+
+                    thumbnail.classList.add('is-active');
+                    current = thumbnail;
+                }
+            });
+
+            splide.mount();
+
+            function decrement(e) {
+                const btn = e.target.parentNode.parentElement.querySelector(
+                    'button[data-action="decrement"]'
+                );
+                const target = btn.nextElementSibling;
+                let value = Number(target.value);
+                value--;
+                target.value = value;
+            }
+
+            function increment(e) {
+                const btn = e.target.parentNode.parentElement.querySelector(
+                    'button[data-action="decrement"]'
+                );
+                const target = btn.nextElementSibling;
+                let value = Number(target.value);
+                value++;
+                target.value = value;
+            }
+
+            const decrementButtons = document.querySelectorAll(
+                `button[data-action="decrement"]`
+            );
+
+            const incrementButtons = document.querySelectorAll(
+                `button[data-action="increment"]`
+            );
+
+            decrementButtons.forEach(btn => {
+                btn.addEventListener("click", decrement);
+            });
+
+            incrementButtons.forEach(btn => {
+                btn.addEventListener("click", increment);
+            });
         </script>
+
 </body>
 
 </html>

@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\categoryDetailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LinkDataController;
 use App\Http\Controllers\MenuController;
@@ -141,6 +142,7 @@ Route::middleware([
     Route::resource('menuBuilder', MenuController::class)->middleware(['auth']);
     Route::resource('linkData', LinkDataController::class)->middleware(['auth']);
     Route::resource('productDetail', ProductDetails::class)->middleware(['auth']);
+    Route::resource('categoryDetail', categoryDetailController::class)->middleware(['auth']);
 
     // Auth Routing
 
