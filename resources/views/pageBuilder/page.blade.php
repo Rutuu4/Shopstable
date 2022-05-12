@@ -270,6 +270,7 @@
                 </div>
             </div>
             <main>
+
                 <div class="flex gap-4 ml-2 mr-6 mt-5 justify-end">
                     <div onClick='changeColor("indigo", this)'
                         class="changeColorClass rounded-full bg-indigo-500 w-5 h-5" autoFocus></div>
@@ -284,6 +285,34 @@
                     <div onClick='changeColor("green", this)' class="changeColorClass rounded-full bg-green-500 w-5 h-5"
                         autoFocus></div>
                 </div>
+
+                <script>
+                    var currentColorTheme = "indigo";
+
+                    function changeColor(color, el) {
+                        // console.log(($(".pageBody").html()));
+                        console.log('color,', color);
+                        console.log('currentColorTheme', currentColorTheme);
+                        $(".changeColorClass").removeClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
+                        $(".pageBody").html($(".pageBody").html().replaceAll(currentColorTheme, color));
+                        $(el).addClass("ring-4 outline-none ring-" + color + "-300");
+                        currentColorTheme = color;
+                        console.log(($(".pageBody").html()));
+                        $.ajax({
+                            type: "PUT",
+                            url: "http://{{ tenant('domain') }}/themeBuilder/{{ $id }}",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                page_id: {{ $id }},
+                                theme_color: color,
+                                flag: 'Globle',
+                            },
+                            success: function(data) {
+                                console.log(data);
+                            }
+                        });
+                    }
+                </script>
                 <div class=" uiDraggable ml-2 mr-6">
                     <div id="canvas" class="pageBody h-screen overflow-y-auto canvas active rounded-lg" data-handle>
                     </div>

@@ -9,7 +9,6 @@
 // $(".container").hover(function (el) {
 //     $(this).toggleClass("border");
 // });
-var currentColorTheme = "indigo";
 var item_html;
 function deleteItem(el) {
     console.log(el);
@@ -21,16 +20,6 @@ function deleteItem(el) {
     }
 }
 
-function changeColor(color, el) {
-    console.log(($(".pageBody").html()));
-    console.log('color,', color);
-    console.log('currentColorTheme', currentColorTheme);
-    $(".changeColorClass").removeClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
-    $(".pageBody").html($(".pageBody").html().replaceAll(currentColorTheme, color));
-    $(el).addClass("ring-4 outline-none ring-" + color + "-300");
-    currentColorTheme = color;
-    console.log(($(".pageBody").html()));
-}
 
 function addStyle(el) {
     console.log(el);

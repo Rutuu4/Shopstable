@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pages;
 use App\Models\Product;
+use App\Models\Themecolor;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -41,12 +42,13 @@ class PageBuilder extends Controller
     {
         try {
             // dd($request->pagaData);
-            Pages::insert([
+            $page = Pages::insert([
+                'name' => 'heloo',
                 'name' => 'heloo',
                 'pageData' => $request->pagaData,
                 'category_data' => $request->category_data,
             ]);
-            return response()->json(['success' => "uploaded", 'data' => $request->data]);
+            return response()->json(['success' => "uploaded", 'page' => $request->$page]);
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);

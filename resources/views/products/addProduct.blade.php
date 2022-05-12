@@ -178,8 +178,8 @@
 
                                 <!-- Create the editor container -->
                                 <div class="mx-auto mt-10 ">
-                                    <x-label for="status" :value="__('Short Description')" class="mb-1" />
-                                    <div id="editor" name="productShortDescription"></div>
+                                    <x-label for="status" :value="__('Long Description')" class="mb-1" />
+                                    <div id="editor" name="productLongDescription"></div>
                                 </div>
 
                                 <input type="hidden" name='productLongDescription' id='quillData' />
@@ -199,7 +199,7 @@
                                             console.log("A user action triggered this change.");
                                         }
                                         //   $('#quillData').value(JSON.stringify(delta));
-                                        document.getElementById('quillData').value = JSON.stringify(delta);
+                                        document.getElementById('quillData').value = quill.root.innerHTML;
                                     });
                                 </script>
 

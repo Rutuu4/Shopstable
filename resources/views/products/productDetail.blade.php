@@ -407,7 +407,7 @@
                                     <span class="m-auto text-2xl font-thin w-5">−</span>
                                 </button>
                                 <input type="number"
-                                    class="outline-none focus:outline-none text-center w-full  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                                    class="outline-none  text-center w-full  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
                                     name="custom-input-number" value="0" />
                                 <button data-action="increment"
                                     class="text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
