@@ -9,11 +9,13 @@ use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\BillingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\categoryDetailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LinkDataController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageBuilder;
 use App\Http\Controllers\pageBuilderPreview;
 use App\Http\Controllers\PageController;
@@ -21,6 +23,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetails;
 use App\Http\Controllers\WebBuilderController;
 use App\Models\Menubuilder;
+use App\Models\Order;
 use App\Models\Pages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -137,6 +140,14 @@ Route::middleware([
     Route::resource('linkData', LinkDataController::class)->middleware(['auth']);
     Route::resource('productDetail', ProductDetails::class)->middleware(['auth']);
     Route::resource('categoryDetail', categoryDetailController::class)->middleware(['auth']);
+
+    // orders
+    Route::resource('orders', OrderController::class)->middleware(['auth']);
+
+    //billing
+    Route::resource('billing', BillingController::class)->middleware(['auth']);
+
+
 
     // Auth Routing
 
