@@ -238,7 +238,7 @@
     <div class="max-w-2xl mx-auto lg:max-w-none">
       <h1 class="sr-only">Checkout</h1>
 
-      <form class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
+      <form class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16" action="http://{{ tenant('domain') }}/shipping">
         <div>
           <div>
             <h2 class="text-lg font-medium text-gray-900">Contact information</h2>
@@ -306,7 +306,7 @@
                     <option>Canada</option>
                     <option>Mexico</option>
                                         </select>
-                
+
                 </div>
               </div>
 

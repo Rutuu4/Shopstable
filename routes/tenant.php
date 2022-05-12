@@ -21,6 +21,7 @@ use App\Http\Controllers\pageBuilderPreview;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetails;
+use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\ThemeBuilder;
 use App\Http\Controllers\WebBuilderController;
 use App\Models\Menubuilder;
@@ -152,6 +153,9 @@ Route::middleware([
 
     //billing
     Route::resource('billing', BillingController::class)->middleware(['auth']);
+
+    //shipping
+    Route::resource('shipping', ShippingController::class)->middleware(['auth']);
 
 
 
