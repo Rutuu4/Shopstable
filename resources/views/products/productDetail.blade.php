@@ -235,7 +235,7 @@
 
         .splide__slide img {
             width: 50%;
-            height: auto;
+            height: 25rem;
             z-index: 9;
             /* display: flex;
             justify-content: center;
@@ -244,7 +244,7 @@
         }
 
         .splide__slide {
-            opacity: 0.6;
+            opacity: 0;
             object-fit: cover;
         }
 
@@ -257,6 +257,7 @@
             margin: 1rem auto 0;
             padding: 0;
             justify-content: center;
+            margin-top: 40px;
         }
 
         .thumbnail {
@@ -434,17 +435,17 @@
                 </div>
             </div>
         @endforeach
+        <div class="testt">
+            <section id="main-carousel" class="splide" aria-label="My Awesome Gallery">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        @foreach ($productImage as $item)
+                            <li class="splide__slide ">
+                                <img src="/{{ $item->imageName }}" alt="">
+                            </li>
+                        @endforeach
 
-        <section id="main-carousel" class="splide  mt-6" aria-label="My Awesome Gallery">
-            <div class="splide__track">
-                <ul class="splide__list static">
-                    @foreach ($productImage as $item)
-                        <li class="splide__slide">
-                            <img class="absolute w-1/2 left-1/4" src="/{{ $item->imageName }}" alt="">
-                        </li>
-                    @endforeach
 
-                    <div class="absolute bottom-0">
                         <ul id="thumbnails" class="thumbnails ">
                             @foreach ($productImage as $item)
                                 <li class="thumbnail">
@@ -452,11 +453,12 @@
                                 </li>
                             @endforeach
                         </ul>
-                    </div>
 
-                </ul>
-            </div>
-        </section>
+
+                    </ul>
+                </div>
+            </section>
+        </div>
 
 
 

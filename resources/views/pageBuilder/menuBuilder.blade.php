@@ -477,10 +477,8 @@
                 },
                 success: 'success',
             });
-
             $('.add_menu_item_model').toggleClass('hidden');
         });
-
 
         $(document).on('click', '.menu_item_delete', function(e) {
             console.log(e.target.parentNode.parentNode.parentNode.id);
