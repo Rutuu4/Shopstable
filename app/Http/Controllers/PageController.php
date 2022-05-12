@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pages;
+use App\Models\Themecolor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,16 +17,23 @@ class PageController extends Controller
 
     public function addPages(Request $request)
     {
-        DB::table('pages')->insert([
+        $page = DB::table('pages')->create([
             'name' => $request->only('name'),
             // 'pageData' => ['default']
         ]);
 
+        dd($page->id);
+        $themeColor = Themecolor::Insert([
+            'page_id' => $request->page_id,
+            'theme_color' => $request->theme_color,
+            'flag' => $request->flag,
+        ]);
         $id = Pages::orderby('id', 'DESC')->pluck('id')->first();
 
         $route =  "pageBuilder/" . $id;
         return redirect($route)->with([
-            'success' => "data successfully added"
+            'success' => "data successfully added",
+            'theme_color' => $request->$themeColor,
         ]);
     }
 

@@ -18,9 +18,11 @@ use App\Http\Controllers\pageBuilderPreview;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetails;
+use App\Http\Controllers\ThemeBuilder;
 use App\Http\Controllers\WebBuilderController;
 use App\Models\Menubuilder;
 use App\Models\Pages;
+use App\Models\Themecolor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -128,6 +130,10 @@ Route::middleware([
     Route::post('/web_builder/screenDataSave/{id}', [WebBuilderController::class, 'screenDataSave'])->middleware(['auth'])->name('screenDataSave');
     Route::get('/web_builder/screenDataLoad/{id}', [WebBuilderController::class, 'screenDataLoad'])->middleware(['auth'])->name('screenDataLoad');
     Route::get('/web_view/{id}', [WebBuilderController::class, 'webView'])->middleware(['auth'])->name('previewPageData');
+
+    // Setting
+    Route::view('/settings', 'setting.setting')->middleware(['auth'])->name('settings');
+    Route::resource('themeBuilder', ThemeBuilder::class)->middleware(['auth']);
 
     // PageBuilder
     Route::resource('pageBuilder', PageBuilder::class)->middleware(['auth']);

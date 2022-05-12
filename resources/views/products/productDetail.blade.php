@@ -272,18 +272,18 @@
 
         </div>
     </header>
- 
+
 
     <div class="py-2 px-6 md:py-4 md:px-24 ">
         @foreach ($productDetail as $item)
             <div class="relative">
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="grid justify-center items-center">
-                        <img class='h-2/3 w-fit mx-auto' src="/{{ $item->imageName }}" alt="">
+                    <div class="mx-auto">
+                        <img class='w-fit h-fit mx-auto' src="/{{ $item->imageName }}" alt="">
                     </div>
                     <div class="">
                         <h1 class="text-4xl uppercase border-b pb-4 ">{{ $item->title }}</h1>
-                        <p class="py-4">{{ $item->shortDescription }}
+                        <p class="py-4 longDescription">
                         </p>
                         {{-- <button class="absolute p-5 -bottom-40 bg-gray-600 text-white">ADD TO CART</button> --}}
                     </div>
@@ -291,6 +291,11 @@
             </div>
         @endforeach
 
+        <script>
+            let longDescription = {!! json_encode($item->longDescription) !!};
+            console.log(longDescription);
+            $('.longDescription').html(longDescription);
+        </script>
 </body>
 
 </html>
