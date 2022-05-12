@@ -1457,7 +1457,7 @@
                                         $(".category_grid_1")[0].innerHTML += `
                 <div class="flex justify-center">
                  <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
-                   <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                   <a href="http://{{ tenant('domain') }}/categoryDetail/` + category_datas[index]['id'] + `" data-mdb-ripple="true" data-mdb-ripple-color="light">
                        <img class='h-40  object-scale-down w-2/3 mx-auto' src="/` + category_datas[index][
                                                 'category_image'
                                             ] + `" alt="" class='rounded-lg'/>
@@ -1512,7 +1512,7 @@
                                         <a href="http://{{ tenant('domain') }}/productDetail/` +
                                             product_datas[index]['id'] + `" data-mdb-ripple="true" data-mdb-ripple-color="light">
                                             <img class='h-40 object-scale-down w-2/3 mx-auto' src="/` +
-                                            product_image[index]['imageName'] + `" alt="" class='rounded-lg' />
+                                            product_image[product_image[index]['id']]['imageName'] + `" alt="" class='rounded-lg' />
                                             <div class="p-6">
                                                 <h5 class="text-gray-900 text-xl font-medium mb-2"> ` +
                                             product_datas[index]['title'] + `</h5>

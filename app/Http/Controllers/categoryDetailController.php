@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menubuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ProductDetails extends Controller
+class categoryDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,14 +14,14 @@ class ProductDetails extends Controller
      */
     public function index()
     {
-        $productDetail = DB::table('product')
-            ->join('product_image', 'product_image.product_id', 'product.id')
-            // ->where('product_image.isFeatured', true)
-            ->select('product.id', 'product_image.imageName', 'product.title', 'product.price', 'product.status', 'product.isFeatured')
-            ->take(2)
-            ->get();
-        dd($productDetail);
-        return view('products.productDetail', ['productDetail' => $productDetail]);
+        $categoryDetail = DB::table('product_category')
+            ->leftjoin('product', 'product.id', '=', 'product_category.product_id')
+            ->leftjoin('product_image', 'product_image.product_id', '=', 'product.id')
+            ->leftjoin('category', 'category.id', '=', 'product_category.category_id')
+            ->where('product_image.isFeatured', true)
+            ->select('product.*', 'product_image.imageName', 'category.id as categoryid', 'category.*', 'product.title as product_title')
+            ->paginate(5);
+        return view('category.categoryDetail', ['categoryDetail' => $categoryDetail]);
     }
 
     /**
@@ -43,6 +42,7 @@ class ProductDetails extends Controller
      */
     public function store(Request $request)
     {
+        //
     }
 
     /**
@@ -53,23 +53,16 @@ class ProductDetails extends Controller
      */
     public function show($id)
     {
-        $productDetail = DB::table('product')
-            ->join('product_image', 'product_image.product_id', 'product.id')
-            ->where('product.id', $id)
-            ->select('product.*', 'product_image.imageName', 'product_image.isFeatured')
-            ->orderBy('id', 'desc')
-            ->limit(1)
-            ->get();
-        $productImage = DB::table('product')
-            ->join('product_image', 'product_image.product_id', 'product.id')
-            ->where('product.id', $id)
-            ->select('product.*', 'product_image.imageName', 'product_image.isFeatured')
-            ->get();
-        $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
-        return view('products.productDetail', [
-            'productDetail' => $productDetail,
-            'productImage' => $productImage, 'id' => $id, 'navbar' => $navbar
-        ]);
+        $categoryDetail = DB::table('product_category')
+            ->where('product_category.category_id', $id)
+            ->leftjoin('product', 'product.id', '=', 'product_category.product_id')
+            ->leftjoin('product_image', 'product_image.product_id', '=', 'product.id')
+            ->leftjoin('category', 'category.id', '=', 'product_category.category_id')
+            ->where('product_image.isFeatured', true)
+            ->where('category.id', $id)
+            ->select('product.*', 'product_image.imageName', 'category.id as categoryid', 'category.*', 'product.title as product_title', 'product.id as productId')
+            ->paginate(5);
+        return view('category.categoryDetail', ['categoryDetail' => $categoryDetail]);
     }
 
     /**
