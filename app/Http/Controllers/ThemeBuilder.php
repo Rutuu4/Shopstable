@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Log;
 
+use function PHPUnit\Framework\isEmpty;
+
 class ThemeBuilder extends Controller
 {
     /**
@@ -80,13 +82,30 @@ class ThemeBuilder extends Controller
     {
         try {
             // dd($request->pagaData);
-            $themeColor = Themecolor::where('page_id', $id)
-                ->update([
-                    'page_id' => $request->page_id,
+            $themeColor1 = Themecolor::get();
+
+            // print_r(count($themeColor1));
+            // exit;
+            // var_dump($themeColor1);
+            if (count($themeColor1) == 0) {
+
+                print_r("a");
+                exit;
+                Themecolor::create([
+                    'page_id' => $id,
                     'theme_color' => $request->theme_color,
-                    'flag' => $request->flag,
+                    'flag' => $request->flag
                 ]);
-            return response()->json(['success' => "uploaded", 'theme_color' => $themeColor]);
+                return response()->json(['success' => "uploaded"]);
+            } else {
+
+                print_r("b");
+                exit;
+                Themecolor::where('page_id', $id)->update([
+                    'theme_color' => $request->theme_color,
+                ]);
+                return response()->json(['success' => "uploaded", 'theme_color' => $request->theme_color]);
+            }
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);

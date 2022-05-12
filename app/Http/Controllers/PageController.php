@@ -14,7 +14,6 @@ class PageController extends Controller
         $pages = Pages::paginate(5);
         return view('pages.pages', ['pages' => $pages]);
     }
-
     public function addPages(Request $request)
     {
         $page = DB::table('pages')->create([
@@ -22,7 +21,6 @@ class PageController extends Controller
             // 'pageData' => ['default']
         ]);
 
-        dd($page->id);
         $themeColor = Themecolor::Insert([
             'page_id' => $request->page_id,
             'theme_color' => $request->theme_color,

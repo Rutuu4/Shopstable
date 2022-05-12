@@ -14,6 +14,7 @@ use App\Http\Controllers\categoryDetailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LinkDataController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageBuilder;
 use App\Http\Controllers\pageBuilderPreview;
 use App\Http\Controllers\PageController;
@@ -143,6 +144,9 @@ Route::middleware([
     Route::resource('linkData', LinkDataController::class)->middleware(['auth']);
     Route::resource('productDetail', ProductDetails::class)->middleware(['auth']);
     Route::resource('categoryDetail', categoryDetailController::class)->middleware(['auth']);
+
+    // orders
+    Route::resource('orders', OrderController::class)->middleware(['auth']);
 
     // Auth Routing
 

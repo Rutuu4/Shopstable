@@ -147,6 +147,7 @@
                                 <div
                                     class="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                        <h1 class='ml-4 my-2 ml-54 text-xl'>Add Menu Item</h1>
                                         <div class="sm:flex sm:items-start">
                                             {{-- <div
                                                 class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
@@ -204,7 +205,7 @@
                                 <div
                                     class="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                                        <h1 class='ml-4 my-2 ml-54 text-xl'>Menu Item Edit</h1>
+                                        <h1 class='ml-4 my-2 ml-54 text-xl'>Edit Menu Item</h1>
                                         <div class="sm:flex sm:items-start">
                                             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                                 <x-label for="menu_name_edit" :value="__('Name')" />
@@ -383,13 +384,44 @@
         $(".add_menu_item").click(function() {
             console.log('hidden');
             $('.add_menu_item_model').removeClass('hidden');
+            $('#menu_name').val('');
+            $('#menu_link').val('');
         })
 
         // edit name and link
         $(document).on('click', '.menu_item_edit', function(e) {
-            $('.edit_menu_item_model').removeClass('hidden');
+
+            console.log('sdasdda', e.target.parentNode.parentNode.parentNode.childNodes[1]);
+
+            $.ajax({
+                type: "GET",
+                url: "http://{{ tenant('domain') }}/menuBuilder",
+                success: function(data) {
+                    console.log(data);
+                } // data sent to server, success: function(data){}
+
+            }).done((data) => {
+
+                let nav_item_data = {!! json_encode($nav_item) !!}
+                let demo = nav_item_data.filter(
+                    function(data) {
+                        return data.nav_item_id == e.target.parentNode.parentNode.parentNode.id
+                    }
+                );
+                $("#menu_name_edit").val(demo[0].nav_item_name);
+                $('#menu_link_edit').val(demo[0].nav_item_link);
+                console.log(demo[0]['nav_item_link']);
+            });
+            $('#menu_link_edit').val($(e.target.parentNode.parentNode.parentNode.childNodes[1].childNodes[5])
+                .text());
+
+            $('#menu_name_edit').val();
+            $('#menu_link_edit').val();
+            $('.edit_menu_item_model').removeClass(
+                'hidden');
             var menu_item_edit_id = e.target.parentNode.parentNode.parentNode.id;
-            console.log(menu_item_edit_id);
+            console.log(
+                menu_item_edit_id);
             $('#edit_menu_item_save').click(function() {
                 // let id = ;
                 let menu_name_edit = $('#menu_name_edit').val();
@@ -433,6 +465,7 @@
                             </div>`);
             console.log('sdasd', menu_item_id);
 
+
             $.ajax({
                 type: "POST",
                 url: "http://{{ tenant('domain') }}/menuBuilder",
@@ -444,22 +477,27 @@
                 },
                 success: 'success',
             });
+
+            $('.add_menu_item_model').toggleClass('hidden');
         });
 
 
         $(document).on('click', '.menu_item_delete', function(e) {
             console.log(e.target.parentNode.parentNode.parentNode.id);
             let delete_id = e.target.parentNode.parentNode.parentNode.id;
-            $.ajax({
-                type: "DELETE",
-                url: "http://{{ tenant('domain') }}/menuBuilder/" + delete_id,
-                data: {
 
-                }
-            }).done((data) => {
-                console.log('item deleted')
-            });
-            $('#' + e.target.parentNode.parentNode.parentNode.id).remove();
+            var result = confirm("Are you sure to delete?");
+            if (result) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "http://{{ tenant('domain') }}/menuBuilder/" + delete_id,
+                    data: {}
+                }).done((data) => {
+                    console.log('item deleted')
+                });
+                $('#' + e.target.parentNode.parentNode.parentNode.id).remove();
+            }
+
         });
 
         $(".cancel_model").click(function() {
