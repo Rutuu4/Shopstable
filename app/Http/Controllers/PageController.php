@@ -16,22 +16,18 @@ class PageController extends Controller
     }
     public function addPages(Request $request)
     {
-        $page = DB::table('pages')->create([
+
+        $page =Pages::create([
             'name' => $request->only('name'),
             // 'pageData' => ['default']
         ]);
 
-        $themeColor = Themecolor::Insert([
-            'page_id' => $request->page_id,
-            'theme_color' => $request->theme_color,
-            'flag' => $request->flag,
-        ]);
         $id = Pages::orderby('id', 'DESC')->pluck('id')->first();
 
         $route =  "pageBuilder/" . $id;
         return redirect($route)->with([
             'success' => "data successfully added",
-            'theme_color' => $request->$themeColor,
+            'page' => $request->$page,
         ]);
     }
 

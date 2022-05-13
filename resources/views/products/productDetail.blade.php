@@ -54,6 +54,7 @@
         img {
             max-width: 100%;
             height: auto;
+            width: 100%;
         }
 
         .toolbox ul li {
@@ -233,55 +234,6 @@
             content: attr(data-placeholder);
         }
 
-        .splide__slide img {
-            width: 50%;
-            height: 25rem;
-            z-index: 9;
-            /* display: flex;
-            justify-content: center;
-            margin-right: auto;
-            margin-left: auto; */
-        }
-
-        .splide__slide {
-            opacity: 0;
-            object-fit: cover;
-        }
-
-        .splide__slide.is-active {
-            opacity: 1;
-        }
-
-        .thumbnails {
-            display: flex;
-            margin: 1rem auto 0;
-            padding: 0;
-            justify-content: center;
-            margin-top: 40px;
-        }
-
-        .thumbnail {
-            width: 70px;
-            height: 70px;
-            overflow: hidden;
-            list-style: none;
-            margin: 0 0.2rem;
-            cursor: pointer;
-            opacity: 0.3;
-
-        }
-
-        .thumbnail img {
-            width: 100%;
-            height: auto;
-
-        }
-
-        .thumbnail.is-active {
-            opacity: 1;
-
-
-        }
 
         input[type='number']::-webkit-inner-spin-button,
         input[type='number']::-webkit-outer-spin-button {
@@ -297,46 +249,210 @@
             outline: none !important;
         }
 
-        .home .splide__arrow svg,
-        .site .splide__arrow svg {
-            fill: none;
-            stroke: currentColor;
-            stroke-linecap: square;
-            stroke-width: 8px;
-            height: 2.2rem;
-            vertical-align: middle;
-            width: 2.2rem;
-        }
-
-        .splide__arrow.splide__arrow--next {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            margin-top: 100px;
-            z-index: 10;
-            fill: #fff;
-            background-color: #000;
-
-        }
-
-
-
-        .splide__arrow.splide__arrow--prev {
-            position: absolute;
-            left: 0;
-            z-index: 10;
-            margin-top: 100px;
-            transform: rotate(180deg);
-            -webkit-transform: rotate(180deg);
-            fill: #fff;
-            background-color: #000;
-
-
-        }
-
-        #main-carousel {
+        .flickity-enabled {
             position: relative;
         }
+
+        .flickity-enabled:focus {
+            outline: none;
+        }
+
+        .flickity-viewport {
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+        }
+
+        .flickity-slider {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* draggable */
+
+        .flickity-enabled.is-draggable {
+            -webkit-tap-highlight-color: transparent;
+            tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .flickity-enabled.is-draggable .flickity-viewport {
+            cursor: move;
+            cursor: -webkit-grab;
+            cursor: grab;
+        }
+
+        .flickity-enabled.is-draggable .flickity-viewport.is-pointer-down {
+            cursor: -webkit-grabbing;
+            cursor: grabbing;
+        }
+
+        /* ---- previous/next buttons ---- */
+
+        .flickity-prev-next-button {
+            position: absolute;
+            top: 50%;
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            background: hsla(0, 0%, 100%, 0.75);
+            cursor: pointer;
+            /* vertically center */
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+
+        .flickity-prev-next-button:hover {
+            background: white;
+        }
+
+        .flickity-prev-next-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 5px #09F;
+        }
+
+        .flickity-prev-next-button:active {
+            opacity: 0.6;
+        }
+
+        .flickity-prev-next-button.previous {
+            left: 10px;
+        }
+
+        .flickity-prev-next-button.next {
+            right: 10px;
+        }
+
+        /* right to left */
+        */
+        /* .flickity-rtl .flickity-prev-next-button.previous { */
+        /*   left: auto; */
+        /*   right: 10px; */
+        /* } */
+        /* .flickity-rtl .flickity-prev-next-button.next { */
+        /*   right: auto; */
+        /*   left: 10px; */
+        /* } */
+
+        .flickity-prev-next-button:disabled {
+            opacity: 0.3;
+            cursor: auto;
+        }
+
+        .flickity-prev-next-button svg {
+            position: absolute;
+            left: 20%;
+            top: 20%;
+            width: 60%;
+            height: 60%;
+        }
+
+        .flickity-prev-next-button .arrow {
+            fill: #333;
+        }
+
+        /* ---- page dots ---- */
+
+        /* .flickity-page-dots { */
+        /*   position: absolute; */
+        /*   width: 100%; */
+        /*   bottom: -25px; */
+        /*   padding: 0; */
+        /*   margin: 0; */
+        /*   list-style: none; */
+        /*   text-align: center; */
+        /*   line-height: 1; */
+        /* } */
+        /*  */
+        /* .flickity-rtl .flickity-page-dots { direction: rtl; } */
+        /*  */
+        /* .flickity-page-dots .dot { */
+        /*   display: inline-block; */
+        /*   width: 10px; */
+        /*   height: 10px; */
+        /*   margin: 0 8px; */
+        /*   background: #333; */
+        /*   border-radius: 50%; */
+        /*   opacity: 0.25; */
+        /*   cursor: pointer; */
+        /* } */
+        /*  */
+        /* .flickity-page-dots .dot.is-selected { */
+        /*   opacity: 1; */
+        /* } */
+
+        /* end external css: flickity.css */
+        /*! Flickity v2.0.4
+https://flickity.metafizzy.co
+---------------------------------------------- */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+        }
+
+        /* .carousel {
+            background: #FAFAFA;
+        } */
+
+        .carousel-main {
+            margin-bottom: 8px;
+        }
+
+        .carousel-cell {
+            width: 100%;
+            height: auto;
+            margin-right: 8px;
+            border-radius: 5px;
+            /* counter-increment: carousel-cell; */
+        }
+
+        /* cell number */
+        /* .carousel-cell:before { */
+        /*   display: block; */
+        /*   text-align: center; */
+        /*   content: counter(carousel-cell); */
+        /*   line-height: 200px; */
+        /*   font-size: 80px; */
+        /*   color: white; */
+        /* } */
+
+        .carousel-nav .carousel-cell {
+            height: 90px;
+            width: 120px;
+        }
+
+        /* .carousel-nav .carousel-cell:before { */
+        /*   font-size: 50px; */
+        /*   line-height: 80px; */
+        /* } */
+
+        /* .carousel-nav .carousel-cell.is-nav-selected { */
+        /*   background: #ED2; */
+        /* } */
+
+        /* Atelierbram edit */
+        .carousel-main img {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 672px;
+            margin: 0 auto;
+            padding-top: 40px;
+        }
+
+
 
         /*
         div:empty::before {
@@ -395,8 +511,9 @@
 
                     </div>
                     <div class="">
-                        <h1 class="text-4xl uppercase border-b pb-4 ">{{ $item->title }}</h1>
-                        <h1 class="text-lg font-thin font-sans-serif py-4 ">Rs. {{ $item->price }}</h1>
+                        <h1 class="text-4xl uppercase border-b pb-4  ">{{ $item->title }}</h1>
+                        <input type="hidden" class="product_price">
+                        <h1 class="product_price_value text-lg font-thin font-sans-serif py-4 ">Rs. {{ $item->price }}</h1>
                         {{-- <div class="text-md py-2 text-stone-500 font-light">Quantity</div> --}}
 
                         <div class="custom-number-input h-10 w-32">
@@ -423,8 +540,8 @@
                                 <p class="">1</p>
                                 <img class="w-5" src="/Icons/plus.svg" alt="">
                             </div> --}}
-                        <button class="pb-3 w-full mt-9 px-6 py-4 border border-black font-bold font-xl">Add to
-                            Cart</button>
+                       <a href="http://{{ tenant('domain') }}/shopping_cart"> <button class="pb-3 w-full mt-9 px-6 py-4 border border-black font-bold font-xl">Add to
+                            Cart</button></a>
                         <button
                             class="w-full mt-4 px-6 py-4 border border-black font-bold font-xl bg-black text-white">Buy
                             it Now</button>
@@ -435,68 +552,31 @@
                 </div>
             </div>
         @endforeach
-        <div class="testt">
-            <section id="main-carousel" class="splide" aria-label="My Awesome Gallery">
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        @foreach ($productImage as $item)
-                            <li class="splide__slide ">
-                                <img src="/{{ $item->imageName }}" alt="">
-                            </li>
-                        @endforeach
 
 
-                        <ul id="thumbnails" class="thumbnails ">
-                            @foreach ($productImage as $item)
-                                <li class="thumbnail">
-                                    <img src="/{{ $item->imageName }}" alt="">
-                                </li>
-                            @endforeach
-                        </ul>
+        <div class="container">
+            <!-- Flickity HTML init -->
+            <div class="carousel carousel-main" data-flickity='{"pageDots": false }'>
+                @foreach ($productImage as $item)
+                    <div class="carousel-cell"><img src="/{{ $item->imageName }}" /></div>
+                @endforeach
+            </div>
 
+            <div class="carousel carousel-nav"
+                data-flickity='{ "asNavFor": ".carousel-main", "contain": true, "pageDots": false }'>
+                @foreach ($productImage as $item)
+                    <div class="carousel-cell"><img class="w-full h-full object-contain"
+                            src="/{{ $item->imageName }}" /></div>
+                @endforeach
 
-                    </ul>
-                </div>
-            </section>
-        </div>
+            </div>
 
+        </div><!-- /.container -->
 
 
         <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+        <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
         <script>
-            var splide = new Splide('#main-carousel', {
-                pagination: false,
-            });
-
-
-            var thumbnails = document.getElementsByClassName('thumbnail');
-            var current;
-
-            for (var i = 0; i < thumbnails.length; i++) {
-                initThumbnail(thumbnails[i], i);
-            }
-
-            function initThumbnail(thumbnail, index) {
-                thumbnail.addEventListener('click', function() {
-                    splide.go(index);
-                });
-            }
-
-            splide.on('mounted move', function() {
-                var thumbnail = thumbnails[splide.index];
-
-                if (thumbnail) {
-                    if (current) {
-                        current.classList.remove('is-active');
-                    }
-
-                    thumbnail.classList.add('is-active');
-                    current = thumbnail;
-                }
-            });
-
-            splide.mount();
-
             function decrement(e) {
                 const btn = e.target.parentNode.parentElement.querySelector(
                     'button[data-action="decrement"]'
@@ -532,6 +612,10 @@
             incrementButtons.forEach(btn => {
                 btn.addEventListener("click", increment);
             });
+            $(document).ready(function(){
+
+                $(".product_price").val($(".product_price_value").text());
+            })
         </script>
 
 </body>
