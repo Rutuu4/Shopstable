@@ -286,101 +286,49 @@
 
     <script>
         // console.clear();
+        var nav_item_data;
+        var demo;
         var simpleList = document.getElementById('simpleList');
         var sortable = new Sortable(simpleList, {
-                animation: 150,
-                group: "menuBuilderGroup",
+            animation: 150,
+            group: "menuBuilderGroup",
 
-                // onStart: function(evt) {
-                //     originalList = [...document.querySelectorAll("#items > div")].map(el => el.id);
-                // },
+            // onStart: function(evt) {
+            //     originalList = [...document.querySelectorAll("#items > div")].map(el => el.id);
+            // },
 
-                axis: 'y',
-                onSort: function(e, ui) {
-                    var items = e.to.children;
-                    var result = [];
-                    // var data = sortable('serialize');
+            axis: 'y',
+            onSort: function(e, ui) {
+                var items = e.to.children;
+                var result = [];
+                // var data = sortable('serialize');
+                // console.log(sortable.toArray());
+                for (var i = 0; i < items.length; i++) {
+                    // result.push($(items[i]).data('id'));
+                    // console.log(e.target.childNodes[2].id, sortable.toArray()[i]);
+                    // e.target.childNodes[2].id = sortable.toArray()[i]
+                    // e. = sortable.toArray()[i];
                     // console.log(sortable.toArray());
-                    for (var i = 0; i < items.length; i++) {
-                        // result.push($(items[i]).data('id'));
-                        // console.log(e.target.childNodes[2].id, sortable.toArray()[i]);
-                        // e.target.childNodes[2].id = sortable.toArray()[i]
-                        // e. = sortable.toArray()[i];
-                        // console.log(sortable.toArray());
-                        console.log($(items[i]));
-                        // console.log($('#' + e.target.childNodes[2].id));
-                        $.ajax({
-                            type: "PUT",
-                            url: "http://{{ tenant('domain') }}/menubuilder_link",
-                            data: {
-                                // nav_item_name: $('#' + e.target.childNodes[2].id).childNodes[1],
-                                // nav_item_link: $('#' + e.target.childNodes[2].id).childNodes[1],
-                                nav_item_id: $(items[i]).attr('id'),
-                                nav_item_order: i,
-                            },
-                            success: 'success',
-                        });
-                        console.log(i);
-                    }
-
-                    // $.ajax({
-                    //     type: "POST",
-                    //     url: "http://{{ tenant('domain') }}/menuBuilder",
-                    //     data: {
-                    //         nav_item_name: menu_item_name,
-                    //         nav_item_link: menu_item_link,
-                    //         // nav_item_id: data
-                    //     },
-                    //     success: 'success',
-                    // });
-                },
-                // onEnd: function(event, ui) {
-                // var data = $(this).sortable('serialize');
-
-                // POST to server using $.post or $.ajax
-                // $.ajax({
-                //     type: "PUT",
-                //     url: "http://{{ tenant('domain') }}/menuBuilder/1",
-                //     data: {
-                //         nav_item_name: event.to.child
-                //     }
-                // }).done((data) => {
-                //     console.log($("#simpleList")[0].childNodes[2])
-                // });
-            }
-            // store: {
-            //     get: function(sortable) {
-
-            //     },
-
-            //     set: function(sortable) {
-
-
-            //     }
-            // }
-        );
-
-
-
-
-
-
-        // create sortable and save instance
-
-        // save initial order
-
-
-        // document.getElementById('saveCurrOrder').addEventListener('click', function(e) {
-        //     // print current order
-        //     var order = sortable.toArray();
-        //     console.table(sortable.toArray());
-        // });
-
-        // document.getElementById('resetOrder').addEventListener('click', function(e) {
-        //     // reset to initial order
-        //     sortable.sort(initialOrder);
-        // })
-
+                    console.log($(items[i]));
+                    // console.log($('#' + e.target.childNodes[2].id));
+                    $.ajax({
+                        type: "PUT",
+                        url: "http://{{ tenant('domain') }}/menubuilder_link",
+                        data: {
+                            // nav_item_name: $('#' + e.target.childNodes[2].id).childNodes[1],
+                            // nav_item_link: $('#' + e.target.childNodes[2].id).childNodes[1],
+                            nav_item_id: $(items[i]).attr('id'),
+                            nav_item_order: i,
+                        },
+                        success: 'success',
+                    });
+                    console.log(i);
+                }
+            },
+        });
+$(document).ready(function() {
+    
+})
         $(".add_menu_item").click(function() {
             console.log('hidden');
             $('.add_menu_item_model').removeClass('hidden');
@@ -400,10 +348,10 @@
                     console.log(data);
                 } // data sent to server, success: function(data){}
 
-            }).done((data) => {
+            }).done(() => {
 
-                let nav_item_data = {!! json_encode($nav_item) !!}
-                let demo = nav_item_data.filter(
+                nav_item_data = {!! json_encode($nav_item) !!}
+                demo = nav_item_data.filter(
                     function(data) {
                         return data.nav_item_id == e.target.parentNode.parentNode.parentNode.id
                     }
@@ -412,9 +360,9 @@
                 $('#menu_link_edit').val(demo[0].nav_item_link);
                 console.log(demo[0]['nav_item_link']);
             });
+
             $('#menu_link_edit').val($(e.target.parentNode.parentNode.parentNode.childNodes[1].childNodes[5])
                 .text());
-
             $('#menu_name_edit').val();
             $('#menu_link_edit').val();
             $('.edit_menu_item_model').removeClass(
@@ -465,7 +413,6 @@
                             </div>`);
             console.log('sdasd', menu_item_id);
 
-
             $.ajax({
                 type: "POST",
                 url: "http://{{ tenant('domain') }}/menuBuilder",
@@ -477,7 +424,8 @@
                 },
                 success: 'success',
             });
-            $('.add_menu_item_model').toggleClass('hidden');
+            $('.add_menu_item_model').addClass('hidden');
+            // setTimeout(window.location.reload());
         });
 
         $(document).on('click', '.menu_item_delete', function(e) {
@@ -507,9 +455,6 @@
             console.log('hidden');
             $('.edit_menu_item_model').addClass('hidden');
         })
-
-
-
 
         $.app = $.app || {};
 

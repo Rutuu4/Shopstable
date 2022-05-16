@@ -43,7 +43,7 @@
 
     <div class="grid grid-cols-10 min-h-screen bg-gray-100">
 
-        <div class="col-span-2 border-r-2 border-slate-300">
+        <div class="col-span-2 border-r-2 border-slate-300 bg-white">
             @include('layouts.sidebar')
         </div>
         <div class="col-span-8">

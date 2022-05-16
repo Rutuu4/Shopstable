@@ -90,6 +90,7 @@ Route::middleware([
         }
     });
 
+    Route::view('/demo', 'Demo.demo')->middleware(['auth'])->name('demo');
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
     Route::get('/publish_page/{id}', [DashboardController::class, 'show'])->middleware(['auth'])->name('dashboard.store');
     Route::put('/dashboard/update/{id}', [DashboardController::class, 'update'])->middleware(['auth'])->name('dashboard.update');

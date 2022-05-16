@@ -16,7 +16,10 @@ return new class extends Migration
         Schema::create('themecolors', function (Blueprint $table) {
             $table->id();
             $table->string('page_id');
-            $table->string('theme_color');
+            $table->string('theme_color')->nullable();
+            $table->string('header_size')->nullable();
+            $table->string('lable_size')->nullable();
+            $table->string('paragraph_size')->nullable();
             $table->string('flag');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

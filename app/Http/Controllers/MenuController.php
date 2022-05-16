@@ -26,8 +26,8 @@ class MenuController extends Controller
         if (empty($nav_item)) {
             return view('PageBuilder.menuBuilder',);
         }
+        return view('PageBuilder.menuBuilder', ['nav_item' => $nav_item]);
         if (!empty($nav_item)) {
-            return view('PageBuilder.menuBuilder', ['nav_item' => $nav_item]);
         }
     }
 

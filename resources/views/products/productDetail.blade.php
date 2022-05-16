@@ -423,8 +423,10 @@
                                 <p class="">1</p>
                                 <img class="w-5" src="/Icons/plus.svg" alt="">
                             </div> --}}
-                        <button class="pb-3 w-full mt-9 px-6 py-4 border border-black font-bold font-xl">Add to
-                            Cart</button>
+                        <a href="http://{{ tenant('domain') }}/orders">
+                            <button class="pb-3 w-full mt-9 px-6 py-4 border border-black font-bold font-xl">Add to
+                                Cart</button>
+                        </a>
                         <button
                             class="w-full mt-4 px-6 py-4 border border-black font-bold font-xl bg-black text-white">Buy
                             it Now</button>
