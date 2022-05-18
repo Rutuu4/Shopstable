@@ -98,3 +98,8 @@ function toggleBorder(event) {
         $("#" + deleteButtonId.id).toggleClass("hidden transition ease-in-out delay-50");
     }
 }
+
+
+//Globle
+
+

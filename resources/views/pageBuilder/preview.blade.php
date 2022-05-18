@@ -292,11 +292,11 @@
 
 
                                 $(".category_grid_1")[0].innerHTML = '';
-                                if ({!! json_encode($category_data->toArray()) !!}.length < 2) {
-                                    $(".category_grid_1").addClass('grid grid-cols-2 px-6');
-                                } else {
-                                    $(".category_grid_1").addClass('grid grid-cols-3 gap-4 px-6');
-                                }
+                                // if ({!! json_encode($category_data->toArray()) !!}.length < 2) {
+                                $(".category_grid_1").addClass(
+                                    'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8'
+                                );
+
 
                                 $.ajax({
                                     type: "GET",
@@ -314,25 +314,35 @@
                                         // console.log(category_datas.length);
                                         console.log('asdadaf', $(".category_grid_1")[0]);
                                         $(".category_grid_1")[0].innerHTML += `
-            <div class="flex justify-center">
-             <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
-               <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                   <img class='h-40  object-scale-down w-2/3 mx-auto' src="/` + category_datas[index][
+                                    <div>
+                                        <a href="http://{{ tenant('domain') }}/categoryDetail/` +
+                                            category_datas[index]['id'] + `">
+                                            <div class="relative">
+                                                <div class="relative w-full h-72 rounded-lg overflow-hidden">
+                                                    <img class="bg-fixed" src="/` + category_datas[index][
                                                 'category_image'
-                                            ] + `" alt="" class='rounded-lg'/>
-               </a>
-               <div class="p-6">
-                 <h5 class="text-gray-900 text-xl font-medium mb-2"> ` + category_datas[index]
-                                            ['title'] + `</h5>
-                 <p class="text-gray-700 text-base">
-                    quick example text to build on the card title and make up the bulk of the card's
-                   content.
-                 </p>
+                                            ] + `"
+                                                        alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                                                        class="w-full h-full object-center object-cover">
+                                                </div>
+                                                <div class="relative mt-4">
+                                                    <h3 class="text-sm font-medium text-gray-900"> ` +
+                                            category_datas[index]['title'] + `</h3>
+                                                    <p class="mt-1 text-sm text-gray-500">  ` + category_datas[
+                                                index]['description'] + `</p>
+                                                </div>
+                                                <div
+                                                    class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
+                                                    <div aria-hidden="true"
+                                                        class="absolute inset-x-0 bottom-0 h-36  ">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-6">
 
-               </div>
-             </div>
-            </div>
-`;
+                                    </div>
+
+                                    `;
                                     }
                                     // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
                                     // order ? order : [];;
@@ -343,11 +353,11 @@
                             if ({!! !empty($product_data) !!}) {
 
                                 $(".product_grid_1")[0].innerHTML = '';
-                                if ({!! json_encode($product_data->toArray()) !!}.length < 2) {
-                                    $(".product_grid_1").addClass('grid grid-cols-2 px-6');
-                                } else {
-                                    $(".product_grid_1").addClass('grid grid-cols-3 gap-4 px-6');
-                                }
+
+                                $(".product_grid_1").addClass(
+                                    'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8'
+                                );
+
 
                                 $.ajax({
                                     type: "GET",
@@ -367,23 +377,34 @@
                                         console.log('asdadaf', $(".product_grid_1")[0]);
                                         $(".product_grid_1")[0].innerHTML +=
                                             `
-                            <div class="flex justify-center">
-                                <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
-                                    <a href="http://{{ tenant('domain') }}/productDetail/` +
-                                            product_datas[index]['id'] + `" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                                        <img class='h-40 object-scale-down w-2/3 mx-auto' src="/` +
-                                            product_image[index]['imageName'] + `" alt="" class='rounded-lg' />
-                                        <div class="p-6">
-                                            <h5 class="text-gray-900 text-xl font-medium mb-2"> ` +
-                                            product_datas[index]['title'] + `</h5>
-                                            <p class="text-gray-700 text-base">
-                                                ` + product_datas[index]['shortDescription'] + `
-                                            </p>
+                                        <div>
+                                        <a href="http://{{ tenant('domain') }}/productDetail/` +
+                                            product_datas[index]['id'] + `">
+                                            <div class="relative">
+                                                <div class="relative w-full h-72 rounded-lg overflow-hidden">
+                                                    <img class="bg-fixed" src="/` + product_image[index][
+                                                'imageName'
+                                            ] + `"
+                                                        alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                                                        class="w-full h-full object-center object-cover">
+                                                </div>
+                                                <div class="relative mt-4">
+                                                    <h3 class="text-sm font-medium text-gray-900"> ` +
+                                            product_datas[index]['title'] + `</h3>
+                                                    <p class="mt-1 text-sm text-gray-500">` + product_datas[index][
+                                                'shortDescription'
+                                            ] + `</p>
+                                                </div>
+                                                <div
+                                                    class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
+                                                    <div aria-hidden="true"
+                                                        class="absolute inset-x-0 bottom-0 h-36   ">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-6">
                                         </div>
-                                    </a>
-                                </div>
-                            </div>
-                            `
+                                    `
                                     }
                                     // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
                                     // order ? order : [];;

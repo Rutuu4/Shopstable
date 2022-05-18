@@ -34,7 +34,7 @@
                             <img src="/Icons/menu.svg" class="w-5 mr-2" alt="">
                             <h1 class="text-xl">Menu Builder</h1>
                         </div>
-                        <p class="text-sm pt-4">Easily create custom menus/navigation lists</p>
+                        <p class="text-xs">Easily create custom navigation lists</p>
                     </div>
                 </div>
             </a>
@@ -46,7 +46,7 @@
                             <img src="/Icons/theme.svg" class="w-5 mr-2" alt="">
                             <h1 class="text-xl">Theme Builder</h1>
                         </div>
-                        <p class="text-sm pt-4">Visual overview of the site elements</p>
+                        <p class="text-xs">Visual overview of the site elements</p>
                     </div>
                 </div>
             </a>

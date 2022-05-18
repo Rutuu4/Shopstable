@@ -45,7 +45,6 @@
     <header class="text-gray-600 body-font">
         <div class="flex justify-between">
 
-
             <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
                 <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
@@ -53,9 +52,7 @@
                         class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
-                    <a href="">
-                        <span class="ml-3 text-xl">Shopstable</span>
-                    </a>
+                    <span class="ml-3 text-xl">Shopstable</span>
                 </a>
 
                 @if (!empty($navbar))
@@ -69,11 +66,11 @@
                     </div>
                 @endif
             </div>
+
             <button class="mr-6 text-xl" onclick="history.back()">back</button>
         </div>
-
-        </div>
     </header>
+
 
     <div class="bg-white">
         <div class="max-w-2xl mx-auto py-5 px-4 sm:py-5 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -95,15 +92,10 @@
                                 <div
                                     class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
                                     <div aria-hidden="true"
-                                        class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50">
+                                        class="absolute inset-x-0 bottom-0 h-36 hover:bg-gradient-to-t hover:from-black">
                                     </div>
                                     <p class="relative text-lg font-semibold text-white">₹{{ $product->price }}</p>
                                 </div>
-                            </div>
-                            <div class="mt-6">
-                                <a href="#"
-                                    class="relative flex bg-gray-100 border border-transparent rounded-md py-2 px-8 items-center justify-center text-sm font-medium text-gray-900 hover:bg-gray-200">Add
-                                    to bag<span class="sr-only">, Zip Tote Basket</span></a>
                             </div>
                         </a>
                     </div>

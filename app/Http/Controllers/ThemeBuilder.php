@@ -19,13 +19,13 @@ class ThemeBuilder extends Controller
      */
     public function index()
     {
-        $themeColor = Themecolor::get();
+        $theme = Themecolor::get();
         // dd($data['pageData']);
-        if (empty($themeColor)) {
+        if (empty($theme)) {
             return view('setting.themeBuilder');
         }
-        if (!empty($themeColor)) {
-            return view('setting.themeBuilder', ['themeColor' => $themeColor]);
+        if (!empty($theme)) {
+            return view('setting.themeBuilder', ['theme' => $theme]);
         }
     }
 
@@ -89,8 +89,8 @@ class ThemeBuilder extends Controller
             // var_dump($themeColor1);
             if (count($themeColor1) == 0) {
 
-                print_r("a");
-                exit;
+                // print_r("a");
+                // exit;
                 Themecolor::create([
                     'page_id' => $id,
                     'theme_color' => $request->theme_color,
@@ -99,12 +99,47 @@ class ThemeBuilder extends Controller
                 return response()->json(['success' => "uploaded"]);
             } else {
 
-                print_r("b");
-                exit;
-                Themecolor::where('page_id', $id)->update([
-                    'theme_color' => $request->theme_color,
-                ]);
-                return response()->json(['success' => "uploaded", 'theme_color' => $request->theme_color]);
+                // print_r($request->pageData);
+                // exit;
+                $theme = Themecolor::where('page_id', $id);
+
+                if ($theme->exists()) {
+                    if ($request->flag == 'theme_color') {
+                        $theme->update([
+                            'theme_color' => $request->theme_color,
+                            'flag' => $request->theme_flag
+                        ]);
+                        return response()->json(['success' => "uploaded", 'theme_color' => $request->theme_color]);
+                    }
+                    if ($request->flag == 'header_size') {
+                        $theme->update([
+                            'header_size' => $request->header_size,
+                            'flag' => $request->theme_flag
+                        ]);
+                        return response()->json(['success' => "uploaded", 'header_size' => $request->header_size]);
+                    }
+                    if ($request->flag == 'lable_size') {
+                        $theme->update([
+                            'lable_size' => $request->lable_size,
+                            'flag' => $request->theme_flag
+                        ]);
+                        return response()->json(['success' => "uploaded", 'lable_size' => $request->lable_size]);
+                    }
+                    if ($request->flag == 'paragraph_size') {
+                        $theme->update([
+                            'paragraph_size' => $request->paragraph_size,
+                            'flag' => $request->theme_flag
+                        ]);
+                        return response()->json(['success' => "uploaded", 'paragraph_size' => $request->paragraph_size]);
+                    }
+                } else {
+                    Themecolor::create([
+                        'page_id' => $id,
+                        'theme_color' => $request->theme_color,
+                        'flag' => $request->flag
+                    ]);
+                    return response()->json(['success' => "uploaded", 'theme_color' => $request->theme_color]);
+                }
             }
         } catch (Exception $e) {
             Log::error($e->getMessage());

@@ -459,9 +459,9 @@
                         excepturi perferendis accusantium! Odit, quis optio.</p>
                     <div class="flex justify-center">
                         <button contenteditable="true"
-                            class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+                            class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button>
                         <button contenteditable="true"
-                            class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button>
+                            class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded">Button</button>
                     </div>
                 </div>
             </div>
@@ -525,7 +525,7 @@
                                                     block
                                                     hover:text-primary
                                                     ">
-                            asdf
+
                         </a>
 
                         <p class="text-base text-body-color leading-relaxed mb-7">
@@ -631,7 +631,7 @@
                                                     block
                                                     hover:text-primary
                                                     ">
-                            asdf
+
                         </a>
 
                         <p class="text-base text-body-color leading-relaxed mb-7">

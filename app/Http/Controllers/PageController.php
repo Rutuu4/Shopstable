@@ -23,6 +23,12 @@ class PageController extends Controller
 
         $id = Pages::orderby('id', 'DESC')->pluck('id')->first();
 
+        Themecolor::insert([
+            'page_id' => $id,
+            'theme_color' => $request->theme_color,
+            'flag' => 'globle'
+        ]);
+
         $route =  "pageBuilder/" . $id;
         return redirect($route)->with([
             'success' => "data successfully added"

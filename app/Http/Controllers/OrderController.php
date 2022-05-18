@@ -23,7 +23,7 @@ class OrderController extends Controller
             return view('orders.order');
         }
         if (!empty($order)) {
-            return view('orders.order', ['order' => $order]);
+            return view('order.order', ['order' => $order]);
         }
     }
 
@@ -85,13 +85,13 @@ class OrderController extends Controller
             $items = Orders_items::where('order_id', $id)->get();
 
             if (empty($order)) {
-                return view('orders.order');
+                return view('order.order');
             }
             if (!empty($order) && empty($items)) {
-                return view('orders.order', ['order' => $order]);
+                return view('order.order', ['order' => $order]);
             }
             if (!empty($items)) {
-                return view('orders.order', ['order' => $order, 'items' => $items]);
+                return view('order.order', ['order' => $order, 'items' => $items]);
             }
         } catch (Exception $e) {
             Log::error($e->getMessage());

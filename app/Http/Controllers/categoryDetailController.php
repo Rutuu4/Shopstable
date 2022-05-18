@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menubuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +22,8 @@ class categoryDetailController extends Controller
             ->where('product_image.isFeatured', true)
             ->select('product.*', 'product_image.imageName', 'category.id as categoryid', 'category.*', 'product.title as product_title')
             ->paginate(5);
-        return view('category.categoryDetail', ['categoryDetail' => $categoryDetail]);
+        $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
+        return view('category.categoryDetail', ['categoryDetail' => $categoryDetail, 'navbar' => $navbar]);
     }
 
     /**
@@ -62,7 +64,9 @@ class categoryDetailController extends Controller
             ->where('category.id', $id)
             ->select('product.*', 'product_image.imageName', 'category.id as categoryid', 'category.*', 'product.title as product_title', 'product.id as productId')
             ->paginate(5);
-        return view('category.categoryDetail', ['categoryDetail' => $categoryDetail]);
+
+        $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
+        return view('category.categoryDetail', ['categoryDetail' => $categoryDetail, 'navbar' => $navbar]);
     }
 
     /**

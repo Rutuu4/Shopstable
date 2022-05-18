@@ -241,6 +241,7 @@
     </header>
 
 
+
     <div class="grid grid-cols-10 min-h-screen ">
 
         <div class="col-span-2">
@@ -287,11 +288,12 @@
                 </div>
 
                 <script>
-                    var currentColorTheme = "indigo";
+                    currentColorTheme = "indigo";
 
                     function changeColor(color, el) {
                         // console.log(($(".pageBody").html()));
                         console.log('color,', color);
+
                         console.log('currentColorTheme', currentColorTheme);
                         $(".changeColorClass").removeClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
                         $(".pageBody").html($(".pageBody").html().replaceAll(currentColorTheme, color));
@@ -337,22 +339,23 @@
                                         <div class="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded"
                                             data-handle data-placeholder='Place your Image Here'></div>
                                         <div class="text-center lg:w-2/3 w-full">
-                                            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"
+                                            <h1 class="header_text title-font  mb-4 font-medium text-gray-900"
                                                 contenteditable="true">
                                                 Hero Title</h1>
-                                            <p contenteditable="true" class="mb-8 leading-relaxed">Lorem ipsum dolor sit
+                                            <p contenteditable="true" class="paragraph_text mb-8 leading-relaxed">Lorem
+                                                ipsum dolor sit
                                                 amet consectetur,
                                                 adipisicing elit. Alias cupiditate impedit inventore doloribus totam
                                                 excepturi perferendis accusantium! Odit, quis optio.</p>
                                             <div class="flex justify-center">
                                                 <div class="">
                                                     <button onmouseover="toggleAddLink(this)" contenteditable=" true"
-                                                        class="h-10 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+                                                        class="lable_text h-10 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button>
                                                 </div>
                                                 <x-linkelement />
                                                 <x-link-data-model />
                                                 <button contenteditable="true"
-                                                    class="h-10 ml-4  inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button>
+                                                    class="lable_text h-10 ml-4  inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded">Button</button>
                                             </div>
                                         </div>
                                     </div>
@@ -376,7 +379,7 @@
                                                 pariatur et magnam facilis soluta maxime tempora.</p>
                                             <div class="flex justify-center">
                                                 <button contenteditable="true"
-                                                    class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+                                                    class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600">Button</button>
                                                 <button contenteditable="true"
                                                     class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button>
                                             </div>
@@ -505,17 +508,18 @@
 
                                             </p>
                                         </div>
-                                        <div class="category_grid_1">
+                                        <div class="max-w-2xl mx-auto py-5 px-4 sm:py-5 sm:px-6 lg:max-w-7xl lg:px-8">
+                                            <div class="category_grid_1">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            {{-- <div data-handle> --}}
-                            {{-- <section class="text-gray-600 body-font">
+                                {{-- <div data-handle> --}}
+                                {{-- <section class="text-gray-600 body-font">
                                     <div class="container px-5 py-24 mx-auto"> --}}
-                            {{-- {{ $category_data }} --}}
-                            {{-- <section class="">
+                                {{-- {{ $category_data }} --}}
+                                {{-- <section class="">
                                             <div class="flex flex-wrap justify-center -mx-4">
                                                 <div class="w-full px-4">
                                                     <div class="text-center mx-auto mb-[60px] lg:mb-20 max-w-[510px]">
@@ -566,7 +570,7 @@
 
                                     </div>
                                 </section> --}}
-                            {{-- </div> --}}
+                                {{-- </div> --}}
                         </li>
                         <li data-label="product_grid">
                             <x-delete-element />
@@ -583,7 +587,9 @@
                                             <p class="text-base text-body-color">
                                             </p>
                                         </div>
-                                        <div class="product_grid_1">
+                                        <div class="max-w-2xl mx-auto py-5 px-4 sm:py-5 sm:px-6 lg:max-w-7xl lg:px-8">
+                                            <div class="product_grid_1">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1027,7 +1033,7 @@
                                                 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
                                                 Lorem ipsum dolor sit amet.</h1>
                                             <p contenteditable="true"
-                                                class="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
+                                                class="paragraph_text leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
                                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi
                                                 assumenda quod, maxime quam aliquam voluptas.</p>
                                             <div class="flex mt-6 justify-center">
@@ -1441,10 +1447,34 @@
         });
     </script>
 
-
     @if (!empty($pageData))
         <script>
             $(document).ready(function() {
+
+                function changeColor(color, el) {
+                    // console.log(($(".pageBody").html()));
+                    console.log('color,', color);
+
+                    console.log('currentColorTheme', currentColorTheme);
+                    $(".changeColorClass").removeClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
+                    $(".pageBody").html($(".pageBody").html().replaceAll(currentColorTheme, color));
+                    $(el).addClass("ring-4 outline-none ring-" + color + "-300");
+                    currentColorTheme = color;
+                    console.log(($(".pageBody").html()));
+                    $.ajax({
+                        type: "PUT",
+                        url: "http://{{ tenant('domain') }}/themeBuilder/{{ $id }}",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            page_id: {{ $id }},
+                            theme_color: color,
+                            flag: 'Globle',
+                        },
+                        success: function(data) {
+                            console.log(data);
+                        }
+                    });
+                }
                 // $('.changeColorClass').addClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
                 console.log(($(".pageBody").html()));
                 $.ajax({
@@ -1454,19 +1484,39 @@
                     success: function() {
                         let pagedata = $.parseHTML(`{{ $pageData }}`);
                         console.log('pagedata', pagedata[0]['data']);
+
+                        let currentColorTheme = {!! json_encode($theme->toArray()) !!};
+                        let theme = {!! json_encode($theme->toArray()) !!};
+                        console.log(currentColorTheme['theme_color'], 'currentColorTheme');
+                        currentColorTheme = currentColorTheme['theme_color'];
+
+                        // console.log('header_size',theme['header_size']);
+
                         // pagedata = pagedata[0];
                         if (pagedata[0] !== undefined) {
                             document.getElementById("canvas").innerHTML = pagedata[0]['data'];
+                            console.log('ssssaaa', currentColorTheme);
+                            console.log('relpace html', $(".pageBody").html().replaceAll('indigo',
+                                currentColorTheme));
+
+                            $(".pageBody").html($(".pageBody").html().replaceAll('indigo',
+                                currentColorTheme));
+                            $('.header_text').find('text-')
+                            console.log('header_size', $('.header_text').find('text-6xl'));
+                            $('.header_text').addClass(theme['header_size']);
+                            $('.lable_text').addClass(theme['lable_size']);
+                            $('.paragraph_text').addClass(theme['paragraph_size']);
+
 
                             if ({!! !empty($category_data) !!}) {
 
 
                                 $(".category_grid_1")[0].innerHTML = '';
-                                if ({!! json_encode($category_data->toArray()) !!}.length < 2) {
-                                    $(".category_grid_1").addClass('grid grid-cols-2 px-6');
-                                } else {
-                                    $(".category_grid_1").addClass('grid grid-cols-3 gap-4 px-6');
-                                }
+                                // if ({!! json_encode($category_data->toArray()) !!}.length < 2) {
+                                $(".category_grid_1").addClass(
+                                    'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8'
+                                );
+
 
                                 $.ajax({
                                     type: "GET",
@@ -1484,24 +1534,35 @@
                                         // console.log(category_datas.length);
                                         console.log('asdadaf', $(".category_grid_1")[0]);
                                         $(".category_grid_1")[0].innerHTML += `
-                <div class="flex justify-center">
-                 <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
-                   <a href="http://{{ tenant('domain') }}/categoryDetail/` + category_datas[index]['id'] + `" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                       <img class='h-40  object-scale-down w-2/3 mx-auto' src="/` + category_datas[index][
+                                        <div>
+                                            <a href="http://{{ tenant('domain') }}/categoryDetail/` +
+                                            category_datas[index]['id'] + `">
+                                                <div class="relative">
+                                                    <div class="relative w-full h-72 rounded-lg overflow-hidden">
+                                                        <img class="bg-fixed" src="/` + category_datas[index][
                                                 'category_image'
-                                            ] + `" alt="" class='rounded-lg'/>
-                   </a>
-                   <div class="p-6">
-                     <h5 class="text-gray-900 text-xl font-medium mb-2"> ` + category_datas[index]
-                                            ['title'] + `</h5>
-                     <p class="text-gray-700 text-base">
-                        ` + category_datas[index]['description'] + `
-                     </p>
+                                            ] + `"
+                                                            alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                                                            class="w-full h-full object-center object-cover">
+                                                    </div>
+                                                    <div class="relative mt-4">
+                                                        <h3 class="text-sm font-medium text-gray-900"> ` +
+                                            category_datas[index]['title'] + `</h3>
+                                                        <p class="mt-1 text-sm text-gray-500">  ` + category_datas[
+                                                index]['description'] + `</p>
+                                                    </div>
+                                                    <div
+                                                        class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
+                                                        <div aria-hidden="true"
+                                                            class="absolute inset-x-0 bottom-0 h-36  ">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-6">
 
-                   </div>
-                 </div>
-                </div>
-`;
+                                        </div>
+
+                                        `;
                                     }
                                     // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
                                     // order ? order : [];;
@@ -1512,11 +1573,10 @@
                             if ({!! !empty($product_data) !!}) {
 
                                 $(".product_grid_1")[0].innerHTML = '';
-                                if ({!! json_encode($product_data->toArray()) !!}.length < 2) {
-                                    $(".product_grid_1").addClass('grid grid-cols-2 px-6');
-                                } else {
-                                    $(".product_grid_1").addClass('grid grid-cols-3 gap-4 px-6');
-                                }
+
+                                $(".product_grid_1").addClass(
+                                    'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8'
+                                );
 
                                 $.ajax({
                                     type: "GET",
@@ -1536,23 +1596,34 @@
                                         console.log('asdadaf', $(".product_grid_1")[0]);
                                         $(".product_grid_1")[0].innerHTML +=
                                             `
-                                <div class="flex justify-center">
-                                    <div class="border border-gray-300 rounded-lg hover:shadow-lg bg-white max-w-sm">
-                                        <a href="http://{{ tenant('domain') }}/productDetail/` +
-                                            product_datas[index]['id'] + `" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                                            <img class='h-40 object-scale-down w-2/3 mx-auto' src="/` +
-                                            product_image[index]['imageName'] + `" alt="" class='rounded-lg' />
-                                            <div class="p-6">
-                                                <h5 class="text-gray-900 text-xl font-medium mb-2"> ` +
-                                            product_datas[index]['title'] + `</h5>
-                                                <p class="text-gray-700 text-base">
-                                                    ` + product_datas[index]['shortDescription'] + `
-                                                </p>
+                                            <div>
+                                            <a href="http://{{ tenant('domain') }}/productDetail/` +
+                                            product_datas[index]['id'] + `">
+                                                <div class="relative">
+                                                    <div class="relative w-full h-72 rounded-lg overflow-hidden">
+                                                        <img class="bg-fixed" src="/` + product_image[index][
+                                                'imageName'
+                                            ] + `"
+                                                            alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                                                            class="w-full h-full object-center object-cover">
+                                                    </div>
+                                                    <div class="relative mt-4">
+                                                        <h3 class="text-sm font-medium text-gray-900"> ` +
+                                            product_datas[index]['title'] + `</h3>
+                                                        <p class="mt-1 text-sm text-gray-500">` + product_datas[index][
+                                                'shortDescription'
+                                            ] + `</p>
+                                                    </div>
+                                                    <div
+                                                        class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
+                                                        <div aria-hidden="true"
+                                                            class="absolute inset-x-0 bottom-0 h-36   ">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-6">
                                             </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                `
+                                        `
                                     }
                                     // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
                                     // order ? order : [];;
@@ -1562,6 +1633,43 @@
                         // document.getElementById("canvas").innerHTML += '<P>sdsasf</P>';
                     }
                 });
+
+                currentColorTheme = "indigo";
+
+                // console.log(($(".pageBody").html()));
+                console.log('color,', color);
+
+                console.log('currentColorTheme', currentColorTheme);
+                $(".changeColorClass").removeClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
+                $(".pageBody").html($(".pageBody").html().replaceAll(currentColorTheme, color));
+                $(el).addClass("ring-4 outline-none ring-" + color + "-300");
+                currentColorTheme = color;
+                console.log(($(".pageBody").html()));
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://{{ tenant('domain') }}/themeBuilder",
+                    success: function(data) {
+                        globleTheme = data;
+                        console.log('globleTheme', globleTheme);
+
+                        let theme = {!! json_encode($theme->toArray()) !!};
+                    }
+                })
+                $.ajax({
+                    type: "PUT",
+                    url: "http://{{ tenant('domain') }}/themeBuilder",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        page_id: {{ $id }},
+                        theme_color: color,
+                        flag: 'Globle',
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    }
+                });
+
             });
         </script>
     @endif

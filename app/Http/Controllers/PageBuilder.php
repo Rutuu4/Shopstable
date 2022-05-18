@@ -66,6 +66,11 @@ class PageBuilder extends Controller
     {
 
         $Pages = Pages::where('id', $id);
+        $theme = Themecolor::where('page_id', $id)->first();
+        if ($theme->flag == 'globle') {
+            $theme = Themecolor::where('page_id', 'globle')->first();
+        }
+
         $data = $Pages->select('pageData')->first();
         $assets = $Pages->select('assets')->first();
         $category_data = DB::table('category')->get();
@@ -80,6 +85,7 @@ class PageBuilder extends Controller
         $name = $Pages->select('name')->first();
 
         return view('PageBuilder.page', [
+            'theme' => $theme,
             'category_data' => $category_data,
             'product_data' => $product_data,
             'product_image' => $product_image,

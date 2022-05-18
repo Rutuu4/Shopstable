@@ -90,6 +90,19 @@ Route::middleware([
         }
     });
 
+    Route::get('/demo', function () {
+        $theme = Themecolor::get();
+        // dd($data['pageData']);
+        if (empty($theme)) {
+            return view('demo.demo');
+        }
+        if (!empty($theme)) {
+            return view('demo.demo', ['theme' => $theme]);
+        }
+    });
+
+
+
     Route::view('/demo', 'Demo.demo')->middleware(['auth'])->name('demo');
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
     Route::get('/publish_page/{id}', [DashboardController::class, 'show'])->middleware(['auth'])->name('dashboard.store');
@@ -149,19 +162,16 @@ Route::middleware([
     Route::resource('productDetail', ProductDetails::class)->middleware(['auth']);
     Route::resource('categoryDetail', categoryDetailController::class)->middleware(['auth']);
 
-    // orders
-    Route::resource('orders', OrderController::class)->middleware(['auth']);
+    //shopping_cart
+    Route::view('shopping_cart', 'shopping_cart.shopping_cart')->middleware(['auth']);
 
-    //billing
-    Route::resource('billing', BillingController::class)->middleware(['auth']);
+    //purchase_order
+    Route::resource('order', OrderController::class)->middleware(['auth']);
 
     //shipping
     Route::resource('shipping', ShippingController::class)->middleware(['auth']);
 
-
-
     // Auth Routing
-
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 
