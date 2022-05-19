@@ -65,8 +65,9 @@ class categoryDetailController extends Controller
             ->select('product.*', 'product_image.imageName', 'category.id as categoryid', 'category.*', 'product.title as product_title', 'product.id as productId')
             ->paginate(5);
 
+        $categorytitle = DB::table('category')->where('id', $id)->select('title')->first();
         $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
-        return view('category.categoryDetail', ['categoryDetail' => $categoryDetail, 'navbar' => $navbar]);
+        return view('category.categoryDetail', ['categoryDetail' => $categoryDetail, 'navbar' => $navbar, 'categorytitle' => $categorytitle ]);
     }
 
     /**

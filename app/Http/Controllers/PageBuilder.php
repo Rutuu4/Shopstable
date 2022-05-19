@@ -77,7 +77,13 @@ class PageBuilder extends Controller
         $product_data = DB::table('product')
             ->join('product_image', 'product_image.product_id', 'product.id', 'left')
             ->where('product_image.isFeatured', true)->select('product.*', 'product_image.imageName', 'product_image.isFeatured')->get();
-        $product_image = DB::table('product_image')->get();
+        $product_image = DB::table('product_category')
+            ->leftjoin('product', 'product.id', '=', 'product_category.product_id')
+            ->leftjoin('product_image', 'product_image.product_id', '=', 'product.id')
+            ->leftjoin('category', 'category.id', '=', 'product_category.category_id')
+            ->where('category.id', $id)
+            ->select('product.*', 'product_image.imageName', 'category.id as categoryid', 'category.*', 'product.title as product_title', 'product.id as productId')
+            ->get();
         $category_data ? $category_data : '';
         // echo '<pre>';
         // print_r($category_data);
@@ -85,6 +91,7 @@ class PageBuilder extends Controller
         $name = $Pages->select('name')->first();
 
         return view('PageBuilder.page', [
+            'product_image' => $product_image,
             'theme' => $theme,
             'category_data' => $category_data,
             'product_data' => $product_data,

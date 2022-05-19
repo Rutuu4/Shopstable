@@ -29,38 +29,28 @@
                 </div>
 
                 {{-- Typograpgy --}}
-                <div class="">
+                {{-- <div class="">
                     <p class='my-2 font-medium tracking-wide'>Typograpy</p>
                     <p draggable="true"
                         class='rounded px-4 py-2 hover:bg-sky-400 hover:text-white ml-4 my-2 text-xs font-medium tracking-wide'
                         data-template="title">H1</p>
-                </div>
+                </div> --}}
 
-                {{-- Images --}}
-                <div class="">
-                    <p class='my-2 font-medium tracking-wide'>Image Assets</p>
-                    <p draggable="true"
-                        class='rounded px-4 py-2 text-xs hover:bg-sky-400 hover:text-white ml-4 my-2 tracking-wide'
-                        data-template="image_1">Image 1</p>
-                    <p draggable="true"
-                        class='rounded px-4 py-2 text-xs hover:bg-sky-400 hover:text-white ml-4 my-2 tracking-wide'
-                        data-template="image_2">Image 2</p>
-                </div>
 
                 {{-- category --}}
                 <div class="">
                     <h1 class='my-2 font-medium tracking-wide'>Category Grid</h1>
                     <p draggable="true"
                         class='rounded px-4 py-2 hover:bg-sky-400 hover:text-white  ml-4 my-2 text-xs font-medium tracking-wide'
-                        data-template="category_grid">category_grid_1
+                        data-template="category_grid">Category grid 1
                     </p>
                 </div>
                 {{-- product --}}
                 <div class="">
-                    <h1 class='my-2 font-medium tracking-wide'>product Grid</h1>
+                    <h1 class='my-2 font-medium tracking-wide'>Product Grid</h1>
                     <p draggable="true"
                         class='rounded px-4 py-2 hover:bg-sky-400 hover:text-white  ml-4 my-2 text-xs font-medium tracking-wide'
-                        data-template="product_grid">product_grid_1
+                        data-template="product_grid">Product grid 1
                     </p>
                 </div>
                 {{-- Grid --}}
@@ -97,6 +87,16 @@
                         class='rounded px-4 py-2 hover:bg-sky-400 hover:text-white  ml-4 my-2 text-xs font-medium tracking-wide'
                         data-template="feature_1">Feature 1
                     </p>
+                </div>
+                {{-- Images --}}
+                <div class="">
+                    <p class='my-2 font-medium tracking-wide'>Image Assets</p>
+                    <p draggable="true"
+                        class='rounded px-4 py-2 text-xs hover:bg-sky-400 hover:text-white ml-4 my-2 tracking-wide'
+                        data-template="image_1">Image 1</p>
+                    <p draggable="true"
+                        class='rounded px-4 py-2 text-xs hover:bg-sky-400 hover:text-white ml-4 my-2 tracking-wide'
+                        data-template="image_2">Image 2</p>
                 </div>
 
                 {{-- Footer --}}

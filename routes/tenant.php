@@ -163,7 +163,16 @@ Route::middleware([
     Route::resource('categoryDetail', categoryDetailController::class)->middleware(['auth']);
 
     //shopping_cart
-    Route::view('shopping_cart', 'shopping_cart.shopping_cart')->middleware(['auth']);
+    Route::get('shopping_cart', function () {
+        try {
+            $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
+            return view('shopping_cart.shopping_cart', ['navbar' => $navbar]);
+
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
+        }
+    })->middleware(['auth']);
 
     //purchase_order
     Route::resource('order', OrderController::class)->middleware(['auth']);

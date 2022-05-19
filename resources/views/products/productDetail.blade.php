@@ -6,31 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Shopstable') }}</title>
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Styles -->
-    {{-- <link rel="stylesheet" href="/css/app.css"> --}}
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/@tailwindcss/forms@0.2.1/dist/forms.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
 
     <!-- Scripts -->
     <script src="/js/app.js" defer></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"
         integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
 
+</head>
 </head>
 
 <body>
@@ -460,12 +452,20 @@
         } */
 
     </style>
-    <div class="py-4 px-24 flex justify-between border-b-4 ">
+
+    <style>
+        .flickity-slider {
+            display: flex;
+            align-items: center;
+        }
+
+    </style>
+    {{-- <div class="py-4 px-24 flex justify-between border-b-4 ">
         <a href="http://{{ tenant('domain') }}/pageBuilder/{{ $id }}">
             <x-button id="btn2">Web Builder
             </x-button>
         </a>
-    </div>
+    </div> --}}
     <header class="text-gray-600 body-font">
         <div class="flex justify-between">
 
@@ -496,62 +496,84 @@
     </header>
 
     <div class="py-2 px-6 md:py-4 md:px-24 ">
-        @foreach ($productDetail as $item)
-            <div class="">
-                <div class="grid grid-cols-3 gap-8 realtive">
-                    <div class="grid col-span-2 justify-center items-center">
-                        <img class='w-fit block relative overflow-y-auto mx-auto' src="/{{ $item->imageName }}"
-                            alt="">
 
-                    </div>
-                    <div class="">
-                        <h1 class="text-4xl uppercase border-b pb-4  ">{{ $item->title }}</h1>
-                        <input type="hidden" class="product_price">
-                        <h1 class="product_price_value text-lg font-thin font-sans-serif py-4 ">Rs.
-                            {{ $item->price }}
-                        </h1>
-                        {{-- <div class="text-md py-2 text-stone-500 font-light">Quantity</div> --}}
+        <div class="">
+            <div class="grid grid-cols-3 gap-8 realtive">
 
-                        <div class="custom-number-input h-10 w-32">
-                            <label for="custom-input-number" class="w-full text-gray-700 text-sm font-semibold">Quantity
-                            </label>
-                            <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-2 pb-2">
-                                <button data-action="decrement"
-                                    class="text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
-                                    <span class="m-auto text-2xl font-thin w-5">−</span>
-                                </button>
-                                <input type="number"
-                                    class="outline-none  text-center w-full  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
-                                    name="custom-input-number" value="0" />
-                                <button data-action="increment"
-                                    class="text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
-                                    <span class="m-auto text-2xl font-thin w-5">+</span>
-                                </button>
-                            </div>
+                <div class="grid col-span-2 justify-center ">
+                    <div class="mx-auto w-1/2 -mt-20">
+                        <!-- Flickity HTML init -->
+                        <h1 class="invisible">{{ $item }}</h1>
+
+                        <div class="carousel carousel-main" data-flickity='{"pageDots": false }'>
+                            @foreach ($productImage as $productImageItem)
+                                <div class="carousel-cell"><img src="/{{ $productImageItem->imageName }}" /></div>
+                            @endforeach
+                        </div>
+                        <style>
+                            .flickity-slider {
+                                display: flex;
+                                align-items: center;
+                            }
+
+                        </style>
+                        <div class="carousel carousel-nav"
+                            data-flickity='{ "asNavFor": ".carousel-main", "contain": true, "pageDots": false }'>
+                            @foreach ($productImage as $item)
+                                <div class="carousel-cell"><img class="w-full h-full object-contain"
+                                        src="/{{ $item->imageName }}" /></div>
+                            @endforeach
+
                         </div>
 
+                    </div><!-- /.container -->
+                </div>
+                <div class="">
+                    <h1 class="text-4xl uppercase border-b pb-4  ">{{ $productDetail->title }}</h1>
+                    <input type="hidden" class="product_price">
+                    <h1 class="product_price_value text-lg font-light font-sans-serif py-4 ">Rs.
+                        {{ $productDetail->price }}
+                    </h1>
+                    {{-- <div class="text-md py-2 text-stone-500 font-light">Quantity</div> --}}
 
-                        {{-- <div class="px-6 py-4 w-1/2 border border-black flex justify-between">
+                    <div class="custom-number-input h-10 w-32">
+                        <label for="custom-input-number" class="w-full text-gray-700 text-sm font-semibold">Quantity
+                        </label>
+                        <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-2 pb-2">
+                            <button data-action="decrement"
+                                class="text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                                <span class="m-auto text-2xl font-light w-5">−</span>
+                            </button>
+                            <input type="number"
+                                class="outline-none  text-center w-full  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
+                                name="custom-input-number" value="0" />
+                            <button data-action="increment"
+                                class="text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                                <span class="m-auto text-2xl font-light w-5">+</span>
+                            </button>
+                        </div>
+                    </div>
+
+
+                    {{-- <div class="px-6 py-4 w-1/2 border border-black flex justify-between">
                                 <img class="w-5" src="/Icons/minus.svg" alt="">
                                 <p class="">1</p>
                                 <img class="w-5" src="/Icons/plus.svg" alt="">
                             </div> --}}
-                        <a href="http://{{ tenant('domain') }}/shopping_cart"> <button
-                                class="pb-3 w-full mt-9 px-6 py-4 border border-black font-bold font-xl">Add to
-                                Cart</button></a>
-                        <button
-                            class="w-full mt-4 px-6 py-4 border border-black font-bold font-xl bg-black text-white">Buy
-                            it Now</button>
-                        <p class=" tracking-wider py-4 text-gray-800">{{ $item->shortDescription }}
-                        </p>
-                        {{-- <button class="absolute p-5 -bottom-40 bg-gray-600 text-white">ADD TO CART</button> --}}
-                    </div>
+                    <a href="http://{{ tenant('domain') }}/shopping_cart"> <button
+                            class="pb-3 w-full mt-9 px-6 py-4 border border-black font-bold font-xl">Add to
+                            Cart</button></a>
+                    <button class="w-full mt-4 px-6 py-4 border border-black font-bold font-xl bg-black text-white">Buy
+                        it Now</button>
+                    <p class=" tracking-wider py-4 text-gray-800">{{ $item->shortDescription }}
+                    </p>
+                    {{-- <button class="absolute p-5 -bottom-40 bg-gray-600 text-white">ADD TO CART</button> --}}
                 </div>
             </div>
-        @endforeach
+        </div>
 
 
-        <div class="mt-10 mx-auto w-1/2 h-[20rem]">
+        {{-- <div class="mt-10 mx-auto w-1/2 h-[20rem]">
             <!-- Flickity HTML init -->
             <div class="carousel carousel-main" data-flickity='{"pageDots": false }'>
                 @foreach ($productImage as $item)
@@ -574,7 +596,7 @@
 
             </div>
 
-        </div><!-- /.container -->
+        </div><!-- /.container --> --}}
 
 
         <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>

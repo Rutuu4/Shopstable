@@ -59,7 +59,7 @@ class ProductDetails extends Controller
             ->select('product.*', 'product_image.imageName', 'product_image.isFeatured')
             ->orderBy('id', 'desc')
             ->limit(1)
-            ->get();
+            ->first();
         $productImage = DB::table('product')
             ->join('product_image', 'product_image.product_id', 'product.id')
             ->where('product.id', $id)

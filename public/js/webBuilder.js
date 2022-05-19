@@ -51,13 +51,13 @@ function saveLinkData(e) {
     var link_id = (performance.now().toString(36) + Math.random().toString(36)).replace(/\./g, "");
     let item_html_new = item_html.parentNode.parentNode.childNodes[1]
     let item_replace = $(item_html_new).html();
+    console.log('item_replace', item_replace);
     // $(item_html).replaceWith($(item_html).attr('href', 'http://www.live.com/'));
     // console.log('item_html2', item_html);
     console.log('item_html2', item_html_new);
+    console.log('item_html2', $(item_html_new).html());
     $(item_html.parentNode.parentNode.childNodes[1]).replaceWith(
-        `<a href=` + link_data + `> ` +
-        item_replace +
-        `</a>`);
+        '<a href="' + link_data + '">' + item_html_new.outerHTML + '</a>');
     console.log('item_html3', item_html.parentNode.parentNode.childNodes);
 
     $.ajax({
@@ -74,6 +74,7 @@ function saveLinkData(e) {
             console.log(data);
         }
     });
+    $(".add_link_model").toggleClass("hidden");
 }
 
 // toggle delete button of componenent
@@ -101,5 +102,4 @@ function toggleBorder(event) {
 
 
 //Globle
-
 

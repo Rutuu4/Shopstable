@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menubuilder;
 use App\Models\Pages;
+use App\Models\Themecolor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -49,18 +50,32 @@ class pageBuilderPreview extends Controller
     public function show($id)
     {
         $Pages = Pages::where('id', $id);
+        $theme = Themecolor::where('page_id', $id)->first();
+        if ($theme->flag == 'globle') {
+            $theme = Themecolor::where('page_id', 'globle')->first();
+        }
         $data = $Pages->select('pageData')->first();
         $name = $Pages->select('name')->first();
+
         $category_data = DB::table('category')->get();
         $product_data = DB::table('product')
             ->join('product_image', 'product_image.product_id', 'product.id', 'left')
             ->where('product_image.isFeatured', true)->select('product.*', 'product_image.imageName', 'product_image.isFeatured')->get();
 
-        $product_image = DB::table('product_image')->get();
+        $product_image = DB::table('product_category')
+            ->where('product_category.category_id', $id)
+            ->leftjoin('product', 'product.id', '=', 'product_category.product_id')
+            ->leftjoin('product_image', 'product_image.product_id', '=', 'product.id')
+            ->leftjoin('category', 'category.id', '=', 'product_category.category_id')
+            ->where('product_image.isFeatured', true)
+            ->where('category.id', $id)
+            ->select('product.*', 'product_image.imageName', 'category.id as categoryid', 'category.*', 'product.title as product_title', 'product.id as productId')
+            ->get();
         $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
-
+        $category_data ? $category_data : '';
         return view('PageBuilder.preview', [
             'category_data' => $category_data,
+            'theme' => $theme,
             'product_data' => $product_data,
             'product_image' => $product_image,
             'pageData' => $data['pageData'],

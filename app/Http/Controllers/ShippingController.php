@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menubuilder;
 use Illuminate\Http\Request;
 
 class ShippingController extends Controller
@@ -13,7 +14,8 @@ class ShippingController extends Controller
      */
     public function index()
     {
-        return view('shipping.shipping');
+        $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
+        return view('shipping.shipping',['navbar' => $navbar]);
     }
 
     /**

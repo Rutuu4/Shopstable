@@ -6,20 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Shopstable') }}</title>
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Styles -->
-    {{-- <link rel="stylesheet" href="/css/app.css"> --}}
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/@tailwindcss/forms@0.2.1/dist/forms.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
 
     <!-- Scripts -->
     <script src="/js/app.js" defer></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"
         integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -233,13 +230,13 @@
         } */
 
     </style>
-    <div class="py-4 px-24 flex justify-between border-b-4 ">
+    {{-- <div class="py-4 px-24 flex justify-between border-b-4 ">
         <a href="http://{{ tenant('domain') }}/pageBuilder/{{ $id }}">
             <x-button id="btn2">Web Builder
             </x-button>
         </a>
         <h1 class="text-xl font-semibold underline text-center">{{ $name }}</h1>
-    </div>
+    </div> --}}
     <header class="text-gray-600 body-font">
         <div class="flex justify-between">
 
@@ -275,6 +272,65 @@
     @if (!empty($pageData))
         <script>
             $(document).ready(function() {
+                var header_size;
+                var lable_size;
+                var paragraph_size;
+                let theme = {!! json_encode($theme->toArray()) !!};
+
+
+                // // -------------------------start Header set-----------------------------//
+                // let content_header_str = $('.content_header').attr("class");
+                // // content_header_str = content_header_str.split(' ');
+                // console.log(theme['header_size'], 'header_size');
+                // console.log(content_header_str[2], 'header_size');
+
+                // $('.content_header').attr('class', $('.content_header').attr('class').replace(content_header_str[2],
+                //     theme['header_size']));
+
+                // // -------------------------End Header set-----------------------------//
+
+                // // -------------------------Start lable set----------------------------//
+                // let content_lable_str = $('.content_lable').attr("class");
+                // content_lable_str = content_lable_str.split(/(\s+)/);
+                // $('.content_lable').attr('class', $('.content_lable').attr('class').replace(content_lable_str[2], theme[
+                //     'lable_size']));
+                // var temp_content_lable_str = theme['lable_size'];
+                // // -------------------------End lable set------------------------------//
+
+                // // -------------------------start pharagraph set-----------------------------//
+                // let content_paragraph_str = $('.content_paragraph').attr("class");
+                // content_paragraph_str = content_paragraph_str.split(/(\s+)/);
+
+                // $('.content_paragraph').attr('class', $('.content_paragraph').attr('class').replace(
+                //     content_paragraph_str[2], theme['paragraph_size']));
+
+                // var temp_content_paragraph_str = theme['paragraph_size'];
+                // // -------------------------end pharagraph set-----------------------------//
+
+                // function changeColor(color, el) {
+                //     // console.log(($(".pageBody").html()));
+                //     console.log('color,', color);
+
+                //     console.log('currentColorTheme', currentColorTheme);
+                //     $(".changeColorClass").removeClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
+                //     // $(".pageBody").html($(".pageBody").html().replaceAll(currentColorTheme, color));
+                //     $(el).addClass("ring-4 outline-none ring-" + color + "-300");
+                //     currentColorTheme = color;
+                //     console.log(($(".pageBody").html()));
+                //     $.ajax({
+                //         type: "PUT",
+                //         url: "http://{{ tenant('domain') }}/themeBuilder/{{ $id }}",
+                //         data: {
+                //             _token: "{{ csrf_token() }}",
+                //             page_id: {{ $id }},
+                //             theme_color: color,
+                //             flag: 'Globle',
+                //         },
+                //         success: function(data) {
+                //             console.log(data);
+                //         }
+                //     });
+                // }
                 // $('.changeColorClass').addClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
                 console.log(($(".pageBody").html()));
                 $.ajax({
@@ -283,10 +339,24 @@
                     // context: document.body,
                     success: function() {
                         let pagedata = $.parseHTML(`{{ $pageData }}`);
-                        console.log('pagedata', pagedata[0]['data']);
+                        // console.log('pagedata', pagedata[0]['data']);
+
+                        let currentColorTheme = {!! json_encode($theme->toArray()) !!};
+                        let theme = {!! json_encode($theme->toArray()) !!};
+                        console.log(currentColorTheme['theme_color'], 'currentColorTheme');
+                        currentColorTheme = currentColorTheme['theme_color'];
+
+                        // console.log('header_size',theme['header_size']);
+
                         // pagedata = pagedata[0];
                         if (pagedata[0] !== undefined) {
                             document.getElementById("canvas").innerHTML = pagedata[0]['data'];
+                            console.log('ssssaaa', currentColorTheme);
+                            // console.log('relpace html', $(".pageBody").html().replaceAll('indigo',
+                            //     currentColorTheme));
+
+                            // $(".pageBody").html($(".pageBody").html().replaceAll('indigo',
+                            // currentColorTheme));
 
                             if ({!! !empty($category_data) !!}) {
 
@@ -294,7 +364,7 @@
                                 $(".category_grid_1")[0].innerHTML = '';
                                 // if ({!! json_encode($category_data->toArray()) !!}.length < 2) {
                                 $(".category_grid_1").addClass(
-                                    'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8'
+                                    'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8'
                                 );
 
 
@@ -304,9 +374,8 @@
                                     context: document.body,
                                 }).done((data) => {
                                     //
-
                                     var category_datas = {!! json_encode($category_data->toArray()) !!};
-                                    console.log('asAS', category_datas);
+
 
                                     for (let index = 0; index < category_datas
                                         .length; index++) {
@@ -318,7 +387,7 @@
                                         <a href="http://{{ tenant('domain') }}/categoryDetail/` +
                                             category_datas[index]['id'] + `">
                                             <div class="relative">
-                                                <div class="relative w-full h-72 rounded-lg overflow-hidden">
+                                                <div class="relative w-full h-40 rounded-lg overflow-hidden">
                                                     <img class="bg-fixed" src="/` + category_datas[index][
                                                 'category_image'
                                             ] + `"
@@ -330,12 +399,6 @@
                                             category_datas[index]['title'] + `</h3>
                                                     <p class="mt-1 text-sm text-gray-500">  ` + category_datas[
                                                 index]['description'] + `</p>
-                                                </div>
-                                                <div
-                                                    class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
-                                                    <div aria-hidden="true"
-                                                        class="absolute inset-x-0 bottom-0 h-36  ">
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="mt-6">
@@ -349,26 +412,23 @@
                                 });;
 
                             }
-
                             if ({!! !empty($product_data) !!}) {
 
                                 $(".product_grid_1")[0].innerHTML = '';
 
                                 $(".product_grid_1").addClass(
-                                    'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8'
+                                    'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8'
                                 );
-
 
                                 $.ajax({
                                     type: "GET",
                                     url: "http://{{ tenant('domain') }}/menuBuilder",
                                     context: document.body,
                                 }).done((data) => {
-                                    //
 
-                                    var product_datas = {!! json_encode($product_data->toArray()) !!};
-                                    var product_image = {!! json_encode($product_image->toArray()) !!};
-                                    console.log('asAS', product_datas);
+                                    let product_datas = {!! json_encode($product_data->toArray()) !!};
+                                    let product_image = {!! json_encode($product_image->toArray()) !!};
+                                    console.log('asAS', [product_datas[1]['imageName']]);
 
                                     for (let index = 0; index < product_datas
                                         .length; index++) {
@@ -377,34 +437,27 @@
                                         console.log('asdadaf', $(".product_grid_1")[0]);
                                         $(".product_grid_1")[0].innerHTML +=
                                             `
-                                        <div>
-                                        <a href="http://{{ tenant('domain') }}/productDetail/` +
+                                    <div>
+                                    <a href="http://{{ tenant('domain') }}/productDetail/` +
                                             product_datas[index]['id'] + `">
-                                            <div class="relative">
-                                                <div class="relative w-full h-72 rounded-lg overflow-hidden">
-                                                    <img class="bg-fixed" src="/` + product_image[index][
-                                                'imageName'
-                                            ] + `"
-                                                        alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
-                                                        class="w-full h-full object-center object-cover">
-                                                </div>
-                                                <div class="relative mt-4">
-                                                    <h3 class="text-sm font-medium text-gray-900"> ` +
+                                        <div class="relative">
+                                            <div class="relative w-full h-40 rounded-lg overflow-hidden">
+                                            <img class="" src="/` + product_datas[index]['imageName'] + `"
+                                                alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                                                class="w-full h-full object-center object-cover">
+                                        </div>
+
+                                            <div class="relative mt-4">
+                                                <h3 class="font-medium text-gray-900"> ` +
                                             product_datas[index]['title'] + `</h3>
-                                                    <p class="mt-1 text-sm text-gray-500">` + product_datas[index][
+                                                <p class="mt-1 text-sm text-gray-500">` + product_datas[index][
                                                 'shortDescription'
                                             ] + `</p>
-                                                </div>
-                                                <div
-                                                    class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
-                                                    <div aria-hidden="true"
-                                                        class="absolute inset-x-0 bottom-0 h-36   ">
-                                                    </div>
-                                                </div>
                                             </div>
-                                            <div class="mt-6">
                                         </div>
-                                    `
+                                        <div class="mt-6">
+                                    </div>
+                                `
                                     }
                                     // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
                                     // order ? order : [];;
@@ -414,9 +467,48 @@
                         // document.getElementById("canvas").innerHTML += '<P>sdsasf</P>';
                     }
                 });
+
+                currentColorTheme = "indigo";
+
+                // console.log(($(".pageBody").html()));
+                console.log('color,', color);
+
+                console.log('currentColorTheme', currentColorTheme);
+                $(".changeColorClass").removeClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
+                $(".pageBody").html($(".pageBody").html().replaceAll(currentColorTheme, color));
+                $(el).addClass("ring-4 outline-none ring-" + color + "-300");
+                currentColorTheme = color;
+                console.log(($(".pageBody").html()));
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://{{ tenant('domain') }}/themeBuilder",
+                    success: function(data) {
+                        globleTheme = data;
+                        console.log('globleTheme', globleTheme);
+
+                        let theme = {!! json_encode($theme->toArray()) !!};
+                    }
+                })
+                $.ajax({
+                    type: "PUT",
+                    url: "http://{{ tenant('domain') }}/themeBuilder",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        page_id: {{ $id }},
+                        theme_color: color,
+                        flag: 'Globle',
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    }
+                });
+
             });
         </script>
     @endif
+
+
 </body>
 
 </html>

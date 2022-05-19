@@ -1,4 +1,4 @@
-    <div class="link_data_model relative right-28 top-3  transition duration-500 ease-in-out hidden">
+    <div class="link_data_model absolute right-0 top-3  transition duration-500 ease-in-out hidden">
 
         <!-- This element is to trick the browser into centering the modal contents. -->
         <div

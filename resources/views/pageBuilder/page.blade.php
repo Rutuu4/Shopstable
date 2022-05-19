@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Shopstable') }}</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -336,26 +336,27 @@
                             <div class="hero_page_1" data-handle data-placeholder='hero_page_1'>
                                 <section class="text-gray-600 body-font">
                                     <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
-                                        <div class="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded"
-                                            data-handle data-placeholder='Place your Image Here'></div>
+                                        {{-- <div class="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded"
+                                            data-handle data-placeholder='Place your Image Here'></div> --}}
                                         <div class="text-center lg:w-2/3 w-full">
-                                            <h1 class="header_text title-font  mb-4 font-medium text-gray-900"
+                                            <h1 class="content_header text-xl mb-4 font-medium text-gray-900"
                                                 contenteditable="true">
                                                 Hero Title</h1>
-                                            <p contenteditable="true" class="paragraph_text mb-8 leading-relaxed">Lorem
+                                            <p contenteditable="true"
+                                                class="content_paragraph text-xl mb-8 leading-relaxed">Lorem
                                                 ipsum dolor sit
                                                 amet consectetur,
                                                 adipisicing elit. Alias cupiditate impedit inventore doloribus totam
                                                 excepturi perferendis accusantium! Odit, quis optio.</p>
-                                            <div class="flex justify-center">
-                                                <div class="">
+                                            <div class="flex justify-center gap-4 ">
+                                                <div class="relative">
                                                     <button onmouseover="toggleAddLink(this)" contenteditable=" true"
-                                                        class="lable_text h-10 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button>
+                                                        class="content_lable text-xl h-10 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button>
+                                                    <x-linkelement />
+                                                    <x-link-data-model />
                                                 </div>
-                                                <x-linkelement />
-                                                <x-link-data-model />
                                                 <button contenteditable="true"
-                                                    class="lable_text h-10 ml-4  inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded">Button</button>
+                                                    class="content_lable text-xl h-10 ml-4  inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded">Button</button>
                                             </div>
                                         </div>
                                     </div>
@@ -498,11 +499,11 @@
                             <div data-handle>
                                 <div class="">
                                     <div class="">
-                                        <div class="text-center mx-auto mb-[60px] max-w-[510px]">
+                                        <div class="text-center mx-auto max-w-[510px]">
                                             <h2
                                                 class="changebg font-bold text-3xl sm:text-4xl md:text-[40px] text-dark mb-4
                                             ">
-                                                category
+                                                Categories
                                             </h2>
                                             <p class="text-base text-body-color">
 
@@ -578,11 +579,11 @@
                                 <div class="">
                                     <div class="">
 
-                                        <div class="text-center mx-auto mb-[60px] max-w-[510px]">
+                                        <div class="text-center mx-auto max-w-[510px]">
                                             <h2
                                                 class="font-bold text-3xl sm:text-4xl md:text-[40px] text-dark mb-4
                                             ">
-                                                product
+                                                Products
                                             </h2>
                                             <p class="text-base text-body-color">
                                             </p>
@@ -1317,7 +1318,6 @@
                         // $("#js-templates")
                         //     .find('[data-label="' + $(this).data("template") + '"]')[0].childNodes[1].childNodes[1].;
 
-
                         console.log(deleteButtonElement);
                         // $(".deleteElement").attr('id', Date.now().toString(36) + Math.random()
                         //     .toString(36).substr(2));
@@ -1326,14 +1326,123 @@
                         //     _self.currentDragItem + "< /div>");
 
                         _self.currentDragItem = " <div id= '" + count + "'" +
-                            "class='my-10 transition duration-500 ease-in-out' onmouseover='toggleBorder(event)' onmouseout='toggleBorder(event)'>" +
+                            "class='' onmouseover='toggleBorder(event)' onmouseout='toggleBorder(event)'>" +
                             _self.currentDragItem + "</div>"
                         console.log(_self.currentDragItem);
                         // $(this).data("template").attr("id", 'testId');
                     });
+
                 });
+                if ({!! !empty($category_data) !!}) {
+
+
+                    $(".category_grid_1")[0].innerHTML = '';
+                    // if ({!! json_encode($category_data->toArray()) !!}.length < 2) {
+                    $(".category_grid_1").addClass(
+                        'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8'
+                    );
+
+
+                    $.ajax({
+                        type: "GET",
+                        url: "http://{{ tenant('domain') }}/menuBuilder",
+                        context: document.body,
+                    }).done((data) => {
+                        //
+
+                        var category_datas = {!! json_encode($category_data->toArray()) !!};
+                        ~console.log('asAS', category_datas);
+
+                        for (let index = 0; index < category_datas
+                            .length; index++) {
+                            // const element = array[index];
+                            // console.log(category_datas.length);
+                            console.log('asdadaf', $(".category_grid_1")[0]);
+                            $(".category_grid_1")[0].innerHTML += `
+                    <div>
+                        <a href="http://{{ tenant('domain') }}/categoryDetail/` +
+                                category_datas[index]['id'] + `">
+                            <div class="relative">
+                                <div class="relative w-full h-40 rounded-lg overflow-hidden">
+                                    <img class="bg-fixed" src="/` + category_datas[index][
+                                    'category_image'
+                                ] + `"
+                                        alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                                        class="w-full h-full object-center object-cover">
+                                </div>
+                                <div class="relative mt-4">
+                                    <h3 class="text-sm font-medium text-gray-900"> ` +
+                                category_datas[index]['title'] + `</h3>
+                                    <p class="mt-1 text-sm text-gray-500">  ` + category_datas[
+                                    index]['description'] + `</p>
+                                </div>
+                            </div>
+                            <div class="mt-6">
+
+                    </div>
+
+                    `;
+                        }
+                        // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
+                        // order ? order : [];;
+                    });;
+
+                }
+                if ({!! !empty($product_data) !!}) {
+
+                    $(".product_grid_1")[0].innerHTML = '';
+
+                    $(".product_grid_1").addClass(
+                        'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8'
+                    );
+
+                    $.ajax({
+                        type: "GET",
+                        url: "http://{{ tenant('domain') }}/menuBuilder",
+                        context: document.body,
+                    }).done((data) => {
+                        //
+
+                        let product_datas = {!! json_encode($product_data->toArray()) !!};
+                        let product_image = {!! json_encode($product_image->toArray()) !!};
+                        console.log('asAS', [product_datas[1]['imageName']]);
+
+                        for (let index = 0; index < product_datas
+                            .length; index++) {
+                            // const element = array[index];
+                            // console.log(product_datas.length);
+                            console.log('asdadaf', $(".product_grid_1")[0]);
+                            $(".product_grid_1")[0].innerHTML +=
+                                `
+        <div>
+        <a href="http://{{ tenant('domain') }}/productDetail/` +
+                                product_datas[index]['id'] + `">
+            <div class="relative">
+                <div class="relative w-full h-40 rounded-lg overflow-hidden">
+                <img class="" src="/` + product_datas[index]['imageName'] + `"
+                    alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                    class="w-full h-full object-center object-cover">
+            </div>
+
+                <div class="relative mt-4">
+                    <h3 class="font-medium text-gray-900"> ` + 
+                                product_datas[index]['title'] + `</h3>
+                    <p class="mt-1 text-sm text-gray-500">` + product_datas[index][
+                                    'shortDescription'
+                                ] + `</p>
+                </div>
+            </div>
+            <div class="mt-6">
+        </div>
+    `
+                        }
+                        // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
+                        // order ? order : [];;
+                    });;
+                }
 
                 this.resetHandleEvents();
+
             },
             resetHandleEvents: function() {
                 var _self = this;
@@ -1363,6 +1472,7 @@
                         .on("dragleave drop dragdrop", function() {
                             $("[data-handle]").removeClass("hover");
                         });
+
                 });
             },
             // addTooltip: function(container) {
@@ -1372,6 +1482,7 @@
 
         $(function() {
             $.app.uiDraggable.init();
+
         });
 
         $("#savePage").click(function() {
@@ -1401,27 +1512,6 @@
         const editables = document.querySelectorAll("[contenteditable]");
 
 
-        function saveLinkData(e) {
-            var link_name = $('#link_name').val();
-            var link_data = $('#link_data').val();
-            var link_id = (performance.now().toString(36) + Math.random().toString(36)).replace(/\./g, "");
-
-
-
-            $.ajax({
-                type: "POST",
-                url: "http://{{ tenant('domain') }}/linkData",
-                data: {
-                    page_id: link_id,
-                    component_className: link_name,
-                    link_name: link_name,
-                    link_data: link_data,
-                },
-                success: function(data) {
-                    console.log(data);
-                }
-            });
-        }
         // save edits
         editables.forEach(el => {
             el.addEventListener("blur", () => {
@@ -1450,6 +1540,40 @@
     @if (!empty($pageData))
         <script>
             $(document).ready(function() {
+                var header_size;
+                var lable_size;
+                var paragraph_size;
+                let theme = {!! json_encode($theme->toArray()) !!};
+
+
+                // -------------------------start Header set-----------------------------//
+                let content_header_str = $('.content_header').attr("class");
+                content_header_str = content_header_str.split(/(\s+)/);
+                console.log(theme['header_size'], 'header_size');
+                console.log(content_header_str[2], 'header_size');
+
+                $('.content_header').attr('class', $('.content_header').attr('class').replace(content_header_str[2],
+                    theme['header_size']));
+
+                // -------------------------End Header set-----------------------------//
+
+                // -------------------------Start lable set----------------------------//
+                let content_lable_str = $('.content_lable').attr("class");
+                content_lable_str = content_lable_str.split(/(\s+)/);
+                $('.content_lable').attr('class', $('.content_lable').attr('class').replace(content_lable_str[2], theme[
+                    'lable_size']));
+                var temp_content_lable_str = theme['lable_size'];
+                // -------------------------End lable set------------------------------//
+
+                // -------------------------start pharagraph set-----------------------------//
+                let content_paragraph_str = $('.content_paragraph').attr("class");
+                content_paragraph_str = content_paragraph_str.split(/(\s+)/);
+
+                $('.content_paragraph').attr('class', $('.content_paragraph').attr('class').replace(
+                    content_paragraph_str[2], theme['paragraph_size']));
+
+                var temp_content_paragraph_str = theme['paragraph_size'];
+                // -------------------------end pharagraph set-----------------------------//
 
                 function changeColor(color, el) {
                     // console.log(($(".pageBody").html()));
@@ -1483,7 +1607,7 @@
                     // context: document.body,
                     success: function() {
                         let pagedata = $.parseHTML(`{{ $pageData }}`);
-                        console.log('pagedata', pagedata[0]['data']);
+                        // console.log('pagedata', pagedata[0]['data']);
 
                         let currentColorTheme = {!! json_encode($theme->toArray()) !!};
                         let theme = {!! json_encode($theme->toArray()) !!};
@@ -1496,17 +1620,11 @@
                         if (pagedata[0] !== undefined) {
                             document.getElementById("canvas").innerHTML = pagedata[0]['data'];
                             console.log('ssssaaa', currentColorTheme);
-                            console.log('relpace html', $(".pageBody").html().replaceAll('indigo',
-                                currentColorTheme));
+                            // console.log('relpace html', $(".pageBody").html().replaceAll('indigo',
+                            //     currentColorTheme));
 
                             $(".pageBody").html($(".pageBody").html().replaceAll('indigo',
                                 currentColorTheme));
-                            $('.header_text').find('text-')
-                            console.log('header_size', $('.header_text').find('text-6xl'));
-                            $('.header_text').addClass(theme['header_size']);
-                            $('.lable_text').addClass(theme['lable_size']);
-                            $('.paragraph_text').addClass(theme['paragraph_size']);
-
 
                             if ({!! !empty($category_data) !!}) {
 
@@ -1514,7 +1632,7 @@
                                 $(".category_grid_1")[0].innerHTML = '';
                                 // if ({!! json_encode($category_data->toArray()) !!}.length < 2) {
                                 $(".category_grid_1").addClass(
-                                    'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8'
+                                    'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8'
                                 );
 
 
@@ -1524,9 +1642,8 @@
                                     context: document.body,
                                 }).done((data) => {
                                     //
-
                                     var category_datas = {!! json_encode($category_data->toArray()) !!};
-                                    console.log('asAS', category_datas);
+
 
                                     for (let index = 0; index < category_datas
                                         .length; index++) {
@@ -1534,48 +1651,41 @@
                                         // console.log(category_datas.length);
                                         console.log('asdadaf', $(".category_grid_1")[0]);
                                         $(".category_grid_1")[0].innerHTML += `
-                                        <div>
-                                            <a href="http://{{ tenant('domain') }}/categoryDetail/` +
+                                            <div>
+                                                <a href="http://{{ tenant('domain') }}/categoryDetail/` +
                                             category_datas[index]['id'] + `">
-                                                <div class="relative">
-                                                    <div class="relative w-full h-72 rounded-lg overflow-hidden">
-                                                        <img class="bg-fixed" src="/` + category_datas[index][
+                                                    <div class="relative">
+                                                        <div class="relative w-full h-40 rounded-lg overflow-hidden">
+                                                            <img class="bg-fixed" src="/` + category_datas[index][
                                                 'category_image'
                                             ] + `"
-                                                            alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
-                                                            class="w-full h-full object-center object-cover">
-                                                    </div>
-                                                    <div class="relative mt-4">
-                                                        <h3 class="text-sm font-medium text-gray-900"> ` +
+                                                                alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                                                                class="w-full h-full object-center object-cover">
+                                                        </div>
+                                                        <div class="relative mt-4">
+                                                            <h3 class="text-sm font-medium text-gray-900"> ` +
                                             category_datas[index]['title'] + `</h3>
-                                                        <p class="mt-1 text-sm text-gray-500">  ` + category_datas[
+                                                            <p class="mt-1 text-sm text-gray-500">  ` + category_datas[
                                                 index]['description'] + `</p>
-                                                    </div>
-                                                    <div
-                                                        class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
-                                                        <div aria-hidden="true"
-                                                            class="absolute inset-x-0 bottom-0 h-36  ">
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="mt-6">
+                                                    <div class="mt-6">
 
-                                        </div>
+                                            </div>
 
-                                        `;
+                                            `;
                                     }
                                     // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
                                     // order ? order : [];;
                                 });;
 
                             }
-
                             if ({!! !empty($product_data) !!}) {
 
                                 $(".product_grid_1")[0].innerHTML = '';
 
                                 $(".product_grid_1").addClass(
-                                    'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8'
+                                    'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8'
                                 );
 
                                 $.ajax({
@@ -1583,11 +1693,10 @@
                                     url: "http://{{ tenant('domain') }}/menuBuilder",
                                     context: document.body,
                                 }).done((data) => {
-                                    //
 
-                                    var product_datas = {!! json_encode($product_data->toArray()) !!};
-                                    var product_image = {!! json_encode($product_image->toArray()) !!};
-                                    console.log('asAS', product_datas);
+                                    let product_datas = {!! json_encode($product_data->toArray()) !!};
+                                    let product_image = {!! json_encode($product_image->toArray()) !!};
+                                    console.log('asAS', [product_datas[1]['imageName']]);
 
                                     for (let index = 0; index < product_datas
                                         .length; index++) {
@@ -1600,25 +1709,18 @@
                                             <a href="http://{{ tenant('domain') }}/productDetail/` +
                                             product_datas[index]['id'] + `">
                                                 <div class="relative">
-                                                    <div class="relative w-full h-72 rounded-lg overflow-hidden">
-                                                        <img class="bg-fixed" src="/` + product_image[index][
-                                                'imageName'
-                                            ] + `"
-                                                            alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
-                                                            class="w-full h-full object-center object-cover">
-                                                    </div>
+                                                    <div class="relative w-full h-40 rounded-lg overflow-hidden">
+                                                    <img class="" src="/` + product_datas[index]['imageName'] + `"
+                                                        alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                                                        class="w-full h-full object-center object-cover">
+                                                </div>
+
                                                     <div class="relative mt-4">
-                                                        <h3 class="text-sm font-medium text-gray-900"> ` +
+                                                        <h3 class="font-medium text-gray-900"> ` +
                                             product_datas[index]['title'] + `</h3>
                                                         <p class="mt-1 text-sm text-gray-500">` + product_datas[index][
                                                 'shortDescription'
                                             ] + `</p>
-                                                    </div>
-                                                    <div
-                                                        class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
-                                                        <div aria-hidden="true"
-                                                            class="absolute inset-x-0 bottom-0 h-36   ">
-                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="mt-6">
@@ -1673,6 +1775,7 @@
             });
         </script>
     @endif
+
     <script src="/js/webBuilder.js"></script>
 </body>
 

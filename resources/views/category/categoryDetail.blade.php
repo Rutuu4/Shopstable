@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Shopstable') }}</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -74,27 +74,32 @@
 
     <div class="bg-white">
         <div class="max-w-2xl mx-auto py-5 px-4 sm:py-5 sm:px-6 lg:max-w-7xl lg:px-8">
-            <h2 class="text-xl font-bold text-gray-900">Products of Category </h2>
+            <h2 class="text-xl font-bold text-gray-900">{{ $categorytitle->title }} </h2>
             <div class="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
                 @foreach ($categoryDetail as $product)
                     <div>
                         <a href="http://{{ tenant('domain') }}/productDetail/{{ $product->productId }}">
                             <div class="relative">
-                                <div class="relative w-full h-72 rounded-lg overflow-hidden">
-                                    <img class="bg-fixed" src="/{{ $product->imageName }}"
+                                <div class="relative w-full h-40 rounded-lg overflow-hidden">
+                                    <img class="bg-cover" src="/{{ $product->imageName }}"
                                         alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
                                         class="w-full h-full object-center object-cover">
                                 </div>
                                 <div class="relative mt-4">
-                                    <h3 class="text-sm font-medium text-gray-900">{{ $product->product_title }}</h3>
+                                    <div class="flex justify-between">
+                                        <h3 class="text-sm font-medium text-gray-900">{{ $product->product_title }}
+                                        </h3>
+                                        <p class="relative text-sm ">₹{{ $product->price }}
+                                        </p>
+                                    </div>
                                     <p class="mt-1 text-sm text-gray-500">{{ $product->shortDescription }}</p>
                                 </div>
                                 <div
                                     class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
                                     <div aria-hidden="true"
-                                        class="absolute inset-x-0 bottom-0 h-36 hover:bg-gradient-to-t hover:from-black">
+                                        class="absolute inset-x-0 bottom-0 h-36 hover:bg-gradient-to-t">
                                     </div>
-                                    <p class="relative text-lg font-semibold text-white">₹{{ $product->price }}</p>
+
                                 </div>
                             </div>
                         </a>

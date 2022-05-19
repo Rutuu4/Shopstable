@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menubuilder;
 use App\Models\Order;
 use App\Models\Orders_items;
 use Exception;
@@ -19,11 +20,12 @@ class OrderController extends Controller
     public function index()
     {
         $order = Order::get();
+        $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
         if (empty($order)) {
             return view('orders.order');
         }
         if (!empty($order)) {
-            return view('order.order', ['order' => $order]);
+            return view('order.order', ['order' => $order,'navbar' => $navbar]);
         }
     }
 
