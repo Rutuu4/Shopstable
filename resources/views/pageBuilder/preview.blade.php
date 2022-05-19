@@ -468,7 +468,8 @@
                     }
                 });
 
-                currentColorTheme = "indigo";
+                let currentColorTheme = {!! json_encode($theme->toArray()) !!};
+                currentColorTheme = currentColorTheme['theme_color'];
 
                 // console.log(($(".pageBody").html()));
                 console.log('color,', color);

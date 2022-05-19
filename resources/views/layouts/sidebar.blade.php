@@ -61,7 +61,7 @@
                             <div class="py-1 my-1">
                                 <x-nav-link href="/settings" :active="request()->routeIs(['settings', 'menuBuilder.index', 'themeBuilder.index'])">
                                     <img src="/Icons/setting.svg" class="w-4 mr-2" alt="">
-                                    {{ __('Setting') }}
+                                    {{ __('Settings') }}
                                 </x-nav-link>
                             </div>
 

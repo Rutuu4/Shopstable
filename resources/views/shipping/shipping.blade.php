@@ -62,7 +62,7 @@
             <button class="mr-6 text-xl" onclick="history.back()">back</button>
         </div>
     </header>
-    
+
     <div class="bg-white">
         <!--
     Mobile menu
@@ -71,7 +71,7 @@
   -->
 
 
-        <main class="max-w-7xl mx-auto px-4 py-16 sm:px-6 sm:py-6 lg:px-8">
+        <main class="max-w-7xl mx-auto px-4 esm:px-6 sm:py-6 lg:px-8">
             <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">Order Details</h1>
 
             <div class="text-sm border-b border-gray-200 mt-2 pb-5 sm:flex sm:justify-between">

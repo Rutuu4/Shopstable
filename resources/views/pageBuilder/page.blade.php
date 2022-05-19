@@ -288,7 +288,11 @@
                 </div>
 
                 <script>
-                    currentColorTheme = "indigo";
+                    let currentColorTheme = {!! json_encode($theme->toArray()) !!};
+                    currentColorTheme = currentColorTheme['theme_color'];
+
+                    // console.log(($(".pageBody").html()));
+                    console.log('color,', color);
 
                     function changeColor(color, el) {
                         // console.log(($(".pageBody").html()));
@@ -1333,6 +1337,7 @@
                     });
 
                 });
+
                 if ({!! !empty($category_data) !!}) {
 
 
@@ -1425,7 +1430,7 @@
             </div>
 
                 <div class="relative mt-4">
-                    <h3 class="font-medium text-gray-900"> ` + 
+                    <h3 class="font-medium text-gray-900"> ` +
                                 product_datas[index]['title'] + `</h3>
                     <p class="mt-1 text-sm text-gray-500">` + product_datas[index][
                                     'shortDescription'
@@ -1440,7 +1445,8 @@
                         // order ? order : [];;
                     });;
                 }
-
+                $(".pageBody").html($(".pageBody").html().replaceAll('indigo',
+                    currentColorTheme));
                 this.resetHandleEvents();
 
             },
@@ -1475,6 +1481,7 @@
 
                 });
             },
+
             // addTooltip: function(container) {
             //     $('.canvas').append($('#js-tooltip').clone().html());
             // }
@@ -1609,7 +1616,7 @@
                         let pagedata = $.parseHTML(`{{ $pageData }}`);
                         // console.log('pagedata', pagedata[0]['data']);
 
-                        let currentColorTheme = {!! json_encode($theme->toArray()) !!};
+                        var currentColorTheme = {!! json_encode($theme->toArray()) !!};
                         let theme = {!! json_encode($theme->toArray()) !!};
                         console.log(currentColorTheme['theme_color'], 'currentColorTheme');
                         currentColorTheme = currentColorTheme['theme_color'];
@@ -1735,8 +1742,6 @@
                         // document.getElementById("canvas").innerHTML += '<P>sdsasf</P>';
                     }
                 });
-
-                currentColorTheme = "indigo";
 
                 // console.log(($(".pageBody").html()));
                 console.log('color,', color);
