@@ -19,7 +19,7 @@ class ThemeBuilder extends Controller
      */
     public function index()
     {
-        $theme = Themecolor::get();
+        $theme = Themecolor::orderBy('id')->get();
         // dd($data['pageData']);
         if (empty($theme)) {
             return view('setting.themeBuilder');

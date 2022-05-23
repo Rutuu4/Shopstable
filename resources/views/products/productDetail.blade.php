@@ -531,9 +531,11 @@
                 <div class="">
                     <h1 class="text-4xl uppercase border-b pb-4  ">{{ $productDetail->title }}</h1>
                     <input type="hidden" class="product_price">
-                    <h1 class="product_price_value text-lg font-light font-sans-serif py-4 ">Rs.
-                        {{ $productDetail->price }}
-                    </h1>
+                    <div class="flex">
+                        <h1 class="text-lg font-light font-sans-serif py-4 ">Rs.</h1>
+                        <h1 class="product_price_value text-lg font-light font-sans-serif py-4 ">
+                            {{ $productDetail->price }}</h1>
+                    </div>
                     {{-- <div class="text-md py-2 text-stone-500 font-light">Quantity</div> --}}
 
                     <div class="custom-number-input h-10 w-32">
@@ -545,7 +547,7 @@
                                 <span class="m-auto text-2xl font-light w-5">−</span>
                             </button>
                             <input type="number"
-                                class="outline-none  text-center w-full  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
+                                class="product_quantity outline-none  text-center w-full  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
                                 name="custom-input-number" value="0" />
                             <button data-action="increment"
                                 class="text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
@@ -560,11 +562,14 @@
                                 <p class="">1</p>
                                 <img class="w-5" src="/Icons/plus.svg" alt="">
                             </div> --}}
+                    <button onclick="AddToCart({{ $productDetail->id }})"
+                        class="pb-3 w-full mt-9 px-6 py-4 border border-black font-bold font-xl">Add to
+                        Cart</button>
                     <a href="http://{{ tenant('domain') }}/shopping_cart"> <button
-                            class="pb-3 w-full mt-9 px-6 py-4 border border-black font-bold font-xl">Add to
-                            Cart</button></a>
-                    <button class="w-full mt-4 px-6 py-4 border border-black font-bold font-xl bg-black text-white">Buy
-                        it Now</button>
+                            onclick="AddToCart({{ $productDetail->id }})"
+                            class="w-full mt-4 px-6 py-4 border border-black font-bold font-xl bg-black text-white">Buy
+                            it Now</button>
+                    </a>
                     <p class=" tracking-wider py-4 text-gray-800">{{ $item->shortDescription }}
                     </p>
                     {{-- <button class="absolute p-5 -bottom-40 bg-gray-600 text-white">ADD TO CART</button> --}}
@@ -638,9 +643,34 @@
                 btn.addEventListener("click", increment);
             });
             $(document).ready(function() {
-
                 $(".product_price").val($(".product_price_value").text());
             })
+
+            function AddToCart(id) {
+                var quantity = $(".custom-number-input input").val();
+                var price = $(".product_price").val();
+                var total = quantity * price;
+                var product_id = id;
+                $.ajax({
+                    url: "http://{{ tenant('domain') }}/purchase_item",
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        product_id: product_id,
+                        price: $(".product_price").val(),
+                        quantity: $(".product_quantity").val(),
+                        sub_total: $(".product_price").val() * $(".product_quantity").val()
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        // if (data.status == "success") {
+                        //     alert("Item added to cart");
+                        // } else {
+                        //     alert("Item not added to cart");
+                        // }
+                    }
+                });
+            }
         </script>
 
 </body>

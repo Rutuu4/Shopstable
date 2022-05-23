@@ -21,12 +21,15 @@ use App\Http\Controllers\pageBuilderPreview;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetails;
+use App\Http\Controllers\Purchase_item;
 use App\Http\Controllers\ShippingController;
+use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\ThemeBuilder;
 use App\Http\Controllers\WebBuilderController;
 use App\Models\Menubuilder;
 use App\Models\Order;
 use App\Models\Pages;
+use App\Models\Purchase_items;
 use App\Models\Themecolor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -163,16 +166,10 @@ Route::middleware([
     Route::resource('categoryDetail', categoryDetailController::class)->middleware(['auth']);
 
     //shopping_cart
-    Route::get('shopping_cart', function () {
-        try {
-            $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
-            return view('shopping_cart.shopping_cart', ['navbar' => $navbar]);
+    Route::resource('shopping_cart', ShoppingCartController::class)->middleware(['auth']);
 
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-            return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
-        }
-    })->middleware(['auth']);
+    //purchase_item
+    Route::resource('purchase_item', Purchase_item::class);
 
     //purchase_order
     Route::resource('order', OrderController::class)->middleware(['auth']);

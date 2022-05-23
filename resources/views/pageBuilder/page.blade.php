@@ -288,13 +288,15 @@
                 </div>
 
                 <script>
-                    let currentColorTheme = {!! json_encode($theme->toArray()) !!};
+                    // if (!empty{{ $theme }}) {
+                    var currentColorTheme = {!! json_encode($theme->toArray()) !!};
                     currentColorTheme = currentColorTheme['theme_color'];
+                    // }
 
                     // console.log(($(".pageBody").html()));
-                    console.log('color,', color);
 
                     function changeColor(color, el) {
+                        console.log('color,', color);
                         // console.log(($(".pageBody").html()));
                         console.log('color,', color);
 
@@ -1410,7 +1412,7 @@
 
                         let product_datas = {!! json_encode($product_data->toArray()) !!};
                         let product_image = {!! json_encode($product_image->toArray()) !!};
-                        console.log('asAS', [product_datas[1]['imageName']]);
+                        console.log('asAS', [product_datas[0]['imageName']]);
 
                         for (let index = 0; index < product_datas
                             .length; index++) {
@@ -1445,8 +1447,10 @@
                         // order ? order : [];;
                     });;
                 }
-                $(".pageBody").html($(".pageBody").html().replaceAll('indigo',
-                    currentColorTheme));
+                if (undefined !== (currentColorTheme)) {
+                    $(".pageBody").html($(".pageBody").html().replaceAll('indigo',
+                        currentColorTheme));
+                }
                 this.resetHandleEvents();
 
             },
@@ -1556,6 +1560,7 @@
                 // -------------------------start Header set-----------------------------//
                 let content_header_str = $('.content_header').attr("class");
                 content_header_str = content_header_str.split(/(\s+)/);
+                console.log(theme, 'theme');
                 console.log(theme['header_size'], 'header_size');
                 console.log(content_header_str[2], 'header_size');
 
@@ -1703,7 +1708,7 @@
 
                                     let product_datas = {!! json_encode($product_data->toArray()) !!};
                                     let product_image = {!! json_encode($product_image->toArray()) !!};
-                                    console.log('asAS', [product_datas[1]['imageName']]);
+                                    console.log('asAS', [product_datas[0]['imageName']]);
 
                                     for (let index = 0; index < product_datas
                                         .length; index++) {
@@ -1745,12 +1750,13 @@
 
                 // console.log(($(".pageBody").html()));
                 console.log('color,', color);
-
-                console.log('currentColorTheme', currentColorTheme);
-                $(".changeColorClass").removeClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
-                $(".pageBody").html($(".pageBody").html().replaceAll(currentColorTheme, color));
-                $(el).addClass("ring-4 outline-none ring-" + color + "-300");
-                currentColorTheme = color;
+                if (currentColorTheme) {
+                    console.log('currentColorTheme', currentColorTheme);
+                    $(".changeColorClass").removeClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
+                    $(".pageBody").html($(".pageBody").html().replaceAll(currentColorTheme, color));
+                    $(el).addClass("ring-4 outline-none ring-" + color + "-300");
+                    currentColorTheme = color;
+                }
                 console.log(($(".pageBody").html()));
 
                 $.ajax({

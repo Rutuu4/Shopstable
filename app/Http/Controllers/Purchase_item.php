@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\Purchase_items;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class Purchase_item extends Controller
 {
@@ -13,7 +17,7 @@ class Purchase_item extends Controller
      */
     public function index()
     {
-       $purchase_item= Purchase_item::get();
+        $purchase_item = Purchase_items::get();
         if (empty($purchase_item)) {
             return view('shopping_cart.shopping_cart');
         }
@@ -29,19 +33,19 @@ class Purchase_item extends Controller
      */
     public function create()
     {
-        try {
-            $purchase_item = Purchase_item::insert([
-                'product_id'=>$request->product_id,
-                'category_id',
-                'price'=>$request->price,
-                'quantity'=>$request->quantity,
-                'sub_total'=>$request->sub_total,
-            ]);
-            return response()->json(['success' => "uploaded", 'purchase_item' => $request->$purchase_item]);
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-            return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
-        }
+        // try {
+        //     $purchase_item = Purchase_item::insert([
+        //         'product_id'=>$request->product_id,
+        //         'category_id',
+        //         'price'=>$request->price,
+        //         'quantity'=>$request->quantity,
+        //         'sub_total'=>$request->sub_total,
+        //     ]);
+        //     return response()->json(['success' => "uploaded", 'purchase_item' => $request->$purchase_item]);
+        // } catch (Exception $e) {
+        //     Log::error($e->getMessage());
+        //     return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
+        // }
     }
 
     /**
@@ -52,7 +56,26 @@ class Purchase_item extends Controller
      */
     public function store(Request $request)
     {
+        //
+        try {
+            $category_id = Product::join('product_category', 'product_category.product_id', '=', 'product.id', 'left')
+                ->where('product.id', $request->product_id)
+                ->select('product_category.category_id')
+                ->get();
 
+            $purchase_item = Purchase_items::insert([
+                'product_id' => $request->product_id,
+                'category_id' => $category_id[0]->category_id,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+                'sub_total' => $request->sub_total,
+            ]);
+            
+            return response()->json(['success' => "uploaded", 'purchase_item' => $request->$purchase_item]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
+        }
     }
 
     /**
@@ -74,7 +97,13 @@ class Purchase_item extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $purchase_item = Purchase_items::find($id);
+            return response()->json(['success' => "uploaded", 'purchase_item' => $purchase_item]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
+        }
     }
 
     /**
@@ -87,6 +116,19 @@ class Purchase_item extends Controller
     public function update(Request $request, $id)
     {
         //
+        try {
+            $purchase_item = Purchase_items::find($id);
+            $purchase_item->product_id = $request->product_id;
+            $purchase_item->category_id = $request->category_id;
+            $purchase_item->price = $request->price;
+            $purchase_item->quantity = $request->quantity;
+            $purchase_item->sub_total = $request->sub_total;
+            $purchase_item->save();
+            return response()->json(['success' => "uploaded", 'purchase_item' => $purchase_item]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
+        }
     }
 
     /**
@@ -98,5 +140,13 @@ class Purchase_item extends Controller
     public function destroy($id)
     {
         //
+        try {
+            $purchase_item = Purchase_items::find($id);
+            $purchase_item->delete();
+            return response()->json(['success' => "uploaded", 'purchase_item' => $purchase_item]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
+        }
     }
 }
