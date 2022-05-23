@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\categoryDetailController;
+use App\Http\Controllers\CustomerAuthenticationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LinkDataController;
 use App\Http\Controllers\MenuController;
@@ -46,6 +47,23 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 | Feel free to customize them however you want. Good luck!
 |
  */
+
+//Customer Routes
+
+Route::middleware([
+    'api',
+    InitializeTenancyByDomain::class,
+    PreventAccessFromCentralDomains::class,
+])->group(
+    function () {
+        Route::post('/customer/login', [CustomerAuthenticationController::class, 'login']);
+        Route::post('/customer/register', [CustomerAuthenticationController::class, 'register']);
+        Route::post('/customer/logout', [CustomerAuthenticationController::class, 'register']);
+        Route::post('/customer/refresh', [CustomerAuthenticationController::class, 'register']);
+    }
+);
+
+//Admin Routes
 
 Route::middleware([
     'web',
@@ -100,8 +118,6 @@ Route::middleware([
             return view('demo.demo', ['theme' => $theme]);
         }
     });
-
-
 
     Route::view('/demo', 'Demo.demo')->middleware(['auth'])->name('demo');
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
@@ -167,7 +183,6 @@ Route::middleware([
         try {
             $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
             return view('shopping_cart.shopping_cart', ['navbar' => $navbar]);
-
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
