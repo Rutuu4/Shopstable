@@ -141,7 +141,7 @@
                         <script>
                             let theme = {!! json_encode($theme->toArray()) !!};
                             var currentGlobleColorTheme = theme[0]['theme_color'];
-                            console.log(theme[0]['lable_size']);
+                            console.log(theme, 'theme_color');
 
                             // $('.changeGlobleColorClass').attr('class', $('.changeGlobleColorClass').attr('class').replace('indigo',
                             //     currentGlobleColorTheme));
