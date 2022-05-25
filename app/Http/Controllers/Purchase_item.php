@@ -24,6 +24,7 @@ class Purchase_item extends Controller
         if (!empty($purchase_item)) {
             return view('shopping_cart.shopping_cart', ['purchase_item' => $purchase_item]);
         }
+
     }
 
     /**
@@ -70,7 +71,7 @@ class Purchase_item extends Controller
                 'quantity' => $request->quantity,
                 'sub_total' => $request->sub_total,
             ]);
-            
+
             return response()->json(['success' => "uploaded", 'purchase_item' => $request->$purchase_item]);
         } catch (Exception $e) {
             Log::error($e->getMessage());
@@ -118,9 +119,6 @@ class Purchase_item extends Controller
         //
         try {
             $purchase_item = Purchase_items::find($id);
-            $purchase_item->product_id = $request->product_id;
-            $purchase_item->category_id = $request->category_id;
-            $purchase_item->price = $request->price;
             $purchase_item->quantity = $request->quantity;
             $purchase_item->sub_total = $request->sub_total;
             $purchase_item->save();
