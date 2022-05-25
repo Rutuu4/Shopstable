@@ -43,7 +43,7 @@
     </div> --}}
 
     <header class="text-gray-600 body-font">
-        <div class="flex justify-between">
+        <div class="flex justify-between items-center">
 
             <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
                 <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
@@ -67,7 +67,12 @@
                 @endif
             </div>
 
-            <button class="mr-6 text-xl" onclick="history.back()">back</button>
+
+            <div class="py-2 px-5">
+                <x-button onclick="history.back()">
+                    {{ __('Back') }}
+                </x-button>
+            </div>
         </div>
     </header>
 
@@ -92,7 +97,8 @@
                                         <p class="relative text-sm ">₹{{ $product->price }}
                                         </p>
                                     </div>
-                                    <p class="mt-1 text-sm text-gray-500">{{ $product->shortDescription }}</p>
+                                    <p class="line-clamp-2 mt-1 text-sm text-gray-500">
+                                        {{ $product->shortDescription }}</p>
                                 </div>
                                 <div
                                     class="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
@@ -118,7 +124,7 @@
         </div>
     </div>
 
-    <script></script>
+    <script src="https://www.jsdelivr.com/package/npm/tailwindcss-line-clamp"></script>
 </body>
 
 </html>

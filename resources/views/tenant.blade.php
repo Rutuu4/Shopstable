@@ -23,7 +23,6 @@
             </div>
         @endif
     </div>
-</header>
-<script>
 
-</script>
+</header>
+<script></script>

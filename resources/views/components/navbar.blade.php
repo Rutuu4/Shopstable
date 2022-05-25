@@ -1,7 +1,7 @@
 <div>
 
     <header class="text-gray-600 body-font">
-        <div class="flex justify-between">
+        <div class="flex justify-between items-center">
 
 
             <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -28,7 +28,12 @@
                 @endif
             </div>
 
-            <button class="mr-6 text-xl" onclick="history.back()">back</button>
+            <img src="/Icons/cart.svg" class='w-5' alt="">
+            <div class="py-2 px-5">
+                <x-button onclick="history.back()">
+                    {{ __('Back') }}
+                </x-button>
+            </div>
         </div>
     </header>
 </div>

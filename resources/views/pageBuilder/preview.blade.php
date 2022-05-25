@@ -238,7 +238,7 @@
         <h1 class="text-xl font-semibold underline text-center">{{ $name }}</h1>
     </div> --}}
     <header class="text-gray-600 body-font">
-        <div class="flex justify-between">
+        <div class="flex justify-between items-center">
 
             <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
                 <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
@@ -262,7 +262,12 @@
                 @endif
             </div>
 
-            <button class="mr-6 text-xl" onclick="history.back()">back</button>
+
+            <div class="py-2 px-5">
+                <x-button onclick="history.back()">
+                    {{ __('Back') }}
+                </x-button>
+            </div>
         </div>
     </header>
 

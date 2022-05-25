@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menubuilder;
+use App\Models\Purchase_items;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -54,20 +55,31 @@ class ProductDetails extends Controller
     public function show($id)
     {
         $productDetail = DB::table('product')
-            ->join('product_image', 'product_image.product_id', 'product.id')
+            ->leftJoin('product_image', 'product_image.product_id', 'product.id')
             ->where('product.id', $id)
-            ->select('product.*', 'product_image.imageName', 'product_image.isFeatured')
+            ->select('product.*', 'product.title as title', 'product_image.imageName', 'product_image.isFeatured')
             ->orderBy('id', 'desc')
             ->limit(1)
             ->first();
+        $productQuantity = Purchase_items::where('product_id', $id)->select('quantity')->first();
+        // dd($productQuantity->quantity);
+        if (is_null($productQuantity)) {
+            $productQuantity = 1;
+        } else {
+            $productQuantity = $productQuantity->quantity;
+        }
+
+
         $productImage = DB::table('product')
             ->join('product_image', 'product_image.product_id', 'product.id')
             ->where('product.id', $id)
             ->select('product.*', 'product_image.imageName', 'product_image.isFeatured')
             ->get();
+
         $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
         return view('products.productDetail', [
             'productDetail' => $productDetail,
+            'productQuantity' => $productQuantity,
             'productImage' => $productImage, 'id' => $id, 'navbar' => $navbar
         ]);
     }

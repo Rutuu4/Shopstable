@@ -8,6 +8,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
+use function PHPUnit\Framework\isEmpty;
+
 class Purchase_item extends Controller
 {
     /**
@@ -24,7 +26,6 @@ class Purchase_item extends Controller
         if (!empty($purchase_item)) {
             return view('shopping_cart.shopping_cart', ['purchase_item' => $purchase_item]);
         }
-
     }
 
     /**
@@ -57,22 +58,29 @@ class Purchase_item extends Controller
      */
     public function store(Request $request)
     {
-        //
         try {
             $category_id = Product::join('product_category', 'product_category.product_id', '=', 'product.id', 'left')
                 ->where('product.id', $request->product_id)
                 ->select('product_category.category_id')
                 ->get();
 
-            $purchase_item = Purchase_items::insert([
-                'product_id' => $request->product_id,
-                'category_id' => $category_id[0]->category_id,
-                'price' => $request->price,
-                'quantity' => $request->quantity,
-                'sub_total' => $request->sub_total,
-            ]);
-
-            return response()->json(['success' => "uploaded", 'purchase_item' => $request->$purchase_item]);
+            $flag = Purchase_items::where('product_id', $request->product_id)->first();;
+            if (is_null($flag)) {
+                $purchase_item =    Purchase_items::insert([
+                    'product_id' => $request->product_id,
+                    'category_id' => $category_id[0]->category_id,
+                    'price' => $request->price,
+                    'quantity' => $request->quantity,
+                    'sub_total' => $request->sub_total,
+                ]);
+                return response()->json(['success' => "item inserted successfully", 'purchase_item' => $request->$purchase_item]);
+            } else {
+                $purchase_item = Purchase_items::where('product_id', $request->product_id)->first();
+                $purchase_item->quantity = $request->quantity;
+                $purchase_item->sub_total = $request->sub_total;
+                $purchase_item->save();
+                return response()->json(['success' => "item upadated successfully", 'purchase_item' => $request->$purchase_item]);
+            }
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);

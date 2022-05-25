@@ -43,7 +43,7 @@
 
 
         <header class="text-gray-600 body-font">
-            <div class="flex justify-between">
+            <div class="flex justify-between items-center ">
 
                 <div class="flex flex-wrap p-5 flex-col md:flex-row items-center">
                     <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
@@ -70,7 +70,17 @@
                     @endif
                 </div>
 
-                <button class="mr-6 text-xl" onclick="history.back()">back</button>
+                <div class="flex ">
+                    <img src="/Icons/cart.svg" class='w-5' alt="">
+                    <div
+                        class="w-5 h-5 text-xs bg-green-400/90 rounded-full mx-auto text-white p-1 flex justify-center items-center">
+                        1</div>
+                    <div class="py-2 px-5">
+                        <x-button onclick="history.back()">
+                            {{ __('Back') }}
+                        </x-button>
+                    </div>
+                </div>
             </div>
         </header>
         <main class="max-w-2xl mx-auto pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -82,7 +92,6 @@
                     <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
                     <ul role="list" class="border-t border-b border-gray-200 divide-y divide-gray-200">
                         @if (!empty($cart))
-
                             @foreach ($cart as $item)
                                 <script>
                                     count = count + {{ $item->sub_total }}
@@ -101,7 +110,7 @@
                                                 <div class="flex justify-between">
                                                     <h3 class="text-sm">
                                                         <a href="#"
-                                                            class="font-medium text-gray-700 hover:text-gray-800">
+                                                            class="text-xl font-medium text-gray-700 hover:text-gray-800">
                                                             {{ $item->title }}
                                                         </a>
                                                     </h3>
@@ -172,7 +181,7 @@
                                             </div>
                                         </div>
 
-                                        <p class="mt-4 flex text-sm text-gray-700 space-x-2">
+                                        {{-- <p class="mt-4 flex text-sm text-gray-700 space-x-2">
                                             <!-- Heroicon name: solid/check -->
                                             <svg class="flex-shrink-0 h-5 w-5 text-green-500"
                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
@@ -182,7 +191,7 @@
                                                     clip-rule="evenodd" />
                                             </svg>
                                             <span>In stock</span>
-                                        </p>
+                                        </p> --}}
                                     </div>
                                 </li>
                             @endforeach
@@ -253,7 +262,7 @@
             </form>
 
             <!-- Related products -->
-            <section aria-labelledby="related-heading" class="mt-24">
+            {{-- <section aria-labelledby="related-heading" class="mt-24">
                 <h2 id="related-heading" class="text-lg font-medium text-gray-900">You may also like&hellip;</h2>
 
                 <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
@@ -280,7 +289,7 @@
 
                     <!-- More products... -->
                 </div>
-            </section>
+            </section> --}}
         </main>
         <section aria-labelledby="policies-heading" class="bg-gray-50 border-t border-gray-200">
             <h2 id="policies-heading" class="sr-only">Our policies</h2>
@@ -481,6 +490,7 @@
 </body>
 <script>
     $('.shopping_cart_total').text(count);
+
     function deleteItem(el, id) {
         $.ajax({
             url: "http://{{ tenant('domain') }}/purchase_item/" + id,
@@ -492,11 +502,25 @@
                 // $('.shopping_delete').remove();
                 console.log(id, 'id');
                 console.log(el, 'el');
-                $(el.parentNode.parentNode.parentNode.parentNode.pa).remove();
+
+
+                // after delete api
+                // remove card element
+                let deleted_amount = el.parentNode.parentNode.parentNode.parentNode.parentNode
+                    .querySelector(
+                        '.shopping_cart_subtotal').textContent.replace(/\s+/g, '')
+                console.log(el.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector(
+                    '.shopping_cart_subtotal').textContent.replace(/\s+/g, ''));
+                $(el.parentNode.parentNode.parentNode.parentNode.parentNode).remove();
+                // update total
+                $('.shopping_cart_total').text(count - deleted_amount);
+
+
             }
         }).done((data) => {
             console.log('item deleted')
         });
+
     };
 </script>
 

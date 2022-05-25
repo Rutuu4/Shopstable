@@ -27,6 +27,14 @@
 
 <body>
     <style>
+        .text-truncate {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            /* truncate to 4 lines */
+            -webkit-line-clamp: 4;
+        }
+
         .align-right {
             text-align: right;
         }
@@ -467,7 +475,7 @@
         </a>
     </div> --}}
     <header class="text-gray-600 body-font">
-        <div class="flex justify-between">
+        <div class="flex justify-between items-center">
 
             <div class="flex flex-wrap p-5 flex-col md:flex-row items-center">
                 <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
@@ -490,18 +498,28 @@
                     </div>
                 @endif
             </div>
+            <div class="flex ">
+                <img src="/Icons/cart.svg" class='w-5' alt="">
+                <div
+                    class="w-5 h-5 text-xs bg-green-400/90 rounded-full mx-auto text-white p-1 flex justify-center items-center">
+                    1</div>
+                <div class="py-2 px-5">
+                    <x-button onclick="history.back()">
+                        {{ __('Back') }}
+                    </x-button>
+                </div>
+            </div>
 
-            <button class="mr-6 text-xl" onclick="history.back()">back</button>
         </div>
     </header>
 
     <div class="py-2 px-6 md:py-4 md:px-24 ">
 
         <div class="">
-            <div class="grid grid-cols-3 gap-8 realtive">
+            <div class="grid grid-cols-2 gap-8 realtive">
 
-                <div class="grid col-span-2 justify-center ">
-                    <div class="mx-auto w-1/2 -mt-20">
+                <div class="grid justify-center ">
+                    <div class="mx-auto w-2/3 -mt-20">
                         <!-- Flickity HTML init -->
                         <h1 class="invisible">{{ $item }}</h1>
 
@@ -548,7 +566,7 @@
                             </button>
                             <input type="number"
                                 class="product_quantity outline-none  text-center w-full  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
-                                name="custom-input-number" value="0" />
+                                name="custom-input-number" value={{ $productQuantity }} min='1' />
                             <button data-action="increment"
                                 class="text-gray-600 hover:text-gray-700 hover:bg-green-400 h-full w-20 rounded-r cursor-pointer">
                                 <span class="m-auto text-2xl font-light w-5">+</span>
@@ -565,17 +583,20 @@
                     <button onclick="AddToCart({{ $productDetail->id }})"
                         class="pb-3 w-full mt-9 px-6 py-4 border border-black font-bold font-xl">Add to
                         Cart</button>
-                    <a href="http://{{ tenant('domain') }}/shopping_cart"> <button
-                            onclick="AddToCart({{ $productDetail->id }})"
+                    <a href="#">
+                        <button onclick="AddToCart({{ $productDetail->id }})"
                             class="w-full mt-4 px-6 py-4 border border-black font-bold font-xl bg-black text-white">Buy
                             it Now</button>
                     </a>
-                    <p class=" tracking-wider py-4 text-gray-800">{{ $item->shortDescription }}
+                    <p class="comment more tracking-wider py-4 text-gray-800">{{ $item->shortDescription }}
                     </p>
                     {{-- <button class="absolute p-5 -bottom-40 bg-gray-600 text-white">ADD TO CART</button> --}}
                 </div>
+
             </div>
         </div>
+        <p class="text-justify longDescription  tracking-wider py-4 text-gray-800">
+        </p>
 
 
         {{-- <div class="mt-10 mx-auto w-1/2 h-[20rem]">
@@ -602,8 +623,66 @@
             </div>
 
         </div><!-- /.container --> --}}
+        <script>
+            $(document).ready(function() {
+                var showChar = 100;
+                var ellipsestext = "...";
+                var moretext = "show more";
+                var lesstext = "show less";
+                $('.more').each(function() {
+                    var content = $(this).html();
 
+                    if (content.length > showChar) {
 
+                        var c = content.substr(0, showChar);
+                        var h = content.substr(showChar - 1, content.length - showChar);
+
+                        var html = c + '<span class="moreellipses">' + ellipsestext +
+                            '&nbsp;</span><span class="morecontent"><span>' + h +
+                            '</span>&nbsp;&nbsp;<a href="" class="link morelink">' + moretext + '</a></span>';
+
+                        $(this).html(html);
+                    }
+
+                });
+
+                $(".morelink").click(function() {
+                    if ($(this).hasClass("less")) {
+                        $(this).removeClass("less");
+                        $(this).html(moretext);
+                    } else {
+                        $(this).addClass("less");
+                        $(this).html(lesstext);
+                    }
+                    $(this).parent().prev().toggle();
+                    $(this).prev().toggle();
+                    return false;
+                });
+            });
+
+            let productDetail = {!! json_encode($productDetail) !!};
+
+            $('.longDescription').html(productDetail['longDescription']);
+        </script>
+        <style>
+            .link {
+                color: #0254EB
+            }
+
+            .link:visited {
+                color: #0254EB
+            }
+
+            .link.morelink {
+                text-decoration: none;
+                outline: none;
+            }
+
+            .morecontent span {
+                display: none;
+            }
+
+        </style>
         <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
         <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
         <script>
@@ -613,8 +692,10 @@
                 );
                 const target = btn.nextElementSibling;
                 let value = Number(target.value);
-                value--;
-                target.value = value;
+                if (value > 1) {
+                    value--;
+                    target.value = value;
+                }
             }
 
             function increment(e) {
@@ -642,6 +723,7 @@
             incrementButtons.forEach(btn => {
                 btn.addEventListener("click", increment);
             });
+
             $(document).ready(function() {
                 $(".product_price").val($(".product_price_value").text());
             })
@@ -663,6 +745,7 @@
                     },
                     success: function(data) {
                         console.log(data);
+                        window.location.replace('http://{{ tenant('domain') }}/shopping_cart');
                         // if (data.status == "success") {
                         //     alert("Item added to cart");
                         // } else {
