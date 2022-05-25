@@ -1604,7 +1604,7 @@
                             _token: "{{ csrf_token() }}",
                             page_id: {{ $id }},
                             theme_color: color,
-                            flag: 'Globle',
+                            flag: 'local',
                         },
                         success: function(data) {
                             console.log(data);
@@ -1769,6 +1769,7 @@
                         let theme = {!! json_encode($theme->toArray()) !!};
                     }
                 })
+
                 $.ajax({
                     type: "PUT",
                     url: "http://{{ tenant('domain') }}/themeBuilder",

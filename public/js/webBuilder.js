@@ -38,13 +38,21 @@ function toggleAddLink(event) {
 
     item_html = event;
     console.log('item_html', item_html);
+    // $('.add_link_model').load(".add_link_model");
     $(".add_link_model").toggleClass("hidden");
+    if ($('#add_menu_item_save').hasClass('bg-green-600')) {
+        $('#add_menu_item_save').removeClass('bg-green-600').addClass('bg-gray-600');
+    }
+    if ($('#add_menu_item_save').hasClass('no-click') == 'false') {
+        $('#add_menu_item_save').addClass('no-click');
+    }
 }
 
 function toggleLinkData(event) {
     console.log('inside toggleLinkData');
     $(".link_data_model").toggleClass("hidden");
 }
+
 function saveLinkData(e) {
     var link_name = $('#link_name').val();
     var link_data = $('#link_data').val();

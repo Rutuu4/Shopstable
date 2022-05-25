@@ -91,7 +91,7 @@
                                                     class="menu_item_edit px-4 py-2 border hover:bg-green-400 hover:text-white hover:bg-opacity-70">
                                                     edit</button>
                                                 <button
-                                                    class="menu_item_delete px-4 py-2 border hover:bg-red-400 hover:text-white hover:bg-opacity-70">
+                                                    class="menu_item_delete px-4 py-2 border hover:bg-red-400/40 hover:text-white hover:bg-opacity-70">
                                                     delete</button>
                                             </div>
                                         </div>
@@ -108,7 +108,7 @@
                                                     class="menu_item_edit px-4 py-2 border hover:bg-green-400 hover:text-white hover:bg-opacity-70">
                                                     edit</button>
                                                 <button
-                                                    class="menu_item_delete px-4 py-2 border hover:bg-red-400 hover:text-white hover:bg-opacity-70">
+                                                    class="menu_item_delete px-4 py-2 border hover:bg-red-400/40 hover:text-white hover:bg-opacity-70">
                                                     delete</button>
                                             </div>
                                         </div> --}}
@@ -118,7 +118,7 @@
                                         <button class='add_menu_item'>
                                             <div class="add_menu_item flex text-[#2C6ECB] pl-4 rounded py-2"><img
                                                     class='w-5 mr-2' src="/Icons/add.svg" alt="">
-                                                add menu item
+                                                Add
                                             </div>
                                         </button>
                                     </div>
@@ -131,60 +131,130 @@
 
                     {{-- Model for add link --}}
                     <div class="add_menu_item_model hidden">
-                        <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
-                            aria-modal="">
-                            <div
-                                class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        <form name='addLinkForm' action="">
 
-                                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-                                    aria-hidden="true">
-                                </div>
-
-                                <!-- This element is to trick the browser into centering the modal contents. -->
-                                <span class="hidden sm:inline-block sm:align-middle sm:h-screen"
-                                    aria-hidden="true">&#8203;</span>
-
+                            <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+                                aria-modal="">
                                 <div
-                                    class="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                                        <h1 class='ml-4 my-2 ml-54 text-xl'>Add Menu Item</h1>
-                                        <div class="sm:flex sm:items-start">
-                                            {{-- <div
-                                                class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                                                <!-- Heroicon name: outline/exclamation -->
-                                                <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                                    aria-hidden="true">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                                </svg>
-                                            </div> --}}
-                                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                                <x-label for="menu_name" :value="__('Name')" />
-                                                <x-input id="menu_name" class="block mt-1 w-full " type="text"
-                                                    name="menu_name" required autofocus />
+                                    class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 
+                                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+                                        aria-hidden="true">
+                                    </div>
 
-                                                <x-label for="menu_link" :value="__('Link')" class="mt-4" />
-                                                <x-input id="menu_link" class="block mt-1 w-full " type="text"
-                                                    name="menu_link" required autofocus />
-                                                <div class="mt-2">
-                                                    <p class="text-sm text-gray-500">Lorem ipsum dolor sit, amet
-                                                        consectetur adipisicing elit. Inventore, provident?.</p>
+                                    <!-- This element is to trick the browser into centering the modal contents. -->
+                                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen"
+                                        aria-hidden="true">&#8203;</span>
+
+                                    <div
+                                        class="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                            <h1 class='ml-4 my-2 ml-54 text-xl'>Add Menu Item</h1>
+                                            <div class="sm:flex sm:items-start">
+                                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                                    <div class="flex">
+                                                        <x-label for="menu_name" :value="__('Name')" />
+                                                        <p class="ml-2 text-red-400">*</p>
+                                                    </div>
+                                                    <x-input id="menu_name" class="block mt-1 w-full " type="text"
+                                                        name="menu_name" required autofocus
+                                                        onblur="validateAddLinkNameForm()" />
+                                                    <p class="add_link_name_validation text-red-400 hidden">name is
+                                                        required</p>
+                                                    <div class="flex mt-4">
+                                                        <x-label for="menu_link" :value="__('Link')"
+                                                            class="" />
+                                                        <p class="ml-2 text-red-400">*</p>
+                                                    </div>
+                                                    <x-input onblur="validateAddLink_link()" id="menu_link"
+                                                        class="block mt-1 w-full " type="text" name="menu_link" required
+                                                        autofocus />
+                                                    <p class="add_link_name_link_validation text-red-400 hidden">Link is
+                                                        required</p>
+                                                    <div class="mt-2">
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                        <button id='add_menu_item_save' type="button"
-                                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Save</button>
-                                        <button type="button"
-                                            class="cancel_model mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
+
+                                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                            <button id='add_menu_item_save' type="button"
+                                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm no-click">Save</button>
+                                            <button type="button"
+                                                class="cancel_model mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+
+                        </form>
+                        <script>
+                            function validateAddLinkNameForm() {
+                                console.log($('#menu_name').val() == '', 'SADASDADASD');
+                                if ($('#menu_name').val() == '') {
+                                    $('.add_link_name_validation').removeClass('hidden');
+                                    if ($('#add_menu_item_save').hasClass('bg-green-600')) {
+                                        $('#add_menu_item_save').removeClass('bg-green-600').addClass('bg-gray-600');
+                                    }
+                                    if ($('#add_menu_item_save').hasClass('no-click') == 'false') {
+                                        $('#add_menu_item_save').addClass('no-click');
+                                    }
+                                } else {
+                                    $('.add_link_name_validation').addClass('hidden');
+                                }
+
+                                if ($('#menu_name').val() == '' && $('#menu_link').val() == '') {
+                                    if ($('#add_menu_item_save').hasClass('bg-green-600')) {
+                                        $('#add_menu_item_save').removeClass('bg-green-600').addClass('bg-gray-600');
+                                    }
+
+                                    if ($('#add_menu_item_save').hasClass('no-click') == 'false') {
+                                        $('#add_menu_item_save').addClass('no-click');
+                                    }
+                                }
+
+                                if ($('#menu_name').val() !== '' && $('#menu_link').val() !== '') {
+                                    if ($('#add_menu_item_save').hasClass('bg-gray-600')) {
+                                        $('#add_menu_item_save').removeClass('bg-gray-600').addClass('bg-green-600');
+                                        $('#add_menu_item_save').removeClass('no-click');
+                                    }
+                                }
+                            }
+
+                            function validateAddLink_link() {
+                                console.log($('#menu_link').val() == '', 'SADASDADASD');
+                                if ($('#menu_link').val() == '') {
+                                    $('.add_link_name_link_validation').removeClass('hidden');
+                                    if ($('#add_menu_item_save').hasClass('bg-green-600')) {
+                                        $('#add_menu_item_save').removeClass('bg-green-600').addClass('bg-gray-600');
+                                    }
+
+                                    if ($('#add_menu_item_save').hasClass('no-click') == 'false') {
+                                        $('#add_menu_item_save').addClass('no-click');
+                                    }
+                                } else {
+                                    $('.add_link_name_link_validation').addClass('hidden');
+                                }
+
+                                if ($('#menu_name').val() == '' && $('#menu_link').val() == '') {
+                                    if ($('#add_menu_item_save').hasClass('bg-green-600')) {
+                                        $('#add_menu_item_save').removeClass('bg-green-600').addClass('bg-gray-600');
+                                    }
+
+                                    if ($('#add_menu_item_save').hasClass('no-click') == 'false') {
+                                        $('#add_menu_item_save').addClass('no-click');
+                                    }
+                                }
+
+                                if ($('#menu_name').val() !== '' && $('#menu_link').val() !== '') {
+                                    if ($('#add_menu_item_save').hasClass('bg-gray-600')) {
+                                        $('#add_menu_item_save').removeClass('bg-gray-600').addClass('bg-green-600');
+                                        $('#add_menu_item_save').removeClass('no-click');
+                                    }
+                                }
+                            }
+                        </script>
                     </div>
 
                     {{-- Model for edit link --}}
@@ -208,31 +278,101 @@
                                         <h1 class='ml-4 my-2 ml-54 text-xl'>Edit Menu Item</h1>
                                         <div class="sm:flex sm:items-start">
                                             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                                <x-label for="menu_name_edit" :value="__('Name')" />
-                                                <x-input id="menu_name_edit" class="block mt-1 w-full " type="text"
-                                                    name="menu_name_edit" required autofocus />
-
-
-                                                <x-label for="menu_link_edit" :value="__('Link')"
-                                                    class="mt-4" />
-                                                <x-input id="menu_link_edit" class="block mt-1 w-full " type="text"
-                                                    name="menu_link_edit" required autofocus />
-                                                <div class="mt-2">
-                                                    <p class="text-sm text-gray-500">Lorem ipsum dolor sit, amet
-                                                        consectetur adipisicing elit. Inventore, provident?.</p>
+                                                <div class="flex">
+                                                    <x-label for="menu_name_edit" :value="__('Name')" />
+                                                    <p class="ml-2 text-red-400">*</p>
                                                 </div>
+                                                <x-input onblur="validateEditLinkNameForm()" id="menu_name_edit"
+                                                    class="block mt-1 w-full " type="text" name="menu_name_edit"
+                                                    required autofocus />
+                                                <p class="edit_link_name_validation text-red-400 hidden">name is
+                                                    required</p>
+
+                                                <div class="flex mt-4">
+                                                    <x-label for="menu_link_edit" :value="__('Link')"
+                                                        class="" />
+                                                    <p class="ml-2 text-red-400">*</p>
+                                                </div>
+                                                <x-input onblur="validateEditLink_link()" id="menu_link_edit"
+                                                    class="block mt-1 w-full " type="text" name="menu_link_edit"
+                                                    required autofocus />
+
+                                                <p class="edit_link_name_link_validation text-red-400 hidden">Link is
+                                                    required</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                         <button id='edit_menu_item_save' type="button"
-                                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Edit</button>
+                                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Update</button>
                                         <button type="button"
                                             class="cancel_model_edit mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <script>
+                            function validateEditLinkNameForm() {
+                                console.log($('#menu_name_edit').val() == '', 'SADASDADASD');
+                                if ($('#menu_name_edit').val() == '') {
+                                    $('.edit_link_name_validation').removeClass('hidden');
+                                    if ($('#edit_menu_item_save').hasClass('bg-green-600')) {
+                                        $('#edit_menu_item_save').removeClass('bg-green-600').addClass('bg-gray-600');
+                                        $('#edit_menu_item_save').addClass('no-click');
+                                    }
+                                } else {
+                                    $('.edit_link_name_validation').addClass('hidden');
+                                }
+
+                                if ($('#menu_name_edit').val() == '' && $('#menu_link_edit').val() == '') {
+                                    if ($('#edit_menu_item_save').hasClass('bg-green-600')) {
+                                        $('#edit_menu_item_save').removeClass('bg-green-600').addClass('bg-gray-600');
+                                        $('#edit_menu_item_save').addClass('no-click');
+                                    }
+
+                                }
+
+                                if ($('#menu_name_edit').val() !== '' && $('#menu_link_edit').val() !== '') {
+                                    if ($('#edit_menu_item_save').hasClass('bg-gray-600')) {
+                                        $('#edit_menu_item_save').removeClass('bg-gray-600').addClass('bg-green-600');
+                                        $('#edit_menu_item_save').removeClass('no-click');
+                                    }
+                                }
+                            }
+
+                            function validateEditLink_link() {
+                                console.log($('#menu_link_edit').val() == '', 'SADASDADASD');
+                                if ($('#menu_link_edit').val() == '') {
+                                    $('.edit_link_name_link_validation').removeClass('hidden');
+                                    if ($('#edit_menu_item_save').hasClass('bg-green-600')) {
+                                        $('#edit_menu_item_save').removeClass('bg-green-600').addClass('bg-gray-600');
+                                    }
+
+                                    if ($('#edit_menu_item_save').hasClass('no-click') == 'false') {
+                                        $('#edit_menu_item_save').addClass('no-click');
+                                    }
+                                } else {
+                                    $('.edit_link_name_link_validation').addClass('hidden');
+                                }
+
+                                if ($('#menu_name_edit').val() == '' && $('#menu_link_edit').val() == '') {
+                                    if ($('#edit_menu_item_save').hasClass('bg-green-600')) {
+                                        $('#edit_menu_item_save').removeClass('bg-green-600').addClass('bg-gray-600');
+                                    }
+
+                                    if ($('#edit_menu_item_save').hasClass('no-click') == 'false') {
+                                        $('#edit_menu_item_save').addClass('no-click');
+                                    }
+                                }
+
+                                if ($('#menu_name_edit').val() !== '' && $('#menu_link_edit').val() !== '') {
+                                    if ($('#edit_menu_item_save').hasClass('bg-gray-600')) {
+                                        $('#edit_menu_item_save').removeClass('bg-gray-600').addClass('bg-green-600');
+                                        $('#edit_menu_item_save').removeClass('no-click');
+                                    }
+                                }
+                            }
+                        </script>
                     </div>
 
             </main>
@@ -264,12 +404,13 @@
                                             <div class="flex items-center">
                                                 <img class='w-5 mr-2' src="/Icons/dragholder.svg" alt="">
                                                 <div class="menuItemName">` + nav_items[index]['nav_item_name'] + `</div>
+                                                <p class='hidden'>` + nav_items[index]['nav_item_link'] + `</p>
                                             </div>
                                             <div class="flex gap-4">
-                                                <button class="menu_item_edit border p-1.5 rounded-lg hover:bg-indigo-400">
+                                                <button class="menu_item_edit border p-1.5 rounded-lg hover:bg-sky-400/40">
                                                     <img src="/Icons/edit.svg" alt=""></button>
-                                                <button class="w-10 menu_item_delete border p-1.5 rounded-lg hover:bg-red-400">
-                                                    <img src=" Icons/delete.png" alt="" /></button>
+                                                <button class="w-10 menu_item_delete border p-1.5 rounded-lg hover:bg-red-400/40">
+                                                    <img src=" Icons/delete.svg" alt="" /></button>
                                             </div>
                                         </div>`;
 
@@ -326,20 +467,24 @@
                 }
             },
         });
-$(document).ready(function() {
+        $(document).ready(function() {
 
-})
+        })
         $(".add_menu_item").click(function() {
             console.log('hidden');
             $('.add_menu_item_model').removeClass('hidden');
             $('#menu_name').val('');
             $('#menu_link').val('');
+            if ($('#add_menu_item_save').hasClass('bg-green-600')) {
+                $('#add_menu_item_save').removeClass('bg-green-600').addClass('bg-gray-600');
+                $('#add_menu_item_save').addClass('no-click');
+            }
         })
 
         // edit name and link
         $(document).on('click', '.menu_item_edit', function(e) {
 
-            console.log('sdasdda', e.target.parentNode.parentNode.parentNode.childNodes[1]);
+            console.log('sdasdda', e.target.parentNode.parentNode.parentNode.childNodes[1].childNodes[5]);
 
             $.ajax({
                 type: "GET",
@@ -356,20 +501,29 @@ $(document).ready(function() {
                         return data.nav_item_id == e.target.parentNode.parentNode.parentNode.id
                     }
                 );
-                $("#menu_name_edit").val(demo[0].nav_item_name);
-                $('#menu_link_edit').val(demo[0].nav_item_link);
+                $("#menu_name_edit").val($(e.target.parentNode.parentNode.parentNode.childNodes[1]
+                    .childNodes[3]).text());
+                $('#menu_link_edit').val($(e.target.parentNode.parentNode.parentNode.childNodes[1]
+                    .childNodes[5]).text());
+
+
                 console.log(demo[0]['nav_item_link']);
             });
+
+            console.log($(e.target.parentNode.parentNode.parentNode.childNodes[1].childNodes[5])
+                .text(), 'editlink');
 
             $('#menu_link_edit').val($(e.target.parentNode.parentNode.parentNode.childNodes[1].childNodes[5])
                 .text());
             $('#menu_name_edit').val();
             $('#menu_link_edit').val();
+
             $('.edit_menu_item_model').removeClass(
                 'hidden');
             var menu_item_edit_id = e.target.parentNode.parentNode.parentNode.id;
             console.log(
                 menu_item_edit_id);
+
             $('#edit_menu_item_save').click(function() {
                 // let id = ;
                 let menu_name_edit = $('#menu_name_edit').val();
@@ -401,16 +555,18 @@ $(document).ready(function() {
                                 <div class="flex items-center">
                                     <img class='w-5 mr-2' src="/Icons/dragholder.svg" alt="">
                                     <div class="menuItemName">` + menu_item_name + `</div>
+                                    <p class='hidden'>` + menu_item_link + `</p>
                                 </div>
                                 <div class="flex gap-4">
                                     <button
-                                        class="menu_item_edit border p-1.5 rounded-lg hover:bg-indigo-400"><img
+                                        class="menu_item_edit border p-1.5 rounded-lg hover:bg-sky-400/40"><img
                                                 src="/Icons/edit.svg" alt=""></button>
                                     <button
-                                        class="w-10 menu_item_delete border p-1.5 rounded-lg hover:bg-red-400">
-                                        <img src=" Icons/delete.png" alt="" /></button>
+                                        class="w-10 menu_item_delete border p-1.5 rounded-lg hover:bg-red-400/40">
+                                        <img src=" Icons/delete.svg" alt="" /></button>
                                 </div>
                             </div>`);
+
             console.log('sdasd', menu_item_id);
 
             $.ajax({
@@ -424,7 +580,10 @@ $(document).ready(function() {
                 },
                 success: 'success',
             });
+
             $('.add_menu_item_model').addClass('hidden');
+
+
             // setTimeout(window.location.reload());
         });
 
@@ -556,6 +715,10 @@ $(document).ready(function() {
 <style>
     .hidden {
         display: hidden;
+    }
+
+    .no-click {
+        pointer-events: none;
     }
 
     .align - right {
