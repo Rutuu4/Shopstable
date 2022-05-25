@@ -18,11 +18,11 @@ class ShoppingCartController extends Controller
     public function index()
     {
         try {
-            $cart = Purchase_items::join('product', 'product.id', 'purchase_items.product_id')
-                ->join('product_image', 'product_image.product_id', 'product.id')
+            $cart = Purchase_items::leftjoin('product', 'product.id', 'purchase_items.product_id')
+                ->leftjoin('product_image', 'product_image.product_id', '=', 'product.id')
                 // ->where('purchase_items.user_id', auth()->user()->id)
-                ->select('purchase_items.*', 'product.title', 'product.price', 'product_image.imageName')
-                ->get();
+                ->select('purchase_items.*', 'purchase_items.id as purchase_item_id', 'product.title', 'product.price', 'product_image.imageName')
+                ->groupBy('product.id')->get();
             $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
             return view('shopping_cart.shopping_cart', ['navbar' => $navbar, 'cart' => $cart]);
         } catch (Exception $e) {

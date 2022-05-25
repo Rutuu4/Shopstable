@@ -543,14 +543,14 @@
                         </label>
                         <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-2 pb-2">
                             <button data-action="decrement"
-                                class="text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                                class="text-gray-600 hover:text-gray-700 hover:bg-red-400 h-full w-20 rounded-l cursor-pointer outline-none">
                                 <span class="m-auto text-2xl font-light w-5">−</span>
                             </button>
                             <input type="number"
                                 class="product_quantity outline-none  text-center w-full  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
                                 name="custom-input-number" value="0" />
                             <button data-action="increment"
-                                class="text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                                class="text-gray-600 hover:text-gray-700 hover:bg-green-400 h-full w-20 rounded-r cursor-pointer">
                                 <span class="m-auto text-2xl font-light w-5">+</span>
                             </button>
                         </div>

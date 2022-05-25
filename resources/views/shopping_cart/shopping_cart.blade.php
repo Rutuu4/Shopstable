@@ -54,6 +54,9 @@
                         </svg>
                         <span class="ml-3 text-xl">Shopstable</span>
                     </a>
+                    <script>
+                        var count = 0;
+                    </script>
 
                     @if (!empty($navbar))
                         <div
@@ -79,10 +82,15 @@
                     <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
                     <ul role="list" class="border-t border-b border-gray-200 divide-y divide-gray-200">
                         @if (!empty($cart))
+
                             @foreach ($cart as $item)
-                                <li class="flex py-6 sm:py-10">
+                                <script>
+                                    count = count + {{ $item->sub_total }}
+                                    console.log(count, '--count');
+                                </script>
+                                <li class="shopping_delete flex py-6 sm:py-10">
                                     <div class="flex-shrink-0">
-                                        <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg"
+                                        <img src="/{{ $item->imageName }}"
                                             alt="Front of men&#039;s Basic Tee in sienna."
                                             class="w-24 h-24 rounded-md object-center object-cover sm:w-48 sm:h-48">
                                     </div>
@@ -94,19 +102,26 @@
                                                     <h3 class="text-sm">
                                                         <a href="#"
                                                             class="font-medium text-gray-700 hover:text-gray-800">
-                                                            {{$item->title}} </a>
+                                                            {{ $item->title }}
+                                                        </a>
                                                     </h3>
                                                 </div>
                                                 <div class="mt-1 flex text-sm">
-                                                    <p class="text-gray-500">Rs. {{$item->price}}</p>
+                                                    <p class="text-gray-500">Rs. {{ $item->price }}</p>
                                                 </div>
-                                                <p class="mt-1 text-sm font-medium text-gray-900">Subtotal: {{$item->sub_total}}</p>
+                                                <div class="flex mt-1 text-sm font-medium text-gray-900">
+                                                    <p>Subtotal:</p>
+                                                    <p class="shopping_cart_subtotal ">
+                                                        {{ $item->sub_total }}</p>
+                                                </div>
                                             </div>
 
                                             <div class="mt-4 sm:mt-0 sm:pr-9">
                                                 <label for="quantity-0" class="sr-only">Quantity, Basic
                                                     Tee</label>
-                                                <select id="quantity-0" name="quantity-0"
+                                                <input class="shopping_cart_quantity text-xs"
+                                                    value="{{ $item->quantity }}" type="number" />
+                                                {{-- <select id="quantity-0" name="quantity-0"
                                                     class="block w-fit pl-4 pr-8 rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
@@ -116,10 +131,33 @@
                                                     <option value="6">6</option>
                                                     <option value="7">7</option>
                                                     <option value="8">8</option>
-                                                </select>
+                                                </select> --}}
+                                                <script>
+                                                    $(".shopping_cart_quantity").change(function() {
+                                                        let sub_total = $('.shopping_cart_quantity').val() * {{ $item->price }};
+                                                        $.ajax({
+                                                            url: "http://{{ tenant('domain') }}/purchase_item/" + {{ $item->purchase_item_id }},
+                                                            type: "PUT",
+                                                            data: {
+                                                                _token: "{{ csrf_token() }}",
+                                                                product_id: {{ $item->product_id }},
+
+                                                                quantity: $('.shopping_cart_quantity').val(),
+                                                                sub_total: $('.shopping_cart_quantity').val() * {{ $item->price }}
+                                                            },
+                                                            success: function(data) {
+                                                                console.log(count, '==count');
+                                                                $('.shopping_cart_subtotal').text(count);
+
+                                                                $('.shopping_cart_total').text(count);
+                                                            }
+                                                        });
+                                                    })
+                                                </script>
                                                 <div class="absolute top-0 right-0">
-                                                    <button type="button"
-                                                        class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
+                                                    <button onclick='deleteItem(this, {{ $item->purchase_item_id }})'
+                                                        type="button"
+                                                        class=" shopping_cart_delete -m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
                                                         <span class="sr-only">Remove</span>
                                                         <!-- Heroicon name: solid/x -->
                                                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
@@ -130,6 +168,7 @@
                                                         </svg>
                                                     </button>
                                                 </div>
+                                                <script></script>
                                             </div>
                                         </div>
 
@@ -158,11 +197,12 @@
                     <h2 id="summary-heading" class="text-lg font-medium text-gray-900">Order summary</h2>
 
                     <dl class="mt-6 space-y-4">
-                        <div class="flex items-center justify-between">
+                        {{-- <div class="flex items-center justify-between">
                             <dt class="text-sm text-gray-600">Subtotal</dt>
-                            <dd class="text-sm font-medium text-gray-900">$99.00</dd>
-                        </div>
-                        <div class="border-t border-gray-200 pt-4 flex items-center justify-between">
+                            <dd class="shopping_cart_subtotal  text-sm font-medium text-gray-900">
+                                {{ $item->sub_total }}</dd>
+                        </div> --}}
+                        {{-- <div class="border-t border-gray-200 pt-4 flex items-center justify-between">
                             <dt class="flex items-center text-sm text-gray-600">
                                 <span>Shipping estimate</span>
                                 <a href="#" class="ml-2 flex-shrink-0 text-gray-400 hover:text-gray-500">
@@ -193,12 +233,15 @@
                                 </a>
                             </dt>
                             <dd class="text-sm font-medium text-gray-900">$8.32</dd>
-                        </div>
+                        </div> --}}
                         <div class="border-t border-gray-200 pt-4 flex items-center justify-between">
                             <dt class="text-base font-medium text-gray-900">Order total</dt>
-                            <dd class="text-base font-medium text-gray-900">$112.32</dd>
+                            <dd class="shopping_cart_total text-base font-medium text-gray-900">
+
+                            </dd>
                         </div>
                     </dl>
+
 
                     <div class="mt-6">
 
@@ -436,5 +479,25 @@
         </footer>
     </div>
 </body>
+<script>
+    $('.shopping_cart_total').text(count);
+    function deleteItem(el, id) {
+        $.ajax({
+            url: "http://{{ tenant('domain') }}/purchase_item/" + id,
+            type: "DELETE",
+            data: {
+                _token: "{{ csrf_token() }}",
+            },
+            success: function(data) {
+                // $('.shopping_delete').remove();
+                console.log(id, 'id');
+                console.log(el, 'el');
+                $(el.parentNode.parentNode.parentNode.parentNode.pa).remove();
+            }
+        }).done((data) => {
+            console.log('item deleted')
+        });
+    };
+</script>
 
 </html>
