@@ -41,7 +41,6 @@
         Off-canvas menu for mobile, show/hide based on off-canvas menu state.
         -->
 
-
         <header class="text-gray-600 body-font">
             <div class="flex justify-between items-center ">
 
@@ -70,11 +69,13 @@
                     @endif
                 </div>
 
-                <div class="flex ">
-                    <img src="/Icons/cart.svg" class='w-5' alt="">
-                    <div
-                        class="w-5 h-5 text-xs bg-green-400/90 rounded-full mx-auto text-white p-1 flex justify-center items-center">
-                        1</div>
+                <div class="flex items-center ">
+                    <a href="http://{{ tenant('domain') }}/shopping_cart">
+                        <img src="/Icons/cart.svg" class='w-5' alt="">
+                    </a>
+                    <div id="cart_count"
+                        class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
+                        {{ $purchase_product_count }}</div>
                     <div class="py-2 px-5">
                         <x-button onclick="history.back()">
                             {{ __('Back') }}
@@ -507,8 +508,7 @@
                 // after delete api
                 // remove card element
                 let deleted_amount = el.parentNode.parentNode.parentNode.parentNode.parentNode
-                    .querySelector(
-                        '.shopping_cart_subtotal').textContent.replace(/\s+/g, '')
+                    .querySelector('.shopping_cart_subtotal').textContent.replace(/\s+/g, '');
                 console.log(el.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector(
                     '.shopping_cart_subtotal').textContent.replace(/\s+/g, ''));
                 $(el.parentNode.parentNode.parentNode.parentNode.parentNode).remove();

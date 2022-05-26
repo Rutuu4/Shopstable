@@ -24,7 +24,8 @@ class ShoppingCartController extends Controller
                 ->select('purchase_items.*', 'purchase_items.id as purchase_item_id', 'product.title', 'product.price', 'product_image.imageName')
                 ->groupBy('product.id')->get();
             $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
-            return view('shopping_cart.shopping_cart', ['navbar' => $navbar, 'cart' => $cart]);
+            $purchase_product_count = Purchase_items::count();
+            return view('shopping_cart.shopping_cart', ['navbar' => $navbar, 'cart' => $cart, 'purchase_product_count' => $purchase_product_count]);
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);

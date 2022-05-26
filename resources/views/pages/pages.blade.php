@@ -53,9 +53,9 @@
                                             class="border p-1.5 rounded-lg hover:bg-indigo-200"><img
                                                 src="Icons/edit.svg" alt=""></a>
 
-                                        <button class="border p-1.5 rounded-lg hover:bg-red-400"
+                                        <button class="border p-1.5 rounded-lg hover:bg-red-400/40"
                                             onclick="{document.getElementById('deleteform').submit();} ">
-                                            <img src=" Icons/delete.png" class='w-5' alt="" /></button>
+                                            <img src=" Icons/delete.svg" class='w-5' alt="" /></button>
                                         <form id="deleteform" action="deletePage/{{ $item->id }}" method="POST">
                                             @csrf</form>
 

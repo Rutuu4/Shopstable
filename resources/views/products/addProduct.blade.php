@@ -65,7 +65,7 @@
                                     <div>
                                         <div class="text-center text-2xl">Drag and drop images!</div>
                                         <div class="dz-message  text-center">
-                                            Accepts max 2 images only.
+                                            Accepts max 4 images only.
                                         </div>
                                     </div>
                                 </form>
@@ -206,8 +206,8 @@
                                 <script>
                                     var imageName = [];
                                     Dropzone.options.imageUpload = {
-                                        maxFilesize: 2,
-                                        maxFiles: 2,
+                                        maxFilesize: 10,
+                                        maxFiles: 4,
                                         acceptedFiles: " .jpeg,.jpg,.png,.gif",
                                         init: function() {
                                             this.on("success", function(file, responseText) {

@@ -83,7 +83,7 @@
             <div class="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
                 @foreach ($categoryDetail as $product)
                     <div>
-                        <a href="http://{{ tenant('domain') }}/productDetail/{{ $product->productId }}">
+                        <a href="http://{{ tenant('domain') }}/product/detail/{{ $product->productId }}">
                             <div class="relative">
                                 <div class="relative w-full h-40 rounded-lg overflow-hidden">
                                     <img class="bg-cover" src="/{{ $product->imageName }}"

@@ -57,6 +57,7 @@ class ProductDetails extends Controller
         $productDetail = DB::table('product')
             ->leftJoin('product_image', 'product_image.product_id', 'product.id')
             ->where('product.id', $id)
+            ->where('product.status', 'active')
             ->select('product.*', 'product.title as title', 'product_image.imageName', 'product_image.isFeatured')
             ->orderBy('id', 'desc')
             ->limit(1)
@@ -68,7 +69,6 @@ class ProductDetails extends Controller
         } else {
             $productQuantity = $productQuantity->quantity;
         }
-
 
         $productImage = DB::table('product')
             ->join('product_image', 'product_image.product_id', 'product.id')

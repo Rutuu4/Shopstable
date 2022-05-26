@@ -498,10 +498,12 @@
                     </div>
                 @endif
             </div>
-            <div class="flex ">
-                <img src="/Icons/cart.svg" class='w-5' alt="">
+            <div class="flex items-center ">
+                <a href="http://{{ tenant('domain') }}/shopping_cart">
+                    <img src="/Icons/cart.svg" class='w-5' alt="">
+                </a>
                 <div
-                    class="w-5 h-5 text-xs bg-green-400/90 rounded-full mx-auto text-white p-1 flex justify-center items-center">
+                    class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
                     1</div>
                 <div class="py-2 px-5">
                     <x-button onclick="history.back()">
@@ -561,7 +563,7 @@
                         </label>
                         <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-2 pb-2">
                             <button data-action="decrement"
-                                class="text-gray-600 hover:text-gray-700 hover:bg-red-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                                class="text-gray-600 hover:text-gray-700 hover:bg-red-400/40 h-full w-20 rounded-l cursor-pointer outline-none">
                                 <span class="m-auto text-2xl font-light w-5">−</span>
                             </button>
                             <input type="number"
@@ -580,11 +582,11 @@
                                 <p class="">1</p>
                                 <img class="w-5" src="/Icons/plus.svg" alt="">
                             </div> --}}
-                    <button onclick="AddToCart({{ $productDetail->id }})"
+                    <button onclick="AddToCart({{ $productDetail->id }}, 0)"
                         class="pb-3 w-full mt-9 px-6 py-4 border border-black font-bold font-xl">Add to
                         Cart</button>
                     <a href="#">
-                        <button onclick="AddToCart({{ $productDetail->id }})"
+                        <button onclick="AddToCart({{ $productDetail->id }}, 1)"
                             class="w-full mt-4 px-6 py-4 border border-black font-bold font-xl bg-black text-white">Buy
                             it Now</button>
                     </a>
@@ -728,7 +730,7 @@
                 $(".product_price").val($(".product_price_value").text());
             })
 
-            function AddToCart(id) {
+            function AddToCart(id, flag) {
                 var quantity = $(".custom-number-input input").val();
                 var price = $(".product_price").val();
                 var total = quantity * price;
@@ -745,7 +747,9 @@
                     },
                     success: function(data) {
                         console.log(data);
-                        window.location.replace('http://{{ tenant('domain') }}/shopping_cart');
+                        if (flag) {
+                            window.location.replace('http://{{ tenant('domain') }}/shopping_cart');
+                        }
                         // if (data.status == "success") {
                         //     alert("Item added to cart");
                         // } else {

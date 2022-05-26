@@ -1367,7 +1367,7 @@
                             console.log('asdadaf', $(".category_grid_1")[0]);
                             $(".category_grid_1")[0].innerHTML += `
                     <div>
-                        <a href="http://{{ tenant('domain') }}/categoryDetail/` +
+                        <a href="http://{{ tenant('domain') }}/category/detail/` +
                                 category_datas[index]['id'] + `">
                             <div class="relative">
                                 <div class="relative w-full h-40 rounded-lg overflow-hidden">
@@ -1422,7 +1422,7 @@
                             $(".product_grid_1")[0].innerHTML +=
                                 `
         <div>
-        <a href="http://{{ tenant('domain') }}/productDetail/` +
+        <a href="http://{{ tenant('domain') }}/product/detail/` +
                                 product_datas[index]['id'] + `">
             <div class="relative">
                 <div class="relative w-full h-40 rounded-lg overflow-hidden">
@@ -1664,7 +1664,7 @@
                                         console.log('asdadaf', $(".category_grid_1")[0]);
                                         $(".category_grid_1")[0].innerHTML += `
                                             <div>
-                                                <a href="http://{{ tenant('domain') }}/categoryDetail/` +
+                                                <a href="http://{{ tenant('domain') }}/category/detail/` +
                                             category_datas[index]['id'] + `">
                                                     <div class="relative">
                                                         <div class="relative w-full h-40 rounded-lg overflow-hidden">
@@ -1718,7 +1718,7 @@
                                         $(".product_grid_1")[0].innerHTML +=
                                             `
                                             <div>
-                                            <a href="http://{{ tenant('domain') }}/productDetail/` +
+                                            <a href="http://{{ tenant('domain') }}/product/detail/` +
                                             product_datas[index]['id'] + `">
                                                 <div class="relative">
                                                     <div class="relative w-full h-40 rounded-lg overflow-hidden">

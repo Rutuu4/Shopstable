@@ -146,3 +146,9 @@ $(document).ready(function () {
         return false;
     });
 })
+
+function change_cart_count() {
+    var count = $('#cart_count').text();
+    count++;
+    $('#cart_count').text(count);
+}

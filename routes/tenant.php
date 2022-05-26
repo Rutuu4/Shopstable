@@ -33,6 +33,7 @@ use App\Models\Pages;
 use App\Models\Purchase_items;
 use App\Models\Themecolor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -77,17 +78,65 @@ Route::middleware([
     // Create subUser
 
     // Page Routing
-    Route::get('/', function () {
+    Route::view('components.navbar', function () {
         // $data = Pages::select('pageData')->first();
         $nav_item = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
+        print_r($nav_item);
+        exit;
+        if (!empty($nav_item)) {
+            return response()->json(['nav_item' => $nav_item]);
+        }
+    });
+
+    Route::get('/', function () {
+        $id = 4;
+        // $data = Pages::select('pageData')->first();
+        $nav_item = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
+        $Pages = Pages::where('id', $id);
+        $theme = Themecolor::where('page_id', $id)->first();
+        if ($theme->flag == 'globle') {
+            $theme = Themecolor::where('page_id', 'globle')->first();
+        }
+        $data = $Pages->select('pageData')->first();
+        $name = $Pages->select('name')->first();
+
+        $category_data = DB::table('category')->get();
+        $product_data = DB::table('product')
+            ->join('product_image', 'product_image.product_id', 'product.id', 'left')
+            ->where('product_image.isFeatured', true)->select('product.*', 'product_image.imageName', 'product_image.isFeatured')->get();
+
+        $product_image = DB::table('product_category')
+            ->where('product_category.category_id', $id)
+            ->leftjoin('product', 'product.id', '=', 'product_category.product_id')
+            ->leftjoin('product_image', 'product_image.product_id', '=', 'product.id')
+            ->leftjoin('category', 'category.id', '=', 'product_category.category_id')
+            ->where('product_image.isFeatured', true)
+            ->where('category.id', $id)
+            ->select('product.*', 'product_image.imageName', 'category.id as categoryid', 'category.*', 'product.title as product_title', 'product.id as productId')
+            ->get();
+        $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
+        $category_data ? $category_data : '';
+
         $name = Pages::select('name')->first();
         // dd($data['pageData']);
+
         if (empty($nav_item)) {
-            # code...
             return view('tenant');
+            # code...
+            return view('');
         }
         if (!empty($nav_item)) {
-            return view('tenant', ['nav_item' => $nav_item]);
+            return view('tenant', [
+                'category_data' => $category_data,
+                'theme' => $theme,
+                'product_data' => $product_data,
+                'product_image' => $product_image,
+                'pageData' => $data['pageData'],
+                'id' => $id,
+                'name' => $name['name'],
+                'navbar' => $navbar,
+                'nav_item' => $nav_item
+            ]);
         }
     });
 
@@ -178,8 +227,8 @@ Route::middleware([
     Route::resource('pageBuilderPreview', pageBuilderPreview::class)->middleware(['auth']);
     Route::resource('menuBuilder', MenuController::class)->middleware(['auth']);
     Route::resource('linkData', LinkDataController::class)->middleware(['auth']);
-    Route::resource('productDetail', ProductDetails::class)->middleware(['auth']);
-    Route::resource('categoryDetail', categoryDetailController::class)->middleware(['auth']);
+    Route::resource('product/detail', ProductDetails::class)->middleware(['auth']);
+    Route::resource('category/detail', categoryDetailController::class)->middleware(['auth']);
 
     //shopping_cart
     Route::resource('shopping_cart', ShoppingCartController::class)->middleware(['auth']);
