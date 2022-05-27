@@ -21,7 +21,7 @@ class ShoppingCartController extends Controller
             $cart = Purchase_items::leftjoin('product', 'product.id', 'purchase_items.product_id')
                 ->leftjoin('product_image', 'product_image.product_id', '=', 'product.id')
                 // ->where('purchase_items.user_id', auth()->user()->id)
-                ->select('purchase_items.*', 'purchase_items.id as purchase_item_id', 'product.title', 'product.price', 'product_image.imageName')
+                ->select('purchase_items.*', 'purchase_items.id as purchase_item_id', 'product.title', 'product.price','product.shortDescription', 'product_image.imageName')
                 ->groupBy('product.id')->get();
             $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
             $purchase_product_count = Purchase_items::count();

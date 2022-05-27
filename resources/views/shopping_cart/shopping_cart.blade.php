@@ -32,6 +32,15 @@
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
 
 </head>
+<style>
+    .truncate-text {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+</style>
 
 <body>
     <div class="bg-white">
@@ -55,6 +64,7 @@
                     </a>
                     <script>
                         var count = 0;
+                        var shopping_item_count = {!! json_encode($purchase_product_count) !!};
                     </script>
 
                     @if (!empty($navbar))
@@ -105,9 +115,9 @@
                                             class="w-24 h-24 rounded-md object-center object-cover sm:w-48 sm:h-48">
                                     </div>
 
-                                    <div class="ml-4 flex-1 flex flex-col justify-between sm:ml-6">
-                                        <div class="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
-                                            <div>
+                                    <div class="relative ml-4 flex-1 flex flex-col justify-between sm:ml-6">
+                                        <div class=" pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+                                            <div class="">
                                                 <div class="flex justify-between">
                                                     <h3 class="text-sm">
                                                         <a href="#"
@@ -116,10 +126,12 @@
                                                         </a>
                                                     </h3>
                                                 </div>
-                                                <div class="mt-1 flex text-sm">
+                                                <p class="truncate-text">{{ $item->shortDescription }}</p>
+                                                <div class="absolute bottom-6 mt-1 flex text-base">
                                                     <p class="text-gray-500">Rs. {{ $item->price }}</p>
                                                 </div>
-                                                <div class="flex mt-1 text-sm font-medium text-gray-900">
+                                                <div
+                                                    class="absolute bottom-0 flex mt-1 text-sm font-medium text-gray-900">
                                                     <p>Subtotal:</p>
                                                     <p class="shopping_cart_subtotal ">
                                                         {{ $item->sub_total }}</p>
@@ -129,7 +141,8 @@
                                             <div class="mt-4 sm:mt-0 sm:pr-9">
                                                 <label for="quantity-0" class="sr-only">Quantity, Basic
                                                     Tee</label>
-                                                <input class="shopping_cart_quantity text-xs"
+                                                <input
+                                                    class="absolute right-10 shopping_cart_quantity w-20 rounded-lg text-xs"
                                                     value="{{ $item->quantity }}" type="number" />
                                                 {{-- <select id="quantity-0" name="quantity-0"
                                                     class="block w-fit pl-4 pr-8 rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -507,6 +520,7 @@
 
                 // after delete api
                 // remove card element
+
                 let deleted_amount = el.parentNode.parentNode.parentNode.parentNode.parentNode
                     .querySelector('.shopping_cart_subtotal').textContent.replace(/\s+/g, '');
                 console.log(el.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector(
@@ -514,7 +528,13 @@
                 $(el.parentNode.parentNode.parentNode.parentNode.parentNode).remove();
                 // update total
                 $('.shopping_cart_total').text(count - deleted_amount);
-
+                count = count - deleted_amount;
+                console.log('--------------');
+                console.log('count-----------', count);
+                console.log('deleted_amount--', deleted_amount);
+                console.log('--------------');
+                shopping_item_count -= 1;
+                $('#cart_count').text(shopping_item_count);
 
             }
         }).done((data) => {

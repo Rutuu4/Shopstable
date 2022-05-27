@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ config('app.name', 'Shopstable') }}</title>
+    <title>{{ config('app.name', 'Shopstable') }}</title>
 
-  <!-- Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="css/app.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/app.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/@tailwindcss/forms@0.2.1/dist/forms.min.css" rel="stylesheet">
 
-  <!-- Scripts -->
-  <script src="js/app.js" defer></script>
+    <!-- Scripts -->
+    <script src="js/app.js" defer></script>
 </head>
+
 <body>
-  <div class="font-sans text-gray-900 antialiased">
-    {{ $slot }}
-  </div>
+    <div class="font-sans text-gray-900 antialiased">
+        {{ $slot }}
+    </div>
 </body>
+
 </html>

@@ -74,11 +74,11 @@
 
             /* .canvas [data-handle] {
 
-            } */
+                            } */
 
             /* .canvas [data-handle].hover {
-                border: 1px solid orange;
-            } */
+                                border: 1px solid orange;
+                            } */
 
             .img-pos {}
 
@@ -218,8 +218,8 @@
             }
 
             /* div:empty::before {
-                content: 'fallback placeholder';
-            } */
+                                content: 'fallback placeholder';
+                            } */
 
             *:empty::before {
                 color: grey;
@@ -230,18 +230,19 @@
             }
 
             /*
-            div:empty::before {
-                content: 'fallback placeholder';
-            } */
+                            div:empty::before {
+                                content: 'fallback placeholder';
+                            } */
 
         </style>
         {{-- <div class="py-4 px-24 flex justify-between border-b-4 ">
-        <a href="http://{{ tenant('domain') }}/pageBuilder/{{ $id }}">
-            <x-button id="btn2">Web Builder
-            </x-button>
-        </a>
-        <h1 class="text-xl font-semibold underline text-center">{{ $name }}</h1>
-    </div> --}}
+            <a href="http://{{ tenant('domain') }}/pageBuilder/{{ $id }}">
+                <x-button id="btn2">Web Builder
+                </x-button>
+            </a>
+            <h1 class="text-xl font-semibold underline text-center">{{ $name }}</h1>
+        </div> --}}
+
         <div id="canvas" class="canvas mx-10" data-handle></div>
 
         @if (!empty($pageData))
@@ -483,8 +484,6 @@
                 });
             </script>
         @endif
-
-
     </body>
 
     </html>

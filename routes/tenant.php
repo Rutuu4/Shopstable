@@ -60,10 +60,12 @@ Route::middleware([
     PreventAccessFromCentralDomains::class,
 ])->group(
     function () {
-        Route::post('/customer/login', [CustomerAuthenticationController::class, 'login']);
+        Route::post('/customer/login', [CustomerAuthenticationController::class, 'login'])->name('customer_login');
         Route::post('/customer/register', [CustomerAuthenticationController::class, 'register']);
         Route::post('/customer/logout', [CustomerAuthenticationController::class, 'register']);
         Route::post('/customer/refresh', [CustomerAuthenticationController::class, 'register']);
+        Route::get('/customer/register', [CustomerAuthenticationController::class, 'register_view']);
+        Route::get('/customer/login', [CustomerAuthenticationController::class, 'login_view']);
     }
 );
 
@@ -89,7 +91,7 @@ Route::middleware([
     });
 
     Route::get('/', function () {
-        $id = 4;
+        $id = 1;
         // $data = Pages::select('pageData')->first();
         $nav_item = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
         $Pages = Pages::where('id', $id);
@@ -114,6 +116,7 @@ Route::middleware([
             ->where('category.id', $id)
             ->select('product.*', 'product_image.imageName', 'category.id as categoryid', 'category.*', 'product.title as product_title', 'product.id as productId')
             ->get();
+
         $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
         $category_data ? $category_data : '';
 

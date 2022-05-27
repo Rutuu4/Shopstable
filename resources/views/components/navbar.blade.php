@@ -27,8 +27,20 @@
                 @endif
             </div>
 
-            <div class="flex items-center ">
-                <a href="http://{{ tenant('domain') }}/shopping_cart">
+            <div class="flex items-center">
+                {{-- @if ($user_id == null) --}}
+                @if (1 == 1)
+                    <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
+                        href="http://{{ request()->getHttpHost() }}/customer/login">
+                        Login
+                    </a>
+                    <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
+                        href="http://{{ request()->getHttpHost() }}/customer/register">
+                        Register
+                    </a>
+                @endif
+
+                <a class='ml-5' href="http://{{ request()->getHttpHost() }}/shopping_cart">
                     <img src="/Icons/cart.svg" class='w-5' alt="">
                 </a>
                 <div

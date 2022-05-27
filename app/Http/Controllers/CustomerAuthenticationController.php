@@ -16,7 +16,7 @@ class CustomerAuthenticationController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'register_view', 'login_view']]);
     }
 
     public function login(Request $request)
@@ -32,7 +32,8 @@ class CustomerAuthenticationController extends Controller
             Log::error($e->getMessage());
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()], HttpResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
-        return response()->json([
+
+        return redirect('/')->with([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60,
@@ -42,13 +43,12 @@ class CustomerAuthenticationController extends Controller
 
     public function register(Request $request)
     {
-
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
         ]);
-       $user = Customer::create([
+        $user = Customer::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -56,7 +56,7 @@ class CustomerAuthenticationController extends Controller
 
         $token = JWTAuth::fromUser($user);
 
-        return response()->json([
+        return redirect('customer/login')->with([
             'status' => 'success',
             'message' => 'User created successfully',
             'user' => $user,
@@ -86,5 +86,14 @@ class CustomerAuthenticationController extends Controller
                 'type' => 'bearer',
             ]
         ]);
+    }
+
+    public function register_view()
+    {
+        return view('customer.register');
+    }
+    public function login_view()
+    {
+        return view('customer.login');
     }
 }
