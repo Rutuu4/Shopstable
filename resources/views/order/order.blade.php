@@ -46,6 +46,10 @@
                     </svg>
                     <span class="ml-3 text-xl">Shopstable</span>
                 </a>
+                <script>
+                    var count = 0;
+                </script>
+
 
                 @if (!empty($navbar))
                     <div
@@ -309,16 +313,18 @@
                 <h1 class="sr-only">Checkout</h1>
 
                 <form class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16"
-                    action="http://{{ tenant('domain') }}/shipping">
+                    action="http://{{ tenant('domain') }}/order" method='post'>
+                    @csrf
                     <div>
                         <div>
                             <h2 class="text-lg font-medium text-gray-900">Contact information</h2>
+                            <input class="order_total_input" type="hidden" name="order_total">
 
                             <div class="mt-4">
                                 <label for="email-address" class="block text-sm font-medium text-gray-700">Email
                                     address</label>
                                 <div class="mt-1">
-                                    <input type="email" id="email-address" name="email-address" autocomplete="email"
+                                    <input type="email" id="email-address" name="email" autocomplete="email"
                                         class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 </div>
                             </div>
@@ -332,7 +338,7 @@
                                     <label for="first-name" class="block text-sm font-medium text-gray-700">First
                                         name</label>
                                     <div class="mt-1">
-                                        <input type="text" id="first-name" name="first-name" autocomplete="given-name"
+                                        <input type="text" id="first-name" name="first_name" autocomplete="given-name"
                                             class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
@@ -341,7 +347,7 @@
                                     <label for="last-name" class="block text-sm font-medium text-gray-700">Last
                                         name</label>
                                     <div class="mt-1">
-                                        <input type="text" id="last-name" name="last-name" autocomplete="family-name"
+                                        <input type="text" id="last-name" name="last_name" autocomplete="family-name"
                                             class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
@@ -399,7 +405,7 @@
                                     <label for="region" class="block text-sm font-medium text-gray-700">State /
                                         Province</label>
                                     <div class="mt-1">
-                                        <input type="text" name="region" id="region" autocomplete="address-level1"
+                                        <input type="text" name="state" id="region" autocomplete="address-level1"
                                             class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
@@ -408,7 +414,7 @@
                                     <label for="postal-code" class="block text-sm font-medium text-gray-700">Postal
                                         code</label>
                                     <div class="mt-1">
-                                        <input type="text" name="postal-code" id="postal-code"
+                                        <input type="text" name="postal_code" id="postal-code"
                                             autocomplete="postal-code"
                                             class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
@@ -518,21 +524,22 @@
                                 <legend class="sr-only">Payment type</legend>
                                 <div class="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
                                     <div class="flex items-center">
-                                        <input id="credit-card" name="payment-type" type="radio" checked
+                                        <input id="credit-card" name="payment_mode" value="credit_card" type="radio"
+                                            checked
                                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
                                         <label for="credit-card" class="ml-3 block text-sm font-medium text-gray-700">
                                             Credit card </label>
                                     </div>
 
                                     <div class="flex items-center">
-                                        <input id="paypal" name="payment-type" type="radio"
+                                        <input id="paypal" name="payment_mode" type="radio" value="paypal"
                                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
                                         <label for="paypal" class="ml-3 block text-sm font-medium text-gray-700">
                                             PayPal </label>
                                     </div>
 
                                     <div class="flex items-center">
-                                        <input id="etransfer" name="payment-type" type="radio"
+                                        <input id="etransfer" name="payment_mode" type="radio" value="etransfer"
                                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
                                         <label for="etransfer" class="ml-3 block text-sm font-medium text-gray-700">
                                             eTransfer </label>
@@ -545,7 +552,7 @@
                                     <label for="card-number" class="block text-sm font-medium text-gray-700">Card
                                         number</label>
                                     <div class="mt-1">
-                                        <input type="text" id="card-number" name="card-number" autocomplete="cc-number"
+                                        <input type="text" id="card-number" name="card_no" autocomplete="cc-number"
                                             class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
@@ -563,9 +570,11 @@
                                     <label for="expiration-date"
                                         class="block text-sm font-medium text-gray-700">Expiration date (MM/YY)</label>
                                     <div class="mt-1">
-                                        <input type="text" name="expiration-date" id="expiration-date"
+                                        <input type="text" name="exapiration_date" id="expiration-date"
                                             autocomplete="cc-exp"
-                                            class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                            class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                            size=5 maxlength=5
+                                            onkeyup="this.value=this.value.replace(/^(\d\d)(\d)$/g,'$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g,'$1/$2').replace(/[^\d\/]/g,'')">
                                     </div>
                                 </div>
 
@@ -587,65 +596,72 @@
                         <div class="mt-4 bg-white border border-gray-200 rounded-lg shadow-sm">
                             <h3 class="sr-only">Items in your cart</h3>
                             <ul role="list" class="divide-y divide-gray-200">
-                                <li class="flex py-6 px-4 sm:px-6">
-                                    <div class="flex-shrink-0">
-                                        <img src="https://tailwindui.com/img/ecommerce-images/checkout-page-02-product-01.jpg"
-                                            alt="Front of men&#039;s Basic Tee in black." class="w-20 rounded-md">
-                                    </div>
-
-                                    <div class="ml-6 flex-1 flex flex-col">
-                                        <div class="flex">
-                                            <div class="min-w-0 flex-1">
-                                                <h4 class="text-sm">
-                                                    <a href="#" class="font-medium text-gray-700 hover:text-gray-800">
-                                                        Basic Tee </a>
-                                                </h4>
-                                                <p class="mt-1 text-sm text-gray-500">Black</p>
-                                                <p class="mt-1 text-sm text-gray-500">Large</p>
+                                @if (!empty($order))
+                                    @foreach ($datas as $data)
+                                        <script>
+                                            count = count + {{ $data->sub_total }}
+                                            console.log(count, '--count');
+                                        </script>
+                                        <li class="flex py-6 px-4 sm:px-6">
+                                            <div class="flex-shrink-0">
+                                                <input type="hidden" name='product_id' value="{{ $data->product_id }}">
+                                                <img src="{{ $data->imageName }}"
+                                                    alt="Front of men&#039;s Basic Tee in black."
+                                                    class="w-20 rounded-md">
                                             </div>
 
-                                            <div class="ml-4 flex-shrink-0 flow-root">
-                                                <button type="button"
-                                                    class="-m-2.5 bg-white p-2.5 flex items-center justify-center text-gray-400 hover:text-gray-500">
-                                                    <span class="sr-only">Remove</span>
-                                                    <!-- Heroicon name: solid/trash -->
-                                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                        <path fill-rule="evenodd"
-                                                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                            clip-rule="evenodd" />
-                                                    </svg>
-                                                </button>
+                                            <div class="ml-6 flex-1 flex flex-col">
+                                                <div class="flex">
+                                                    <div class="min-w-0 flex-1">
+                                                        <h4 class="text-xl">
+                                                            <a href="http://{{ tenant('domain') }}/shopping_cart"
+                                                                class="font-medium text-gray-700 hover:text-gray-800">
+                                                                {{ $data->title }} </a>
+                                                        </h4>
+                                                        <input type="hidden" name="quantity" value="{{ $data->quantity }}">
+                                                        <p class="mt-1 text-sm text-gray-500">
+                                                            quantity: {{ $data->quantity }}</p>
+                                                            <input type="hidden" name="price" value="{{ $data->price }}">
+                                                        <p class="mt-1 text-sm text-gray-500">
+                                                            price: ₹{{ $data->price }}</p>
+
+                                                    </div>
+
+                                                    <div class="ml-4 flex-shrink-0 flow-root">
+                                                        <button type="button"
+                                                            class="-m-2.5 bg-white p-2.5 flex items-center justify-center text-gray-400 hover:text-gray-500">
+                                                            <span class="sr-only">Remove</span>
+                                                            <!-- Heroicon name: solid/trash -->
+                                                            <svg class="h-5 w-5"
+                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                                fill="currentColor" aria-hidden="true">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                                    clip-rule="evenodd" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="flex-1 pt-2 flex items-end justify-between">
+                                                    <p class="mt-1 text-sm font-medium text-gray-900">
+                                                    </p>
+                                                     <input type="hidden" name="sub_total" value="{{ $data->sub_total }}">
+                                                    <div class="ml-4">
+                                                        <p class="mt-1 text-sm font-medium text-gray-900">Subtotal:
+                                                            ₹{{ $data->sub_total }}</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="flex-1 pt-2 flex items-end justify-between">
-                                            <p class="mt-1 text-sm font-medium text-gray-900">$32.00</p>
-
-                                            <div class="ml-4">
-                                                <label for="quantity" class="sr-only">Quantity</label>
-                                                <select id="quantity-0" name="quantity-0"
-                                                    class="block w-fit pl-4 pr-8 rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-
+                                        </li>
+                                    @endforeach
+                                @endif
                                 <!-- More products... -->
                             </ul>
-                            <dl class="border-t border-gray-200 py-6 px-4 space-y-6 sm:px-6">
-                                <div class="flex items-center justify-between">
+                            <dl class=" py-6 px-4 space-y-6 sm:px-6">
+                                {{-- <div class="flex items-center justify-between">
                                     <dt class="text-sm">Subtotal</dt>
-                                    <dd class="text-sm font-medium text-gray-900">$64.00</dd>
+                                    <dd class="text-sm font-medium text-gray-900">₹{{ $data->sub_total }}</dd>
                                 </div>
                                 <div class="flex items-center justify-between">
                                     <dt class="text-sm">Shipping</dt>
@@ -654,10 +670,13 @@
                                 <div class="flex items-center justify-between">
                                     <dt class="text-sm">Taxes</dt>
                                     <dd class="text-sm font-medium text-gray-900">$5.52</dd>
-                                </div>
+                                </div> --}}
                                 <div class="flex items-center justify-between border-t border-gray-200 pt-6">
                                     <dt class="text-base font-medium">Total</dt>
-                                    <dd class="text-base font-medium text-gray-900">$75.52</dd>
+                                    <div class="flex">
+                                        <dt class="currency_lable text-base font-medium">₹</dt>
+                                        <dd class="order_total text-base font-medium text-gray-900"></dd>
+                                    </div>
                                 </div>
                             </dl>
 
@@ -671,6 +690,7 @@
                 </form>
             </div>
         </main>
+
 
         <footer aria-labelledby="footer-heading" class="bg-white border-t border-gray-200">
             <h2 id="footer-heading" class="sr-only">Footer</h2>
@@ -803,5 +823,11 @@
         </footer>
     </div>
 </body>
+<script>
+    console.log(count, '==count');
+    $('.order_total').text(count);
+
+    $('.order_total_input').val($('.order_total').text());
+</script>
 
 </html>

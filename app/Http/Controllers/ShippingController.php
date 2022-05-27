@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menubuilder;
+use App\Models\Orders_items;
 use Illuminate\Http\Request;
 
 class ShippingController extends Controller
@@ -14,8 +15,13 @@ class ShippingController extends Controller
      */
     public function index()
     {
+        $shipping=Orders_items::leftjoin('product','product.id','=','orders_items.product_id')
+        ->leftjoin('product_image','product_image.product_id','=','product.id')
+        ->leftjoin('orders','orders.id','=','orders_items.id')
+        ->select('product_image.imageName','product.title','orders_items.price', 'product.shortDescription','orders.address','orders.email')
+        ->get();
         $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
-        return view('shipping.shipping',['navbar' => $navbar]);
+        return view('shipping.shipping',['navbar' => $navbar,'shippings'=>$shipping]);
     }
 
     /**
@@ -36,7 +42,7 @@ class ShippingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
