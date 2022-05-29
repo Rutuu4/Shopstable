@@ -521,7 +521,7 @@
             <div class="grid grid-cols-2 gap-8 realtive">
 
                 <div class="grid justify-center ">
-                    <div class="mx-auto w-2/3 -mt-20">
+                    <div class="mx-auto w-1/2 -mt-20">
                         <!-- Flickity HTML init -->
                         <h1 class="invisible">{{ $item }}</h1>
 
