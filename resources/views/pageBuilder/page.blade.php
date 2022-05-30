@@ -1421,26 +1421,26 @@
                             console.log('asdadaf', $(".product_grid_1")[0]);
                             $(".product_grid_1")[0].innerHTML +=
                                 `
-        <div>
-        <a href="http://{{ tenant('domain') }}/product/detail/` +
+                    <div>
+                    <a href="http://{{ tenant('domain') }}/product/detail/` +
                                 product_datas[index]['id'] + `">
-            <div class="relative">
-                <div class="relative w-full h-40 rounded-lg overflow-hidden">
-                <img class="" src="/` + product_datas[index]['imageName'] + `"
-                    alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
-                    class="w-full h-full object-center object-cover">
-            </div>
+                        <div class="relative">
+                            <div class="relative w-full h-40 rounded-lg overflow-hidden">
+                            <img class="" src="/` + product_datas[index]['imageName'] + `"
+                                alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                                class="w-full h-full object-center object-cover">
+                        </div>
 
-                <div class="relative mt-4">
-                    <h3 class="font-medium text-gray-900"> ` +
+                            <div class="relative mt-4">
+                                <h3 class="font-medium text-gray-900"> ` +
                                 product_datas[index]['title'] + `</h3>
-                    <p class="mt-1 text-sm text-gray-500">` + product_datas[index][
+                                <p class="mt-1 text-sm text-gray-500">` + product_datas[index][
                                     'shortDescription'
                                 ] + `</p>
-                </div>
-            </div>
-            <div class="mt-6">
-        </div>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                    </div>
     `
                         }
                         // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=

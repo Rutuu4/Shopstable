@@ -143,6 +143,7 @@
                                                     Tee</label>
                                                 <input
                                                     class="absolute right-10 shopping_cart_quantity w-20 rounded-lg text-xs"
+                                                    onchange="shopping_cart_quantity_change(this)"
                                                     value="{{ $item->quantity }}" type="number" />
                                                 {{-- <select id="quantity-0" name="quantity-0"
                                                     class="block w-fit pl-4 pr-8 rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -156,7 +157,7 @@
                                                     <option value="8">8</option>
                                                 </select> --}}
                                                 <script>
-                                                    $(".shopping_cart_quantity").change(function() {
+                                                    function shopping_cart_quantity_change(el) {
                                                         let sub_total = $('.shopping_cart_quantity').val() * {{ $item->price }};
                                                         $.ajax({
                                                             url: "http://{{ tenant('domain') }}/purchase_item/" + {{ $item->purchase_item_id }},
@@ -164,18 +165,18 @@
                                                             data: {
                                                                 _token: "{{ csrf_token() }}",
                                                                 product_id: {{ $item->product_id }},
-
                                                                 quantity: $('.shopping_cart_quantity').val(),
                                                                 sub_total: $('.shopping_cart_quantity').val() * {{ $item->price }}
                                                             },
                                                             success: function(data) {
                                                                 console.log(count, '==count');
-                                                                $('.shopping_cart_subtotal').text(count);
+                                                                console.log($(el.querySelector('.shopping_cart_subtotal')).text(sub_total););
+                                                                $(el.querySelector('.shopping_cart_subtotal')).text(sub_total);
 
                                                                 $('.shopping_cart_total').text(count);
                                                             }
                                                         });
-                                                    })
+                                                    };
                                                 </script>
                                                 <div class="absolute top-0 right-0">
                                                     <button onclick='deleteItem(this, {{ $item->purchase_item_id }})'

@@ -27,6 +27,7 @@ class OrderController extends Controller
         $purchase_items = Purchase_items::leftjoin('product', 'product.id', '=', 'purchase_items.product_id')
             ->leftjoin('product_image', 'product_image.product_id', '=', 'product.id')
             ->select('product.id as product_id', 'product.title', 'product_image.imageName', 'purchase_items.price', 'purchase_items.quantity', 'purchase_items.sub_total')
+            ->groupBy('product.id')
             ->get();
         $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
         if (empty($order)) {
@@ -73,7 +74,7 @@ class OrderController extends Controller
             $order->save();
             $order_id = $order->id;
 
-            $category_id =DB::table('product_category')->where('product_id', $request->product_id)->first();
+            $category_id = DB::table('product_category')->where('product_id', $request->product_id)->first();
             // dd($category_id->category_id);
             $order_items = new Orders_items();
             $order_items->order_id = $order_id;

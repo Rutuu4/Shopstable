@@ -61,13 +61,10 @@ class pageBuilderPreview extends Controller
         $product_data = DB::table('product')
             ->join('product_image', 'product_image.product_id', 'product.id', 'left')
             ->where('product_image.isFeatured', true)->select('product.*', 'product_image.imageName', 'product_image.isFeatured')->get();
-
         $product_image = DB::table('product_category')
-            ->where('product_category.category_id', $id)
             ->leftjoin('product', 'product.id', '=', 'product_category.product_id')
             ->leftjoin('product_image', 'product_image.product_id', '=', 'product.id')
             ->leftjoin('category', 'category.id', '=', 'product_category.category_id')
-            ->where('product_image.isFeatured', true)
             ->where('category.id', $id)
             ->select('product.*', 'product_image.imageName', 'category.id as categoryid', 'category.*', 'product.title as product_title', 'product.id as productId')
             ->get();
