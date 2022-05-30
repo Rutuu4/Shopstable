@@ -158,7 +158,12 @@
                                                 </select> --}}
                                                 <script>
                                                     function shopping_cart_quantity_change(el) {
-                                                        let sub_total = $('.shopping_cart_quantity').val() * {{ $item->price }};
+                                                        console.log(el.value, '--quantity');
+                                                        let let_sub_total = el.value * {{ $item->price }};
+                                                        console.log(let_sub_total, '--sub_total');
+                                                        console.log(el.parentNode.parentNode.parentNode.parentNode.parentNode
+                                                            .querySelector('.shopping_cart_subtotal').textContent.replace(let_sub_total));
+
                                                         $.ajax({
                                                             url: "http://{{ tenant('domain') }}/purchase_item/" + {{ $item->purchase_item_id }},
                                                             type: "PUT",
@@ -170,10 +175,11 @@
                                                             },
                                                             success: function(data) {
                                                                 console.log(count, '==count');
-                                                                console.log($(el.querySelector('.shopping_cart_subtotal')).text(sub_total););
-                                                                $(el.querySelector('.shopping_cart_subtotal')).text(sub_total);
-
-                                                                $('.shopping_cart_total').text(count);
+                                                                console.log($(el.parentNode.parentNode.parentNode.parentNode.parentNode
+                                                                    .querySelector('.shopping_cart_subtotal')).text(let_sub_total));
+                                                                $(el.parentNode.parentNode.parentNode.parentNode.parentNode
+                                                                    .querySelector('.shopping_cart_subtotal')).text(let_sub_total);
+                                                                $('.shopping_cart_total').text(count + let_sub_total - {{ $item->sub_total }});
                                                             }
                                                         });
                                                     };

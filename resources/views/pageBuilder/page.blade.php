@@ -26,6 +26,14 @@
 
 <body class="font-sans antialiased">
     <style>
+        .text-truncate {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            /* truncate to 4 lines */
+            -webkit-line-clamp: 4;
+        }
+
         .hidden {
             display: hidden;
         }
@@ -1380,8 +1388,9 @@
                                 <div class="relative mt-4">
                                     <h3 class="text-sm font-medium text-gray-900"> ` +
                                 category_datas[index]['title'] + `</h3>
-                                    <p class="mt-1 text-sm text-gray-500">  ` + category_datas[
-                                    index]['description'] + `</p>
+                                    <p class="text-truncate mt-1 text-sm text-gray-500">  ` +
+                                $(category_datas[index]['description']).html() +
+                                `</p>
                                 </div>
                             </div>
                             <div class="mt-6">
@@ -1434,7 +1443,7 @@
                             <div class="relative mt-4">
                                 <h3 class="font-medium text-gray-900"> ` +
                                 product_datas[index]['title'] + `</h3>
-                                <p class="mt-1 text-sm text-gray-500">` + product_datas[index][
+                                <p class="text-truncate mt-1 text-sm text-gray-500">` + product_datas[index][
                                     'shortDescription'
                                 ] + `</p>
                             </div>
@@ -1676,15 +1685,14 @@
                                                         </div>
                                                         <div class="relative mt-4">
                                                             <h3 class="text-sm font-medium text-gray-900"> ` +
-                                            category_datas[index]['title'] + `</h3>
-                                                            <p class="mt-1 text-sm text-gray-500">  ` + category_datas[
-                                                index]['description'] + `</p>
-                                                        </div>
+                                            category_datas[index]['title'] + `</h3>` +
+                                            `<p class="text-truncate mt-1 text-sm text-gray-500">` +
+                                            $(category_datas[index]['description']).html() +
+                                            `</p>` +
+                                            `</div>
                                                     </div>
                                                     <div class="mt-6">
-
                                             </div>
-
                                             `;
                                     }
                                     // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
@@ -1730,7 +1738,8 @@
                                                     <div class="relative mt-4">
                                                         <h3 class="font-medium text-gray-900"> ` +
                                             product_datas[index]['title'] + `</h3>
-                                                        <p class="mt-1 text-sm text-gray-500">` + product_datas[index][
+                                                        <p class="text-truncate mt-1 text-sm text-gray-500">` +
+                                            product_datas[index][
                                                 'shortDescription'
                                             ] + `</p>
                                                     </div>

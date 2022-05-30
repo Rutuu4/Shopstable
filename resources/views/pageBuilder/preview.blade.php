@@ -402,7 +402,7 @@
                                                 <div class="relative mt-4">
                                                     <h3 class="text-sm font-medium text-gray-900"> ` +
                                             category_datas[index]['title'] + `</h3>
-                                                    <p class="mt-1 text-sm text-gray-500">  ` + category_datas[
+                                                    <p class="text-truncate mt-1 text-sm text-gray-500">  ` + category_datas[
                                                 index]['description'] + `</p>
                                                 </div>
                                             </div>
@@ -455,7 +455,7 @@
                                             <div class="relative mt-4">
                                                 <h3 class="font-medium text-gray-900"> ` +
                                             product_datas[index]['title'] + `</h3>
-                                                <p class="mt-1 text-sm text-gray-500">` + product_datas[index][
+                                                <p class="text-truncate mt-1 text-sm text-gray-500">` + product_datas[index][
                                                 'shortDescription'
                                             ] + `</p>
                                             </div>

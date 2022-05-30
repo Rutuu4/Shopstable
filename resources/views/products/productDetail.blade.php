@@ -426,6 +426,10 @@
         /*   color: white; */
         /* } */
 
+        .carousel-main .carousel-cell {
+            height: 250px;
+        }
+
         .carousel-nav .carousel-cell {
             height: 90px;
             width: 120px;
@@ -527,7 +531,8 @@
 
                         <div class="carousel carousel-main" data-flickity='{"pageDots": false }'>
                             @foreach ($productImage as $productImageItem)
-                                <div class="carousel-cell"><img src="/{{ $productImageItem->imageName }}" /></div>
+                                <div class="carousel-cell"><img class="w-full h-full object-contain"
+                                        src="/{{ $productImageItem->imageName }}" /></div>
                             @endforeach
                         </div>
                         <style>
@@ -563,15 +568,15 @@
                         </label>
                         <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-2 pb-2">
                             <button data-action="decrement"
-                                class="text-gray-600 hover:text-gray-700 hover:bg-red-400/40 h-full w-20 rounded-l cursor-pointer outline-none">
-                                <span class="m-auto text-2xl font-light w-5">−</span>
+                                class="text-gray-600 border-t border-b border-l border-gray-700 hover:text-gray-700 bg-red-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                                <span class="m-auto text-2xl text-white font-light w-5">−</span>
                             </button>
                             <input type="number"
-                                class="product_quantity outline-none  text-center w-full  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
+                                class="product_quantity border-b border-t  text-center w-full  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
                                 name="custom-input-number" value={{ $productQuantity }} min='1' />
                             <button data-action="increment"
-                                class="text-gray-600 hover:text-gray-700 hover:bg-green-400 h-full w-20 rounded-r cursor-pointer">
-                                <span class="m-auto text-2xl font-light w-5">+</span>
+                                class="text-gray-600 border-t border-b border-r border-gray-700 hover:text-gray-700 bg-green-400 h-full w-20 rounded-r cursor-pointer">
+                                <span class="m-auto text-2xl text-white font-light w-5">+</span>
                             </button>
                         </div>
                     </div>
