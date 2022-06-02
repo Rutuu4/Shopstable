@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menubuilder;
 use App\Models\Pages;
+use App\Models\Purchase_items;
 use App\Models\Themecolor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -56,7 +57,7 @@ class pageBuilderPreview extends Controller
         }
         $data = $Pages->select('pageData')->first();
         $name = $Pages->select('name')->first();
-
+        $purchase_product_count = Purchase_items::count();
         $category_data = DB::table('category')->get();
         $product_data = DB::table('product')
             ->join('product_image', 'product_image.product_id', 'product.id', 'left')
@@ -78,7 +79,8 @@ class pageBuilderPreview extends Controller
             'pageData' => $data['pageData'],
             'id' => $id,
             'name' => $name['name'],
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'purchase_product_count' => $purchase_product_count ? $purchase_product_count : 0
         ]);
     }
 

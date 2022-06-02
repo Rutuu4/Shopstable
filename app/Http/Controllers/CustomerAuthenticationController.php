@@ -16,7 +16,7 @@ class CustomerAuthenticationController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'register_view', 'login_view']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'register_view', 'login_view', 'logout']]);
     }
 
     public function login(Request $request)
@@ -33,11 +33,26 @@ class CustomerAuthenticationController extends Controller
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()], HttpResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
 
+        // save $token in customer table
+        $customer = Customer::where('email', $request->email)->first();
+        $customer->remember_token = $token;
+        $customer->save();
+
+        // token in setcookie
+        setcookie('customer_token',  $token, time() + (86400 * 30), "/"); // 86400 = 1 day
+
+        response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth('api')->factory()->getTTL() * 60,
+            'user' => auth('api')->user(),
+        ], 200);
+
         return redirect('/')->with([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60,
-            'user' => auth()->user(),
+            'user' => auth('api')->user(),
         ], 200);
     }
 
@@ -48,29 +63,38 @@ class CustomerAuthenticationController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
         ]);
+
         $user = Customer::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
-        $token = JWTAuth::fromUser($user);
-
-        return redirect('customer/login')->with([
-            'status' => 'success',
-            'message' => 'User created successfully',
-            'user' => $user,
-            'authorisation' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ]
-        ]);
+        // dd('sd');
+        if ($user) {
+            $token = JWTAuth::fromUser($user);
+            return redirect('customer/login')->with([
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => auth('api')->factory()->getTTL() * 60,
+                'user' => $user,
+            ], 200);
+        } else {
+            return response()->json(['error' => 'Error while creating user'], HttpResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     public function logout()
     {
-        Auth::logout();
-        return response()->json([
+
+        $token = $_COOKIE['customer_token'];
+        // delete token from customer table
+
+        $customer = Customer::where('remember_token', $token)->update(['remember_token' => null]);
+
+        // delete token from cookie
+        setcookie('customer_token',  $token, time() - (86400 * 30), "/");
+
+        return redirect('/')->with([
             'status' => 'success',
             'message' => 'Successfully logged out',
         ]);

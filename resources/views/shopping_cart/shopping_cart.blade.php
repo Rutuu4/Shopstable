@@ -42,7 +42,7 @@
 
 </style>
 
-<body>
+<body class="globle_theme_attach">
     <div class="bg-white">
         <!--
         Mobile menu
@@ -52,7 +52,6 @@
 
         <header class="text-gray-600 body-font">
             <div class="flex justify-between items-center ">
-
                 <div class="flex flex-wrap p-5 flex-col md:flex-row items-center">
                     <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
@@ -60,7 +59,9 @@
                             class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                         </svg>
-                        <span class="ml-3 text-xl">Shopstable</span>
+                        <a href="http://{{ tenant('domain') }}/">
+                            <span class="ml-3 text-xl">Shopstable</span>
+                        </a>
                     </a>
                     <script>
                         var count = 0;
@@ -71,7 +72,7 @@
                         <div
                             class="md:mr-auto md:ml-4 md:py-1 md:pl-4  md:border-gray-400 flex flex-wrap text-base justify-center">
                             @foreach ($navbar as $item)
-                                <a target="_blank" href={{ $item->nav_item_link }} class="mx-2">
+                                <a href={{ $item->nav_item_link }} class="mx-2">
                                     {{ $item->nav_item_name }}
                                 </a>
                             @endforeach
@@ -79,21 +80,52 @@
                     @endif
                 </div>
 
-                <div class="flex items-center ">
-                    <a href="http://{{ tenant('domain') }}/shopping_cart">
-                        <img src="/Icons/cart.svg" class='w-5' alt="">
-                    </a>
-                    <div id="cart_count"
-                        class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
-                        {{ $purchase_product_count }}</div>
-                    <div class="py-2 px-5">
-                        <x-button onclick="history.back()">
-                            {{ __('Back') }}
-                        </x-button>
+                <div class="flex items-center gap-2">
+                    {{-- @if ($user_id == null) --}}
+                    @if (1 == 1)
+                        @if (!($_COOKIE['customer_token'] ?? null) == null)
+                            <form class='inline-flex items-center'
+                                action="http://{{ request()->getHttpHost() }}/customer/logout" method="POST">
+                                @csrf
+                                <button
+                                    class="border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
+                                    type="submit">Logout</button>
+                            </form>
+                        @endif
+
+                        @if (($_COOKIE['customer_token'] ?? null) == null)
+                            <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
+                                href="http://{{ request()->getHttpHost() }}/customer/login">
+                                Login
+                            </a>
+                            <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
+                                href="http://{{ request()->getHttpHost() }}/customer/register">
+                                Register
+                            </a>
+                        @endif
+                    @endif
+
+
+                    <div class="flex items-center">
+                        <a href="http://{{ tenant('domain') }}/shopping_cart">
+                            <img src="/Icons/cart.svg" class='w-5' alt="">
+                        </a>
+
+                        <div id="cart_count"
+                            class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
+                            {{ $purchase_product_count }}</div>
+
+                        <div class="py-2 px-5">
+                            <x-button onclick="history.back()">
+                                {{ __('Back') }}
+                            </x-button>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </header>
+
         <main class="max-w-2xl mx-auto pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">Shopping Cart</h1>
 
@@ -108,18 +140,18 @@
                                     count = count + {{ $item->sub_total }}
                                     console.log(count, '--count');
                                 </script>
+
                                 <li class="shopping_delete flex py-6 sm:py-10">
                                     <div class="flex-shrink-0">
                                         <img src="/{{ $item->imageName }}"
                                             alt="Front of men&#039;s Basic Tee in sienna."
                                             class="w-24 h-24 rounded-md object-center object-cover sm:w-48 sm:h-48">
                                     </div>
-
                                     <div class="relative ml-4 flex-1 flex flex-col justify-between sm:ml-6">
                                         <div class=" pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
                                             <div class="">
                                                 <div class="flex justify-between">
-                                                    <h3 class="text-sm">
+                                                    <h3 class="purchase_item_title text-sm">
                                                         <a href="#"
                                                             class="text-xl font-medium text-gray-700 hover:text-gray-800">
                                                             {{ $item->title }}
@@ -143,47 +175,10 @@
                                                     Tee</label>
                                                 <input
                                                     class="absolute right-10 shopping_cart_quantity w-20 rounded-lg text-xs"
-                                                    onchange="shopping_cart_quantity_change(this)"
+                                                    onchange="shopping_cart_quantity_change(this, {{ $item->price }}, {{ $item->id }})"
                                                     value="{{ $item->quantity }}" type="number" />
-                                                {{-- <select id="quantity-0" name="quantity-0"
-                                                    class="block w-fit pl-4 pr-8 rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                </select> --}}
-                                                <script>
-                                                    function shopping_cart_quantity_change(el) {
-                                                        console.log(el.value, '--quantity');
-                                                        let let_sub_total = el.value * {{ $item->price }};
-                                                        console.log(let_sub_total, '--sub_total');
-                                                        console.log(el.parentNode.parentNode.parentNode.parentNode.parentNode
-                                                            .querySelector('.shopping_cart_subtotal').textContent.replace(let_sub_total));
 
-                                                        $.ajax({
-                                                            url: "http://{{ tenant('domain') }}/purchase_item/" + {{ $item->purchase_item_id }},
-                                                            type: "PUT",
-                                                            data: {
-                                                                _token: "{{ csrf_token() }}",
-                                                                product_id: {{ $item->product_id }},
-                                                                quantity: $('.shopping_cart_quantity').val(),
-                                                                sub_total: $('.shopping_cart_quantity').val() * {{ $item->price }}
-                                                            },
-                                                            success: function(data) {
-                                                                console.log(count, '==count');
-                                                                console.log($(el.parentNode.parentNode.parentNode.parentNode.parentNode
-                                                                    .querySelector('.shopping_cart_subtotal')).text(let_sub_total));
-                                                                $(el.parentNode.parentNode.parentNode.parentNode.parentNode
-                                                                    .querySelector('.shopping_cart_subtotal')).text(let_sub_total);
-                                                                $('.shopping_cart_total').text(count + let_sub_total - {{ $item->sub_total }});
-                                                            }
-                                                        });
-                                                    };
-                                                </script>
+
                                                 <div class="absolute top-0 right-0">
                                                     <button onclick='deleteItem(this, {{ $item->purchase_item_id }})'
                                                         type="button"
@@ -198,10 +193,11 @@
                                                         </svg>
                                                     </button>
                                                 </div>
-                                                <script></script>
                                             </div>
                                         </div>
-
+                                        <a class="font-medium absolute bottom-0 right-0 text-indigo-600"
+                                            href="http://{{ tenant('domain') }}/product/detail/{{ $item->product_id }}">show
+                                            product</a>
                                         {{-- <p class="mt-4 flex text-sm text-gray-700 space-x-2">
                                             <!-- Heroicon name: solid/check -->
                                             <svg class="flex-shrink-0 h-5 w-5 text-green-500"
@@ -510,7 +506,56 @@
     </div>
 </body>
 <script>
+    var currentColorTheme = {!! json_encode($theme->toArray()) !!};
+    let theme = {!! json_encode($theme->toArray()) !!};
+    console.log(currentColorTheme['theme_color'], 'currentColorTheme');
+    currentColorTheme = currentColorTheme['theme_color'];
+    document.querySelectorAll('[contentEditable]').forEach(function(element) {
+        element.setAttribute('contenteditable', 'false');
+    });
+
+    $(document).html($(document).html().replaceAll('indigo',
+        currentColorTheme));
+
+    function shopping_cart_quantity_change(el, item_price, item_id) {
+        console.log(el.value, '--quantity');
+        console.log($(el.parentNode.parentNode.parentNode.parentNode).text(), '--purchase_item_title');
+        console.log(el.value, '--quantity');
+        let let_sub_total = el.value * item_price;
+        let let_old_sub_total = $(el.parentNode.parentNode.parentNode.parentNode
+            .querySelector('.shopping_cart_subtotal')).text();
+        console.log(let_sub_total, '--sub_total');
+        // console.log(el.parentNode.parentNode.parentNode.parentNode.parentNode
+        //     .querySelector('.shopping_cart_subtotal').textContent.replace(let_sub_total));
+        $.ajax({
+            url: "http://{{ tenant('domain') }}/purchase_item/" + item_id,
+            type: "PUT",
+            data: {
+                _token: "{{ csrf_token() }}",
+                product_id: item_id,
+                quantity: el.value,
+                sub_total: el.value * item_price
+            },
+            success: function(data) {
+                console.log(count, '==count');
+                console.log($(el.parentNode.parentNode.parentNode.parentNode
+                    .querySelector('.shopping_cart_subtotal')).text(let_sub_total));
+                $(el.parentNode.parentNode.parentNode.parentNode
+                    .querySelector('.shopping_cart_subtotal')).text(let_sub_total);
+                $('.shopping_cart_total').text(parseInt($('.shopping_cart_total').text()) + let_sub_total -
+                    let_old_sub_total);
+            }
+        });
+    };
+</script>
+<script>
     $('.shopping_cart_total').text(count);
+    var currentColorTheme = {!! json_encode($theme->toArray()) !!};
+    console.log(currentColorTheme['theme_color'], 'currentColorTheme');
+    currentColorTheme = currentColorTheme['theme_color'];
+    //    change all *-indigo-* with currentColorTheme
+    $(".globle_theme_attach").html($(".globle_theme_attach").html().replaceAll('indigo',
+        currentColorTheme));
 
     function deleteItem(el, id) {
         $.ajax({

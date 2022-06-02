@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -24,6 +25,16 @@ return new class extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
+
+        // create globle theme color
+        DB::table('themecolors')->insert([
+            'page_id' => 'globle',
+            'theme_color' => '',
+            'header_size' => '1.5',
+            'lable_size' => '1.5',
+            'paragraph_size' => '1.5',
+            'flag' => 'globle',
+        ]);
     }
 
     /**

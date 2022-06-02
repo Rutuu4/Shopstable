@@ -30,11 +30,19 @@
                     </div>
 
                     <div>
-                        <label for="password" class="font-bold">Password</label>
+                    <label for="password" class="font-bold">Password</label>
                         <input id="password" name="password" type="password" autocomplete="current-password" required
                             class="appearance-none rounded-md relative block w-full px-3 py-2 my-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm md:text-base"
                             placeholder="********">
                     </div>
+                    {{-- <div>
+                        <label for="confirm_password" class="font-bold">Password</label>
+                        <input id="confirm_password" name="confirm_password" type="password"
+                            autocomplete="current-password" required
+                            class="appearance-none rounded-md relative block w-full px-3 py-2 my-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm md:text-base"
+                            placeholder="********">
+                    </div> --}}
+
                 </div>
 
                 <div class="flex items-center justify-between">
@@ -68,8 +76,13 @@
                         </span>
                         Register
                     </button>
+                    <br>
                 </div>
             </form>
+            <a href="http://{{ request()->getHttpHost() }}/customer/login"
+                class="font-medium mx-auto text-indigo-600 hover:text-indigo-500">
+                <p class="text-center">Already have an account?</p>
+            </a>
         </div>
     </div>
 </x-guest-layout>

@@ -427,7 +427,7 @@
         /* } */
 
         .carousel-main .carousel-cell {
-            height: 250px;
+            height: 350px;
         }
 
         .carousel-nav .carousel-cell {
@@ -479,8 +479,7 @@
         </a>
     </div> --}}
     <header class="text-gray-600 body-font">
-        <div class="flex justify-between items-center">
-
+        <div class="flex justify-between items-center ">
             <div class="flex flex-wrap p-5 flex-col md:flex-row items-center">
                 <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
@@ -488,36 +487,73 @@
                         class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
-                    <span class="ml-3 text-xl">Shopstable</span>
+                    <a href="http://{{ tenant('domain') }}/">
+                        <span class="ml-3 text-xl">Shopstable</span>
+                    </a>
                 </a>
+                <script>
+                    var count = 0;
+                    var shopping_item_count = {!! json_encode($purchase_product_count) !!};
+                </script>
 
                 @if (!empty($navbar))
                     <div
                         class="md:mr-auto md:ml-4 md:py-1 md:pl-4  md:border-gray-400 flex flex-wrap text-base justify-center">
                         @foreach ($navbar as $item)
-                            <a target="_blank" href={{ $item->nav_item_link }} class="mx-2">
+                            <a href={{ $item->nav_item_link }} class="mx-2">
                                 {{ $item->nav_item_name }}
                             </a>
                         @endforeach
                     </div>
                 @endif
             </div>
-            <div class="flex items-center ">
-                <a href="http://{{ tenant('domain') }}/shopping_cart">
-                    <img src="/Icons/cart.svg" class='w-5' alt="">
-                </a>
-                <div
-                    class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
-                    1</div>
-                <div class="py-2 px-5">
-                    <x-button onclick="history.back()">
-                        {{ __('Back') }}
-                    </x-button>
+
+            <div class="flex items-center gap-2">
+                {{-- @if ($user_id == null) --}}
+                @if (1 == 1)
+                    @if (!($_COOKIE['customer_token'] ?? null) == null)
+                        <form class='inline-flex items-center'
+                            action="http://{{ request()->getHttpHost() }}/customer/logout" method="POST">
+                            @csrf
+                            <button
+                                class="border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
+                                type="submit">Logout</button>
+                        </form>
+                    @endif
+
+                    @if (($_COOKIE['customer_token'] ?? null) == null)
+                        <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
+                            href="http://{{ request()->getHttpHost() }}/customer/login">
+                            Login
+                        </a>
+                        <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
+                            href="http://{{ request()->getHttpHost() }}/customer/register">
+                            Register
+                        </a>
+                    @endif
+                @endif
+
+
+                <div class="flex items-center">
+                    <a href="http://{{ tenant('domain') }}/shopping_cart">
+                        <img src="/Icons/cart.svg" class='w-5' alt="">
+                    </a>
+
+                        <div id="cart_count"
+                            class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
+                            {{ $purchase_product_count }}</div>
+
+                    <div class="py-2 px-5">
+                        <x-button onclick="history.back()">
+                            {{ __('Back') }}
+                        </x-button>
+                    </div>
                 </div>
             </div>
 
         </div>
     </header>
+
 
     <div class="py-2 px-6 md:py-4 md:px-24 ">
 
@@ -525,11 +561,11 @@
             <div class="grid grid-cols-2 gap-8 realtive">
 
                 <div class="grid justify-center ">
-                    <div class="mx-auto w-1/2 -mt-20">
+                    <div class="mx-auto w-1/3 h-full">
                         <!-- Flickity HTML init -->
                         <h1 class="invisible">{{ $item }}</h1>
 
-                        <div class="carousel carousel-main" data-flickity='{"pageDots": false }'>
+                        <div class="carousel carousel-main -mt-24" data-flickity='{"pageDots": false }'>
                             @foreach ($productImage as $productImageItem)
                                 <div class="carousel-cell"><img class="w-full h-full object-contain"
                                         src="/{{ $productImageItem->imageName }}" /></div>
@@ -575,7 +611,7 @@
                                 class="product_quantity border-b border-t  text-center w-full  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
                                 name="custom-input-number" value={{ $productQuantity }} min='1' />
                             <button data-action="increment"
-                                class="text-gray-600 border-t border-b border-r border-gray-700 hover:text-gray-700 bg-green-400 h-full w-20 rounded-r cursor-pointer">
+                                class="text-gray-600 border-t border-b border-r border-gray-700  hover:text-gray-700 bg-green-400 h-full w-20 rounded-r cursor-pointer">
                                 <span class="m-auto text-2xl text-white font-light w-5">+</span>
                             </button>
                         </div>
@@ -752,9 +788,24 @@
                     },
                     success: function(data) {
                         console.log(data);
-                        if (flag) {
-                            window.location.replace('http://{{ tenant('domain') }}/shopping_cart');
-                        }
+                        // ajax call to update cart_count
+                        $.ajax({
+                            url: "http://{{ tenant('domain') }}/purchase_count",
+                            type: "GET",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                            },
+                            success: function(data) {
+                                console.log(data, '--data');
+                                shopping_item_count_update = data['purchase_product_count_update'];
+                                $('#cart_count').text(data['purchase_product_count_update']);
+
+                                if (flag) {
+                                    window.location.replace(
+                                        'http://{{ tenant('domain') }}/shopping_cart');
+                                }
+                            }
+                        });
                         // if (data.status == "success") {
                         //     alert("Item added to cart");
                         // } else {

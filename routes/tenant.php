@@ -62,10 +62,12 @@ Route::middleware([
     function () {
         Route::post('/customer/login', [CustomerAuthenticationController::class, 'login'])->name('customer_login');
         Route::post('/customer/register', [CustomerAuthenticationController::class, 'register']);
-        Route::post('/customer/logout', [CustomerAuthenticationController::class, 'register']);
+        Route::post('/customer/logout', [CustomerAuthenticationController::class, 'logout']);
         Route::post('/customer/refresh', [CustomerAuthenticationController::class, 'register']);
         Route::get('/customer/register', [CustomerAuthenticationController::class, 'register_view']);
         Route::get('/customer/login', [CustomerAuthenticationController::class, 'login_view']);
+
+        Route::resource('pageBuilderPreview', pageBuilderPreview::class);
     }
 );
 
@@ -77,8 +79,11 @@ Route::middleware([
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
 
-    // Create subUser
-
+    // route for get purchase count
+    Route::get('/purchase_count', function () {
+        $purchase_product_count = Purchase_items::count();
+        return response()->json(['purchase_product_count_update' => $purchase_product_count]);
+    });
     // Page Routing
     Route::view('components.navbar', function () {
         // $data = Pages::select('pageData')->first();
@@ -91,7 +96,8 @@ Route::middleware([
     });
 
     Route::get('/', function () {
-        $id = 1;
+        $id = 3;
+        $purchase_product_count = Purchase_items::count();
         // $data = Pages::select('pageData')->first();
         $nav_item = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
         $Pages = Pages::where('id', $id);
@@ -125,8 +131,6 @@ Route::middleware([
 
         if (empty($nav_item)) {
             return view('tenant');
-            # code...
-            return view('');
         }
         if (!empty($nav_item)) {
             return view('tenant', [
@@ -138,7 +142,8 @@ Route::middleware([
                 'id' => $id,
                 'name' => $name['name'],
                 'navbar' => $navbar,
-                'nav_item' => $nav_item
+                'nav_item' => $nav_item,
+                'purchase_product_count' => $purchase_product_count ? $purchase_product_count : 0
             ]);
         }
     });
@@ -155,6 +160,7 @@ Route::middleware([
                         'nav_item_order' => $nav_item_order
                     ]
                 );
+
             Session::flash('message', 'Item successfully Updated!');
             return response()->json(['success' => "uploaded", 'nav_item_order' => $request->nav_item_order]);
         } catch (Exception $e) {
@@ -227,11 +233,11 @@ Route::middleware([
 
     // PageBuilder
     Route::resource('pageBuilder', PageBuilder::class)->middleware(['auth']);
-    Route::resource('pageBuilderPreview', pageBuilderPreview::class)->middleware(['auth']);
+
     Route::resource('menuBuilder', MenuController::class)->middleware(['auth']);
     Route::resource('linkData', LinkDataController::class)->middleware(['auth']);
-    Route::resource('product/detail', ProductDetails::class)->middleware(['auth']);
-    Route::resource('category/detail', categoryDetailController::class)->middleware(['auth']);
+    Route::resource('product/detail', ProductDetails::class);
+    Route::resource('category/detail', categoryDetailController::class);
 
     //shopping_cart
     Route::resource('shopping_cart', ShoppingCartController::class)->middleware(['auth']);

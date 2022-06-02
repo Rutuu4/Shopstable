@@ -11,7 +11,7 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 class Customer extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
-       protected $fillable = [
+    protected $fillable = [
         'name',
         'email',
         'password',
@@ -24,7 +24,7 @@ class Customer extends Authenticatable implements JWTSubject
      */
     protected $hidden = [
         'password',
-        'api_token', 
+        'api_token',
         'remember_token',
     ];
 
@@ -37,7 +37,7 @@ class Customer extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-     /**
+    /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed
@@ -56,5 +56,5 @@ class Customer extends Authenticatable implements JWTSubject
     {
         return [];
     }
-
+    protected $table = 'customers';
 }

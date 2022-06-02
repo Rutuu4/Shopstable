@@ -362,10 +362,11 @@
                                                 amet consectetur,
                                                 adipisicing elit. Alias cupiditate impedit inventore doloribus totam
                                                 excepturi perferendis accusantium! Odit, quis optio.</p>
-                                            <div class="flex justify-center gap-4 ">
-                                                <div class="relative">
+                                            <div class="flex justify-center items-center gap-4 ">
+                                                <div class="relative flex justify-center items-center">
                                                     <button onmouseover="toggleAddLink(this)" contenteditable=" true"
-                                                        class="content_lable text-xl h-10 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button>
+                                                        class="content_lable text-xl h-10 inline-flex text-white bg-indigo-500 border-0 pt-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                                                        Button</button>
                                                     <x-linkelement />
                                                     <x-link-data-model />
                                                 </div>
@@ -464,7 +465,7 @@
                                             class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
                                             © 2020 Your footer —
                                             <a contenteditable="true" href="#" class="text-gray-600 ml-1"
-                                                rel="noopener noreferrer" target="_blank">@links</a>
+                                                rel="noopener noreferrer">@links</a>
                                         </p>
                                         <span
                                             class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
@@ -1349,21 +1350,17 @@
                 });
 
                 if ({!! !empty($category_data) !!}) {
-
-
                     $(".category_grid_1")[0].innerHTML = '';
                     // if ({!! json_encode($category_data->toArray()) !!}.length < 2) {
                     $(".category_grid_1").addClass(
                         'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8'
                     );
 
-
                     $.ajax({
                         type: "GET",
                         url: "http://{{ tenant('domain') }}/menuBuilder",
                         context: document.body,
                     }).done((data) => {
-                        //
 
                         var category_datas = {!! json_encode($category_data->toArray()) !!};
                         ~console.log('asAS', category_datas);
@@ -1374,30 +1371,30 @@
                             // console.log(category_datas.length);
                             console.log('asdadaf', $(".category_grid_1")[0]);
                             $(".category_grid_1")[0].innerHTML += `
-                    <div>
-                        <a href="http://{{ tenant('domain') }}/category/detail/` +
+                                    <div>
+                                        <a href="http://{{ tenant('domain') }}/category/detail/` +
                                 category_datas[index]['id'] + `">
-                            <div class="relative">
-                                <div class="relative w-full h-40 rounded-lg overflow-hidden">
-                                    <img class="bg-fixed" src="/` + category_datas[index][
+                                            <div class="relative">
+                                                <div class="bg-gray-100 bg-auto bg-center relative w-full h-40 rounded-lg overflow-hidden">
+                                                    <img class="h-full mx-auto" src="/` + category_datas[index][
                                     'category_image'
                                 ] + `"
-                                        alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
-                                        class="w-full h-full object-center object-cover">
-                                </div>
-                                <div class="relative mt-4">
-                                    <h3 class="text-sm font-medium text-gray-900"> ` +
+                                                        alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                                                        class="w-full h-full object-center object-cover">
+                                                </div>
+                                                <div class="relative mt-4">
+                                                    <h3 class="text-sm font-medium text-gray-900"> ` +
                                 category_datas[index]['title'] + `</h3>
-                                    <p class="text-truncate mt-1 text-sm text-gray-500">  ` +
+                                                    <p class="text-truncate mt-1 text-sm text-gray-500">  ` +
                                 $(category_datas[index]['description']).html() +
                                 `</p>
-                                </div>
-                            </div>
-                            <div class="mt-6">
+                                                </div>
+                                            </div>
+                                            <div class="mt-6">
 
-                    </div>
+                                    </div>
 
-                    `;
+                            `;
                         }
                         // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
                         // order ? order : [];;
@@ -1405,7 +1402,8 @@
 
                 }
                 if ({!! !empty($product_data) !!}) {
-
+                    console.log("log 1");
+                    console.log($(".product_grid_1")[0], '--product_grid_1');
                     $(".product_grid_1")[0].innerHTML = '';
 
                     $(".product_grid_1").addClass(
@@ -1429,28 +1427,37 @@
                             // console.log(product_datas.length);
                             console.log('asdadaf', $(".product_grid_1")[0]);
                             $(".product_grid_1")[0].innerHTML +=
-                                `
-                    <div>
-                    <a href="http://{{ tenant('domain') }}/product/detail/` +
-                                product_datas[index]['id'] + `">
-                        <div class="relative">
-                            <div class="relative w-full h-40 rounded-lg overflow-hidden">
-                            <img class="" src="/` + product_datas[index]['imageName'] + `"
-                                alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
-                                class="w-full h-full object-center object-cover">
-                        </div>
+                                            `
+                                                 <div>
+                                                 <a href="http://{{ tenant('domain') }}/product/detail/` +
+                                                 product_datas[index]['id'] + `">
+                                                     <div class="relative">
+                                                         <div class="bg-gray-100 bg-auto bg-center relative w-full h-40 rounded-lg overflow-hidden">
+                                                         <img class="h-full mx-auto" src="/` + product_datas[index][
+                                                     'imageName'
+                                                 ] + `"
+                                                             alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                                                             class="w-full h-full object-center object-cover">
+                                                     </div>
 
-                            <div class="relative mt-4">
-                                <h3 class="font-medium text-gray-900"> ` +
-                                product_datas[index]['title'] + `</h3>
-                                <p class="text-truncate mt-1 text-sm text-gray-500">` + product_datas[index][
-                                    'shortDescription'
-                                ] + `</p>
-                            </div>
-                        </div>
-                        <div class="mt-6">
-                    </div>
-    `
+                                                         <div class="relative mt-4">
+                                                            <div class='flex justify-between items-center'>
+                                                             <h3 class="font-medium text-gray-900"> ` +
+                                                 product_datas[index]['title'] + `</h3>
+                                                 <div class="relative mt-4">
+                                                             <h3 class="font-medium text-gray-900"> ` +
+                                                 product_datas[index]['price'] + `</h3>
+                                                             </div>
+
+                                                             </div>
+                                                             <p class="text-truncate mt-1 text-sm text-gray-500">` +
+                                                 product_datas[index][
+                                                     'shortDescription'
+                                                 ] + `</p>
+                                                     </div>
+                                                     <div class="mt-6">
+                                                 </div>
+                                            `;
                         }
                         // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
                         // order ? order : [];;
@@ -1648,8 +1655,6 @@
                                 currentColorTheme));
 
                             if ({!! !empty($category_data) !!}) {
-
-
                                 $(".category_grid_1")[0].innerHTML = '';
                                 // if ({!! json_encode($category_data->toArray()) !!}.length < 2) {
                                 $(".category_grid_1").addClass(
@@ -1676,8 +1681,9 @@
                                                 <a href="http://{{ tenant('domain') }}/category/detail/` +
                                             category_datas[index]['id'] + `">
                                                     <div class="relative">
-                                                        <div class="relative w-full h-40 rounded-lg overflow-hidden">
-                                                            <img class="bg-fixed" src="/` + category_datas[index][
+                                                        <div class="bg-gray-100 bg-auto bg-center relative w-full h-40 rounded-lg overflow-hidden">
+                                                            <img class="h-full mx-auto" src="/` + category_datas[index]
+                                            [
                                                 'category_image'
                                             ] + `"
                                                                 alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
@@ -1701,11 +1707,12 @@
 
                             }
                             if ({!! !empty($product_data) !!}) {
-
+                                console.log('log 2');
+                                console.log($(".product_grid_1")[0], '--product_grid_1');
                                 $(".product_grid_1")[0].innerHTML = '';
 
                                 $(".product_grid_1").addClass(
-                                    'px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8'
+                                    '123 px-6 mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8'
                                 );
 
                                 $.ajax({
@@ -1725,32 +1732,40 @@
                                         console.log('asdadaf', $(".product_grid_1")[0]);
                                         $(".product_grid_1")[0].innerHTML +=
                                             `
-                                            <div>
-                                            <a href="http://{{ tenant('domain') }}/product/detail/` +
-                                            product_datas[index]['id'] + `">
-                                                <div class="relative">
-                                                    <div class="relative w-full h-40 rounded-lg overflow-hidden">
-                                                    <img class="" src="/` + product_datas[index]['imageName'] + `"
-                                                        alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
-                                                        class="w-full h-full object-center object-cover">
-                                                </div>
+                                                 <div>
+                                                 <a href="http://{{ tenant('domain') }}/product/detail/` +
+                                                 product_datas[index]['id'] + `">
+                                                     <div class="relative">
+                                                         <div class="bg-gray-100 bg-auto bg-center relative w-full h-40 rounded-lg overflow-hidden">
+                                                         <img class="h-full mx-auto" src="/` + product_datas[index][
+                                                     'imageName'
+                                                 ] + `"
+                                                             alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
+                                                             class="w-full h-full object-center object-cover">
+                                                     </div>
 
-                                                    <div class="relative mt-4">
-                                                        <h3 class="font-medium text-gray-900"> ` +
-                                            product_datas[index]['title'] + `</h3>
-                                                        <p class="text-truncate mt-1 text-sm text-gray-500">` +
-                                            product_datas[index][
-                                                'shortDescription'
-                                            ] + `</p>
-                                                    </div>
-                                                </div>
-                                                <div class="mt-6">
-                                            </div>
-                                        `
+                                                         <div class="relative mt-4">
+                                                            <div class='flex justify-between items-center'>
+                                                             <h3 class="font-medium text-gray-900"> ` +
+                                                 product_datas[index]['title'] + `</h3>
+                                                 <div class="relative mt-4">
+                                                             <h3 class="font-medium text-gray-900"> ` +
+                                                 product_datas[index]['price'] + `</h3>
+                                                             </div>
+
+                                                             </div>
+                                                             <p class="text-truncate mt-1 text-sm text-gray-500">` +
+                                                 product_datas[index][
+                                                     'shortDescription'
+                                                 ] + `</p>
+                                                     </div>
+                                                     <div class="mt-6">
+                                                 </div>
+                                            `;
                                     }
                                     // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
                                     // order ? order : [];;
-                                });;
+                                });
                             }
                         }
                         // document.getElementById("canvas").innerHTML += '<P>sdsasf</P>';

@@ -69,14 +69,24 @@
                                     <td class="py-2">{{ $item->price }}</td>
                                     <td class="py-2">{{ $item->status }}</td>
                                     <td class="py-2">{{ $item->isFeatured }}</td>
-                                    <td class="py-2 flex justify-center  gap-2">
-                                        <button class="border p-1.5 rounded-lg hover:bg-indigo-200"><img
-                                                src="Icons/edit.svg" alt=""></button>
-                                        <form id="deleteform" action="deleteProduct/{{ $item->id }}" method="POST">
-                                            @csrf</form>
-                                        <button class="w-10 border p-1.5 rounded-lg hover:bg-red-400/40"
-                                            onclick="if (confirm('Delete product?') == true) {document.getElementById('deleteform').submit();} "><img
-                                                src="Icons/delete.svg" alt="" /></button>
+                                    <td class="py-2">
+                                        <div class="flex justify-center items-center gap-2">
+
+                                            <button class="border p-1.5 rounded-lg
+
+
+
+
+
+                                            hover:bg-indigo-200"><img
+                                                    src="Icons/edit.svg" alt=""></button>
+                                            <form id="deleteform" action="deleteProduct/{{ $item->id }}"
+                                                method="POST">
+                                                @csrf</form>
+                                            <button class="w-10 border p-1.5 rounded-lg hover:bg-red-400/40"
+                                                onclick="if (confirm('Delete product?') == true) {document.getElementById('deleteform').submit();} "><img
+                                                    src="Icons/delete.svg" alt="" /></button>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

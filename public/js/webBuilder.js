@@ -92,7 +92,6 @@ function toggleBorder(event) {
             .childNodes[1];
     let border_id = event.target.parentNode.parentNode.parentNode.id;
 
-
     console.log("-------------------------");
     // console.log(deleteButtonId.id.length && !deleteButtonId.classList.contains("canvas"));
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -28,6 +29,19 @@ return new class extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
+        // create globle page
+        DB::table('pages')->insert([
+            'name' => 'Home',
+            'pageData' => '',
+            'is_publish' => 1,
+            'publish_data' => '',
+            'category_data' => '',
+            'assets' => '',
+            'components' => '',
+            'html' => '',
+            'css' => '',
+            'styles' => '',
+        ]);
     }
 
     /**

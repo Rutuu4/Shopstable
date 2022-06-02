@@ -54,6 +54,7 @@ class ProductDetails extends Controller
      */
     public function show($id)
     {
+        $purchase_product_count = Purchase_items::count();
         $productDetail = DB::table('product')
             ->leftJoin('product_image', 'product_image.product_id', 'product.id')
             ->where('product.id', $id)
@@ -80,7 +81,8 @@ class ProductDetails extends Controller
         return view('products.productDetail', [
             'productDetail' => $productDetail,
             'productQuantity' => $productQuantity,
-            'productImage' => $productImage, 'id' => $id, 'navbar' => $navbar
+            'productImage' => $productImage, 'id' => $id, 'navbar' => $navbar,
+            'purchase_product_count' => $purchase_product_count ? $purchase_product_count : 0
         ]);
     }
 

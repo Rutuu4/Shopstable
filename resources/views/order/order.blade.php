@@ -33,10 +33,9 @@
 
 </head>
 
-<body>
+<body class="globle_theme_attach">
     <header class="text-gray-600 body-font">
-        <div class="flex justify-between items-center">
-
+        <div class="flex justify-between items-center ">
             <div class="flex flex-wrap p-5 flex-col md:flex-row items-center">
                 <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
@@ -44,18 +43,20 @@
                         class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
-                    <span class="ml-3 text-xl">Shopstable</span>
+                    <a href="http://{{ tenant('domain') }}/">
+                        <span class="ml-3 text-xl">Shopstable</span>
+                    </a>
                 </a>
                 <script>
                     var count = 0;
+                    var shopping_item_count = {!! json_encode($purchase_product_count) !!};
                 </script>
-
 
                 @if (!empty($navbar))
                     <div
                         class="md:mr-auto md:ml-4 md:py-1 md:pl-4  md:border-gray-400 flex flex-wrap text-base justify-center">
                         @foreach ($navbar as $item)
-                            <a target="_blank" href={{ $item->nav_item_link }} class="mx-2">
+                            <a href={{ $item->nav_item_link }} class="mx-2">
                                 {{ $item->nav_item_name }}
                             </a>
                         @endforeach
@@ -63,14 +64,52 @@
                 @endif
             </div>
 
+            <div class="flex items-center gap-2">
+                {{-- @if ($user_id == null) --}}
+                @if (1 == 1)
+                    @if (!($_COOKIE['customer_token'] ?? null) == null)
+                        <form class='inline-flex items-center'
+                            action="http://{{ request()->getHttpHost() }}/customer/logout" method="POST">
+                            @csrf
+                            <button
+                                class="border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
+                                type="submit">Logout</button>
+                        </form>
+                    @endif
 
-            <div class="py-2 px-5">
-                <x-button onclick="history.back()">
-                    {{ __('Back') }}
-                </x-button>
+                    @if (($_COOKIE['customer_token'] ?? null) == null)
+                        <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
+                            href="http://{{ request()->getHttpHost() }}/customer/login">
+                            Login
+                        </a>
+                        <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
+                            href="http://{{ request()->getHttpHost() }}/customer/register">
+                            Register
+                        </a>
+                    @endif
+                @endif
+
+
+                <div class="flex items-center">
+                    <a href="http://{{ tenant('domain') }}/shopping_cart">
+                        <img src="/Icons/cart.svg" class='w-5' alt="">
+                    </a>
+
+                        <div id="cart_count"
+                            class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
+                            {{ $purchase_product_count }}</div>
+
+                    <div class="py-2 px-5">
+                        <x-button onclick="history.back()">
+                            {{ __('Back') }}
+                        </x-button>
+                    </div>
+                </div>
             </div>
+
         </div>
     </header>
+
     <div class="bg-gray-50">
         <!--
           Mobile menu
@@ -387,7 +426,7 @@
                                     </div>
                                 </div>
 
-                                <div>
+                                {{-- <div>
                                     <label for="country"
                                         class="block text-sm font-medium text-gray-700">Country</label>
                                     <div class="mt-1">
@@ -399,7 +438,7 @@
                                         </select>
 
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div>
                                     <label for="region" class="block text-sm font-medium text-gray-700">State /
@@ -430,15 +469,15 @@
                             </div>
                         </div>
 
-                        <div class="mt-10 border-t border-gray-200 pt-10">
+                        {{-- <div class="mt-10 border-t border-gray-200 pt-10">
                             <fieldset>
                                 <legend class="text-lg font-medium text-gray-900">Delivery method</legend>
 
                                 <div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
                                     <!--
-                  Checked: "border-transparent", Not Checked: "border-gray-300"
-                  Active: "ring-2 ring-indigo-500"
-                -->
+                                        Checked: "border-transparent", Not Checked: "border-gray-300"
+                                        Active: "ring-2 ring-indigo-500"
+                                      -->
                                     <label
                                         class="relative bg-white border rounded-lg shadow-sm p-4 flex cursor-pointer focus:outline-none">
                                         <input type="radio" name="delivery-method" value="Standard"
@@ -456,10 +495,9 @@
                                             </div>
                                         </div>
                                         <!--
-                    Not Checked: "hidden"
-
-                    Heroicon name: solid/check-circle
-                  -->
+                                            Not Checked: "hidden"
+                                            Heroicon name: solid/check-circle
+                                          -->
                                         <svg class="h-5 w-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                             <path fill-rule="evenodd"
@@ -467,17 +505,16 @@
                                                 clip-rule="evenodd" />
                                         </svg>
                                         <!--
-                    Active: "border", Not Active: "border-2"
-                    Checked: "border-indigo-500", Not Checked: "border-transparent"
-                  -->
+                                           Active: "border", Not Active: "border-2"
+                                           Checked: "border-indigo-500", Not Checked: "border-transparent"
+                                         -->
                                         <div class="absolute -inset-px rounded-lg border-2 pointer-events-none"
                                             aria-hidden="true"></div>
                                     </label>
-
                                     <!--
-                  Checked: "border-transparent", Not Checked: "border-gray-300"
-                  Active: "ring-2 ring-indigo-500"
-                -->
+                                       Checked: "border-transparent", Not Checked: "border-gray-300"
+                                       Active: "ring-2 ring-indigo-500"
+                                     -->
                                     <label
                                         class="relative bg-white border rounded-lg shadow-sm p-4 flex cursor-pointer focus:outline-none">
                                         <input type="radio" name="delivery-method" value="Express"
@@ -495,10 +532,9 @@
                                             </div>
                                         </div>
                                         <!--
-                    Not Checked: "hidden"
-
-                    Heroicon name: solid/check-circle
-                  -->
+                                         Not Checked: "hidden"
+                                         Heroicon name: solid/check-circle
+                                       -->
                                         <svg class="h-5 w-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                             <path fill-rule="evenodd"
@@ -506,18 +542,18 @@
                                                 clip-rule="evenodd" />
                                         </svg>
                                         <!--
-                    Active: "border", Not Active: "border-2"
-                    Checked: "border-indigo-500", Not Checked: "border-transparent"
-                  -->
+                                           Active: "border", Not Active: "border-2"
+                                           Checked: "border-indigo-500", Not Checked: "border-transparent"
+                                         -->
                                         <div class="absolute -inset-px rounded-lg border-2 pointer-events-none"
                                             aria-hidden="true"></div>
                                     </label>
                                 </div>
                             </fieldset>
-                        </div>
+                        </div> --}}
 
                         <!-- Payment -->
-                        <div class="mt-10 border-t border-gray-200 pt-10">
+                        {{-- <div class="mt-10 border-t border-gray-200 pt-10">
                             <h2 class="text-lg font-medium text-gray-900">Payment</h2>
 
                             <fieldset class="mt-4">
@@ -586,7 +622,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <!-- Order summary -->
@@ -602,32 +638,33 @@
                                             count = count + {{ $data->sub_total }}
                                             console.log(count, '--count');
                                         </script>
-                                        <li class="flex py-6 px-4 sm:px-6">
-                                            <div class="flex-shrink-0">
-                                                <input type="hidden" name='product_id' value="{{ $data->product_id }}">
+                                        <li class="relative flex py-6 px-4 sm:px-6">
+                                            <div class=" flex-shrink-0">
+                                                <input type="hidden" name='product_id'
+                                                    value="{{ $data->product_id }}">
                                                 <img src="{{ $data->imageName }}"
                                                     alt="Front of men&#039;s Basic Tee in black."
                                                     class="w-20 rounded-md">
                                             </div>
 
                                             <div class="ml-6 flex-1 flex flex-col">
-                                                <div class="flex">
+                                                <div class=" flex">
                                                     <div class="min-w-0 flex-1">
                                                         <h4 class="text-xl">
                                                             <a href="http://{{ tenant('domain') }}/shopping_cart"
                                                                 class="font-medium text-gray-700 hover:text-gray-800">
                                                                 {{ $data->title }} </a>
                                                         </h4>
-                                                        <input type="hidden" name="quantity" value="{{ $data->quantity }}">
+                                                        <input type="hidden" name="quantity"
+                                                            value="{{ $data->quantity }}">
                                                         <p class="mt-1 text-sm text-gray-500">
                                                             quantity: {{ $data->quantity }}</p>
-                                                            <input type="hidden" name="price" value="{{ $data->price }}">
+                                                        <input type="hidden" name="price" value="{{ $data->price }}">
                                                         <p class="mt-1 text-sm text-gray-500">
                                                             price: ₹{{ $data->price }}</p>
-
                                                     </div>
 
-                                                    <div class="ml-4 flex-shrink-0 flow-root">
+                                                    {{-- <div class="ml-4 flex-shrink-0 flow-root">
                                                         <button type="button"
                                                             class="-m-2.5 bg-white p-2.5 flex items-center justify-center text-gray-400 hover:text-gray-500">
                                                             <span class="sr-only">Remove</span>
@@ -641,18 +678,21 @@
                                                             </svg>
                                                         </button>
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
-                                                <div class="flex-1 pt-2 flex items-end justify-between">
-                                                    <p class="mt-1 text-sm font-medium text-gray-900">
-                                                    </p>
-                                                     <input type="hidden" name="sub_total" value="{{ $data->sub_total }}">
-                                                    <div class="ml-4">
-                                                        <p class="mt-1 text-sm font-medium text-gray-900">Subtotal:
-                                                            ₹{{ $data->sub_total }}</p>
+                                                    <div
+                                                        class="absolute bottom-5 right-6 flex-1 pt-2 flex items-end justify-between">
+                                                        <p class="mt-1 text-sm font-medium text-gray-900">
+                                                        </p>
+                                                        <input type="hidden" name="sub_total"
+                                                            value="{{ $data->sub_total }}">
+                                                        <div class="ml-4">
+                                                            <p class="mt-1 text-sm font-medium text-gray-900">
+                                                                Subtotal:
+                                                                ₹{{ $data->sub_total }}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                         </li>
                                     @endforeach
                                 @endif
@@ -828,6 +868,13 @@
     $('.order_total').text(count);
 
     $('.order_total_input').val($('.order_total').text());
+    var currentColorTheme = {!! json_encode($theme->toArray()) !!};
+    let theme = {!! json_encode($theme->toArray()) !!};
+    console.log(currentColorTheme['theme_color'], 'currentColorTheme');
+    currentColorTheme = currentColorTheme['theme_color'];
+    //    change all *-indigo-* with currentColorTheme
+    $(".globle_theme_attach").html($(".globle_theme_attach").html().replaceAll('indigo',
+        currentColorTheme));
 </script>
 
 </html>

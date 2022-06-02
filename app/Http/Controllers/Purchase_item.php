@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Purchase_items;
 use Exception;
@@ -64,9 +65,14 @@ class Purchase_item extends Controller
                 ->select('product_category.category_id')
                 ->get();
 
+            $token = $_COOKIE['customer_token'];
+            $user_info = Customer::where('remember_token', $token)->first();
+
+
             $flag = Purchase_items::where('product_id', $request->product_id)->first();;
             if (is_null($flag)) {
                 $purchase_item =    Purchase_items::insert([
+                    'user_id' => $user_info->id,
                     'product_id' => $request->product_id,
                     'category_id' => $category_id[0]->category_id,
                     'price' => $request->price,
@@ -79,7 +85,9 @@ class Purchase_item extends Controller
                 $purchase_item->quantity = $request->quantity;
                 $purchase_item->sub_total = $request->sub_total;
                 $purchase_item->save();
-                return response()->json(['success' => "item upadated successfully", 'purchase_item' => $request->$purchase_item]);
+                return response()->json([
+                    'success' => "item upadated successfully", 'purchase_item' => $request->$purchase_item,
+                ]);
             }
         } catch (Exception $e) {
             Log::error($e->getMessage());

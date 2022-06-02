@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Orders_items;
 use App\Models\Product;
 use App\Models\Purchase_items;
+use App\Models\Themecolor;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -23,6 +24,11 @@ class OrderController extends Controller
      */
     public function index()
     {
+        $theme = Themecolor::where('page_id', 'globle')->first();
+        if ($theme->flag == 'globle') {
+            $theme = Themecolor::where('page_id', 'globle')->first();
+        }
+        $purchase_product_count = Purchase_items::count();
         $order = Order::get();
         $purchase_items = Purchase_items::leftjoin('product', 'product.id', '=', 'purchase_items.product_id')
             ->leftjoin('product_image', 'product_image.product_id', '=', 'product.id')
@@ -34,7 +40,7 @@ class OrderController extends Controller
             return view('orders.order');
         }
         if (!empty($order)) {
-            return view('order.order', ['order' => $order, 'navbar' => $navbar, 'datas' => $purchase_items]);
+            return view('order.order', ['order' => $order, 'theme' => $theme, 'navbar' => $navbar, 'datas' => $purchase_items, 'purchase_product_count' => $purchase_product_count ? $purchase_product_count : 0]);
         }
     }
 
@@ -58,6 +64,7 @@ class OrderController extends Controller
         try {
             $order = new Order();
             $order->email = $request->email;
+            $order->user_id = 1;
             $order->user_name = $request->fisrt_name . '' . $request->last_name;
             $order->card_no = $request->card_no;
             $order->exapiration_date
@@ -68,7 +75,7 @@ class OrderController extends Controller
             $order->city = $request->city;
             $order->state = $request->state;
             $order->postal_code = $request->postal_code;
-            $order->country = $request->country;
+            // $order->country = $request->country;
             $order->total = $request->order_total;
             $order->payment_mode = $request->payment_mode;
             $order->save();
@@ -77,6 +84,7 @@ class OrderController extends Controller
             $category_id = DB::table('product_category')->where('product_id', $request->product_id)->first();
             // dd($category_id->category_id);
             $order_items = new Orders_items();
+            $order_items->user_id = 1;
             $order_items->order_id = $order_id;
             $order_items->product_id = $request->product_id;
             $order_items->category_id = $category_id->category_id;
@@ -84,6 +92,8 @@ class OrderController extends Controller
             $order_items->price = $request->price;
             $order_items->sub_total = $request->sub_total;
             $order_items->save();
+
+            DB::table('purchase_items')->truncate();
 
 
             return redirect('shipping')->with([
@@ -106,18 +116,19 @@ class OrderController extends Controller
     {
         //
         try {
+            $purchase_product_count = Purchase_items::count();
             $order = Order::where('id', $id)->first();
 
             $items = Orders_items::where('order_id', $id)->get();
 
             if (empty($order)) {
-                return view('order.order');
+                return view('order.order', ['purchase_product_count' => $purchase_product_count ? $purchase_product_count : 0]);
             }
             if (!empty($order) && empty($items)) {
-                return view('order.order', ['order' => $order]);
+                return view('order.order', ['order' => $order, 'purchase_product_count' => $purchase_product_count ? $purchase_product_count : 0]);
             }
             if (!empty($items)) {
-                return view('order.order', ['order' => $order, 'items' => $items]);
+                return view('order.order', ['order' => $order, 'items' => $items, 'purchase_product_count' => $purchase_product_count ? $purchase_product_count : 0]);
             }
         } catch (Exception $e) {
             Log::error($e->getMessage());

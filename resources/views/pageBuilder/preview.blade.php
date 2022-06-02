@@ -17,15 +17,25 @@
 
     <!-- Scripts -->
     <script src="/js/app.js" defer></script>
+    {{-- <script src="/js/webBuilder.js" defer></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"
         integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+
 </head>
 
 <body>
     <style>
+        .text-truncate {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            /* truncate to 4 lines */
+            -webkit-line-clamp: 4;
+        }
+
         .align-right {
             text-align: right;
         }
@@ -237,24 +247,30 @@
         </a>
         <h1 class="text-xl font-semibold underline text-center">{{ $name }}</h1>
     </div> --}}
-    <header class="text-gray-600 body-font">
-        <div class="flex justify-between items-center">
 
-            <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+    <header class="text-gray-600 body-font">
+        <div class="flex justify-between items-center ">
+            <div class="flex flex-wrap p-5 flex-col md:flex-row items-center">
                 <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2"
                         class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
-                    <span class="ml-3 text-xl">Shopstable</span>
+                    <a href="http://{{ tenant('domain') }}/">
+                        <span class="ml-3 text-xl">Shopstable</span>
+                    </a>
                 </a>
+                <script>
+                    var count = 0;
+                    var shopping_item_count = {!! json_encode($purchase_product_count) !!};
+                </script>
 
                 @if (!empty($navbar))
                     <div
                         class="md:mr-auto md:ml-4 md:py-1 md:pl-4  md:border-gray-400 flex flex-wrap text-base justify-center">
                         @foreach ($navbar as $item)
-                            <a target="_blank" href={{ $item->nav_item_link }} class="mx-2">
+                            <a href={{ $item->nav_item_link }} class="mx-2">
                                 {{ $item->nav_item_name }}
                             </a>
                         @endforeach
@@ -262,47 +278,78 @@
                 @endif
             </div>
 
+            <div class="flex items-center gap-2">
+                {{-- @if ($user_id == null) --}}
+                @if (1 == 1)
+                    <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
+                        href="http://{{ request()->getHttpHost() }}/customer/login">
+                        Login
+                    </a>
+                    <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
+                        href="http://{{ request()->getHttpHost() }}/customer/register">
+                        Register
+                    </a>
+                @endif
 
-            <div class="py-2 px-5">
-                <x-button onclick="history.back()">
-                    {{ __('Back') }}
-                </x-button>
+
+                <div class="flex items-center">
+                    <a href="http://{{ tenant('domain') }}/shopping_cart">
+                        <img src="/Icons/cart.svg" class='w-5' alt="">
+                    </a>
+
+ {{-- @if ($purchase_product_count > 0) --}}
+                        <div id="cart_count"
+                            class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
+                            {{ $purchase_product_count }}</div>
+                    {{-- @endif --}}
+                    <div class="py-2 px-5">
+                        <x-button onclick="history.back()">
+                            {{ __('Back') }}
+                        </x-button>
+                    </div>
+                </div>
             </div>
+
         </div>
     </header>
-
 
     <div id="canvas" class="canvas mx-10" data-handle></div>
 
     @if (!empty($pageData))
         <script>
+            // replace contenteditable="true" with contenteditable="false" i $('.pageBody')
+            // $(".pageBody").html($(".pageBody").html().replaceAll(contenteditable = "true", ).)
+            // $(any).attr('contenteditable', 'flase');
             $(document).ready(function() {
+                console.log('ready');
+                $('[contenteditable]').attr('contenteditable', false);
+
                 var header_size;
                 var lable_size;
                 var paragraph_size;
                 let theme = {!! json_encode($theme->toArray()) !!};
 
-
-                // // -------------------------start Header set-----------------------------//
+                // -------------------------start Header set-----------------------------//
                 // let content_header_str = $('.content_header').attr("class");
-                // // content_header_str = content_header_str.split(' ');
+                // content_header_str = content_header_str.split(/(\s+)/);
+                // console.log(theme, 'theme');
                 // console.log(theme['header_size'], 'header_size');
                 // console.log(content_header_str[2], 'header_size');
 
                 // $('.content_header').attr('class', $('.content_header').attr('class').replace(content_header_str[2],
                 //     theme['header_size']));
 
-                // // -------------------------End Header set-----------------------------//
+                // -------------------------End Header set-----------------------------//
 
-                // // -------------------------Start lable set----------------------------//
+                // -------------------------Start lable set----------------------------//
                 // let content_lable_str = $('.content_lable').attr("class");
                 // content_lable_str = content_lable_str.split(/(\s+)/);
                 // $('.content_lable').attr('class', $('.content_lable').attr('class').replace(content_lable_str[2], theme[
                 //     'lable_size']));
                 // var temp_content_lable_str = theme['lable_size'];
-                // // -------------------------End lable set------------------------------//
+                // -------------------------End lable set------------------------------//
 
-                // // -------------------------start pharagraph set-----------------------------//
+                // -------------------------start pharagraph set-----------------------------//
                 // let content_paragraph_str = $('.content_paragraph').attr("class");
                 // content_paragraph_str = content_paragraph_str.split(/(\s+)/);
 
@@ -310,32 +357,32 @@
                 //     content_paragraph_str[2], theme['paragraph_size']));
 
                 // var temp_content_paragraph_str = theme['paragraph_size'];
-                // // -------------------------end pharagraph set-----------------------------//
+                // -------------------------end pharagraph set-----------------------------//
 
-                // function changeColor(color, el) {
-                //     // console.log(($(".pageBody").html()));
-                //     console.log('color,', color);
+                function changeColor(color, el) {
+                    // console.log(($(".pageBody").html()));
+                    console.log('color,', color);
 
-                //     console.log('currentColorTheme', currentColorTheme);
-                //     $(".changeColorClass").removeClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
-                //     // $(".pageBody").html($(".pageBody").html().replaceAll(currentColorTheme, color));
-                //     $(el).addClass("ring-4 outline-none ring-" + color + "-300");
-                //     currentColorTheme = color;
-                //     console.log(($(".pageBody").html()));
-                //     $.ajax({
-                //         type: "PUT",
-                //         url: "http://{{ tenant('domain') }}/themeBuilder/{{ $id }}",
-                //         data: {
-                //             _token: "{{ csrf_token() }}",
-                //             page_id: {{ $id }},
-                //             theme_color: color,
-                //             flag: 'Globle',
-                //         },
-                //         success: function(data) {
-                //             console.log(data);
-                //         }
-                //     });
-                // }
+                    console.log('currentColorTheme', currentColorTheme);
+                    $(".changeColorClass").removeClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
+                    $(".pageBody").html($(".pageBody").html().replaceAll(currentColorTheme, color));
+                    $(el).addClass("ring-4 outline-none ring-" + color + "-300");
+                    currentColorTheme = color;
+                    console.log(($(".pageBody").html()));
+                    $.ajax({
+                        type: "PUT",
+                        url: "http://{{ tenant('domain') }}/themeBuilder/{{ $id }}",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            page_id: {{ $id }},
+                            theme_color: color,
+                            flag: 'local',
+                        },
+                        success: function(data) {
+                            console.log(data);
+                        }
+                    });
+                }
                 // $('.changeColorClass').addClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
                 console.log(($(".pageBody").html()));
                 $.ajax({
@@ -346,7 +393,7 @@
                         let pagedata = $.parseHTML(`{{ $pageData }}`);
                         // console.log('pagedata', pagedata[0]['data']);
 
-                        let currentColorTheme = {!! json_encode($theme->toArray()) !!};
+                        var currentColorTheme = {!! json_encode($theme->toArray()) !!};
                         let theme = {!! json_encode($theme->toArray()) !!};
                         console.log(currentColorTheme['theme_color'], 'currentColorTheme');
                         currentColorTheme = currentColorTheme['theme_color'];
@@ -359,9 +406,10 @@
                             console.log('ssssaaa', currentColorTheme);
                             // console.log('relpace html', $(".pageBody").html().replaceAll('indigo',
                             //     currentColorTheme));
-
-                            // $(".pageBody").html($(".pageBody").html().replaceAll('indigo',
-                            // currentColorTheme));
+                            console.log('0-------------------0');
+                            $('[contenteditable]').attr('contenteditable', false);
+                            $(".pageBody").html($(".pageBody").html().replaceAll('indigo',
+                                currentColorTheme));
 
                             if ({!! !empty($category_data) !!}) {
 
@@ -401,15 +449,14 @@
                                                 </div>
                                                 <div class="relative mt-4">
                                                     <h3 class="text-sm font-medium text-gray-900"> ` +
-                                            category_datas[index]['title'] + `</h3>
-                                                    <p class="text-truncate mt-1 text-sm text-gray-500">  ` + category_datas[
-                                                index]['description'] + `</p>
-                                                </div>
+                                            category_datas[index]['title'] + `</h3>` +
+                                            `<p class="text-truncate mt-1 text-sm text-gray-500">` +
+                                            $(category_datas[index]['description']).html() +
+                                            `</p>` +
+                                            `</div>
                                             </div>
                                             <div class="mt-6">
-
                                     </div>
-
                                     `;
                                     }
                                     // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
@@ -433,7 +480,7 @@
 
                                     let product_datas = {!! json_encode($product_data->toArray()) !!};
                                     let product_image = {!! json_encode($product_image->toArray()) !!};
-                                    console.log('asAS', [product_datas[1]['imageName']]);
+                                    console.log('asAS', [product_datas[0]['imageName']]);
 
                                     for (let index = 0; index < product_datas
                                         .length; index++) {
@@ -455,7 +502,8 @@
                                             <div class="relative mt-4">
                                                 <h3 class="font-medium text-gray-900"> ` +
                                             product_datas[index]['title'] + `</h3>
-                                                <p class="text-truncate mt-1 text-sm text-gray-500">` + product_datas[index][
+                                                <p class="text-truncate mt-1 text-sm text-gray-500">` +
+                                            product_datas[index][
                                                 'shortDescription'
                                             ] + `</p>
                                             </div>
@@ -468,22 +516,22 @@
                                     // order ? order : [];;
                                 });;
                             }
+
+
                         }
                         // document.getElementById("canvas").innerHTML += '<P>sdsasf</P>';
                     }
                 });
 
-                let currentColorTheme = {!! json_encode($theme->toArray()) !!};
-                currentColorTheme = currentColorTheme['theme_color'];
-
                 // console.log(($(".pageBody").html()));
                 console.log('color,', color);
-
-                console.log('currentColorTheme', currentColorTheme);
-                $(".changeColorClass").removeClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
-                $(".pageBody").html($(".pageBody").html().replaceAll(currentColorTheme, color));
-                $(el).addClass("ring-4 outline-none ring-" + color + "-300");
-                currentColorTheme = color;
+                if (currentColorTheme) {
+                    console.log('currentColorTheme', currentColorTheme);
+                    $(".changeColorClass").removeClass("ring-4 outline-none ring-" + currentColorTheme + "-300");
+                    $(".pageBody").html($(".pageBody").html().replaceAll(currentColorTheme, color));
+                    $(el).addClass("ring-4 outline-none ring-" + color + "-300");
+                    currentColorTheme = color;
+                }
                 console.log(($(".pageBody").html()));
 
                 $.ajax({
@@ -496,6 +544,7 @@
                         let theme = {!! json_encode($theme->toArray()) !!};
                     }
                 })
+
                 $.ajax({
                     type: "PUT",
                     url: "http://{{ tenant('domain') }}/themeBuilder",
@@ -511,10 +560,15 @@
                 });
 
             });
+            var shopping_item_count = {!! json_encode($purchase_product_count) !!};
         </script>
     @endif
-
-
+    <script>
+        document.querySelectorAll('[contentEditable]').forEach(function(element) {
+            element.setAttribute('contenteditable', 'false');
+        });
+    </script>
 </body>
+<script></script>
 
 </html>

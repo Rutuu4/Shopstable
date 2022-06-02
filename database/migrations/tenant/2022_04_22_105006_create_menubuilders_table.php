@@ -25,9 +25,9 @@ return new class extends Migration
         });
 
         Menubuilder::insert([
-            'nav_item_name' => "Dashboard",
-            'nav_item_link' => "dashboard",
-            'nav_item_id' => "dashboard",
+            'nav_item_name' => "Home",
+            'nav_item_link' => "http://{{ tenant('domain') }}/pageBuilderPreview/1",
+            'nav_item_id' => "Home",
         ]);
     }
 
