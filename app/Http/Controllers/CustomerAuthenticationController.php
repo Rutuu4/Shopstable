@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use JWTFactory;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -16,7 +17,7 @@ class CustomerAuthenticationController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'register_view', 'login_view', 'logout']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'register_view', 'login_view', 'logout', 'show']]);
     }
 
     public function login(Request $request)
@@ -119,5 +120,13 @@ class CustomerAuthenticationController extends Controller
     public function login_view()
     {
         return view('customer.login');
+    }
+    public function show()
+    {
+        $customer=Customer::leftjoin('orders','orders.email','=','customers.email')
+        ->leftjoin('orders_items','orders_items.order_id','=','orders.id')
+        ->leftjoin('product','product.id','=','orders_items.product_id')
+        ->select('customers.id as id','product.id as product','customers.name as name','orders.address as address','orders.total as total', DB::raw('COUNT(orders_items.product_id) as no_of_orders'))->paginate(10);
+        return view('customer.customer',['customers'=>$customer]);
     }
 }
