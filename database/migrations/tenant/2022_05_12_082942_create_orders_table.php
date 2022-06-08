@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->string('tracking_number')->nullable();
+            $table->string('unique_order_number')->unique;
             $table->string('email');
             $table->string('user_name');
             $table->integer('card_no');

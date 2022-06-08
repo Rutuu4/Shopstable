@@ -99,7 +99,25 @@
                                     {{-- @endforeach --}}
                                 </select>
                             </div>
+
+                            <div class="mt-4">
+                                <x-label :value="__('Globle Currency')" class="mb-1" />
+                                <select name="content_currency"
+                                    class="content_currency w-[13rem] pr-8 pl-4 py-2 text-left rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    id="status">
+                                    {{-- @foreach ($category_data as $item) --}}
+                                    @if (1 === 1)
+                                        <option class="py-2 px-4" value='$' selected>Dollar</option>
+                                    @else
+                                        <option class="py-2 px-4" value='$'>Dollar</option>
+                                    @endif
+                                    <option class="py-2 px-4" value='€'>Euro</option>
+                                    <option class="py-2 px-4" value='₹'>Rupees</option>
+                                    {{-- @endforeach --}}
+                                </select>
+                            </div>
                         </div>
+
                         <div class="">
                             <div class="demo relative bg-gray-50 overflow-hidden">
                                 <div class="w-full h-full overflow-hidden">
@@ -121,15 +139,15 @@
                                                 <div onclick="changeColor()"
                                                     class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
                                                     <div class="rounded-md shadow">
-                                                        <a href="#"
-                                                            class="content_lable w-full flex items-center justify-center px-8 py-3 border border-transparent font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 content_theme_color">
-                                                            Get started </a>
+                                                        <button href=""
+                                                            class="toster_button content_lable w-full flex items-center justify-center px-8 py-3 border border-transparent font-medium rounded-md text-white bg-indigo-600  content_theme_color">
+                                                            Get started </button>
                                                     </div>
-                                                    <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
+                                                    {{-- <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
                                                         <a href="#"
                                                             class="content_lable w-full flex items-center justify-center px-8 py-3 border border-transparent font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:px-10">
                                                             Live demo </a>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </main>
@@ -153,7 +171,7 @@
                             $('.lable_size').val(theme[0]['lable_size']).change();
                             $('.header_size').val(theme[0]['header_size']).change();
                             $('.paragraph_size').val(theme[0]['paragraph_size']).change();
-
+                            $('.content_currency').val(theme[0]['globle_currency']).change();
 
                             function changeGlobleColor(color, el) {
 
@@ -293,8 +311,6 @@
             });
         });
 
-
-
         // -------------------------end change of lable set------------------------------//
 
         // -------------------------start pharagraph set-----------------------------//
@@ -302,12 +318,11 @@
         content_paragraph_str = content_paragraph_str.split(/(\s+)/);
 
         $('.content_paragraph').attr('class', $('.content_paragraph').attr('class').replace(content_paragraph_str[2], theme[
-            0][
-            'paragraph_size'
-        ]));
+            0]['paragraph_size']));
 
         var temp_content_paragraph_str = theme[0]['paragraph_size'];
         // -------------------------end pharagraph set-----------------------------//
+
         // -------------------------Start change of pharagraph set------------------------------//
 
         $('.paragraph_size').change(function(e) {
@@ -343,5 +358,53 @@
         });
 
         // -------------------------end change of pharagraph set------------------------------//
+
+
+        // -------------------------start currency set-----------------------------//
+        let content_currency_str = $('.content_currency').attr("class");
+        content_currency_str = content_currency_str.split(/(\s+)/);
+        console.log(theme[0]['globle_currency'], '------------currency');
+        $('.content_currency').attr('class', $('.content_currency').attr('class').replace(content_currency_str[2], theme[0][
+            'globle_currency'
+        ]));
+
+        var temp_content_currency_str = theme[0]['globle_currency'];
+        // -------------------------end pharagraph set-----------------------------//
+
+        // -------------------------start change currency set-----------------------------//
+
+        $('.content_currency').change(function(e) {
+            globle_currency = $('.content_currency').val();
+            $.ajax({
+                type: "PUT",
+                url: "http://{{ tenant('domain') }}/themeBuilder/Globle",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    page_id: 'Globle',
+                    globle_currency: globle_currency,
+                    flag: 'content_currency',
+                    theme_flag: 'globle'
+                },
+                success: function(data) {
+                    console.log(data);
+
+                    let str = $('.content_currency').attr("class");
+                    console.log(theme[0]['globle_currency']);
+                    new_content_currency_str = globle_currency
+
+                    let content_currency_str = $('.content_currency').attr("class");
+                    let flag = $('.content_currency').hasClass('text-size')
+                    // content_currency_str = content_currency_str.split(/(\s+)/);
+                    console.log('currency class -------', $('.content_currency').attr('class'));
+                    console.log('currency temp -------', temp_content_currency_str);
+                    $('.content_currency').attr('class', $('.content_currency').attr('class').replace(
+                        temp_content_currency_str, globle_currency));
+                    temp_content_currency_str = new_content_currency_str
+                    console.log(globle_currency, 'end here');
+                }
+            });
+        });
     </script>
 </x-app-layout>
+
+<x-toster />

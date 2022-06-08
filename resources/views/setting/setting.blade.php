@@ -50,8 +50,6 @@
                     </div>
                 </div>
             </a>
-
         </div>
-
     </div>
 </x-app-layout>

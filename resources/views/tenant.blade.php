@@ -66,6 +66,9 @@
                     class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
                     {{ $purchase_product_count }}</div>
 
+                <a href="http://{{ tenant('domain') }}/shipping">
+                    <img src="/Icons/order_list.svg" class='w-5 ml-2' alt="">
+                </a>
                 <div class="py-2 px-5">
                     <x-button onclick="history.back()">
                         {{ __('Back') }}
@@ -316,7 +319,6 @@
                                                                                             div:empty::before {
                                                                                                 content: 'fallback placeholder';
                                                                                             } */
-
     </style>
     {{-- <div class="py-4 px-24 flex justify-between border-b-4 ">
             <a href="http://{{ tenant('domain') }}/pageBuilderPreview/{{ $id }}">

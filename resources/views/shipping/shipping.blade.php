@@ -94,10 +94,14 @@
                         <img src="/Icons/cart.svg" class='w-5' alt="">
                     </a>
 
-                        <div id="cart_count"
-                            class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
-                            {{ $purchase_product_count }}</div>
-                            
+                    <div id="cart_count"
+                        class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
+                        {{ $purchase_product_count }}</div>
+
+                    <a href="http://{{ tenant('domain') }}/shipping">
+                        <img src="/Icons/order_list.svg" class='w-5 ml-2' alt="">
+                    </a>
+
                     <div class="py-2 px-5">
                         <x-button onclick="history.back()">
                             {{ __('Back') }}
@@ -138,288 +142,13 @@
                 From: "translate-x-0"
                 To: "-translate-x-full"
             -->
-            <div class="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto">
-                <div class="px-4 pt-5 pb-2 flex">
-                    <button type="button"
-                        class="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400">
-                        <span class="sr-only">Close menu</span>
-                        <!-- Heroicon name: outline/x -->
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Links -->
-                <div class="mt-2">
-                    <div class="border-b border-gray-200">
-                        <div class="-mb-px flex px-4 space-x-8" aria-orientation="horizontal" role="tablist">
-                            <!-- Selected: "text-indigo-600 border-indigo-600", Not Selected: "text-gray-900 border-transparent" -->
-                            <button id="tabs-1-tab-1"
-                                class="text-gray-900 border-transparent flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium"
-                                aria-controls="tabs-1-panel-1" role="tab" type="button">Women</button>
-
-                            <!-- Selected: "text-indigo-600 border-indigo-600", Not Selected: "text-gray-900 border-transparent" -->
-                            <button id="tabs-1-tab-2"
-                                class="text-gray-900 border-transparent flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium"
-                                aria-controls="tabs-1-panel-2" role="tab" type="button">Men</button>
-                        </div>
-                    </div>
-
-                    <!-- 'Women' tab panel, show/hide based on tab state. -->
-                    <div id="tabs-1-panel-1" class="px-4 pt-10 pb-6 space-y-12" aria-labelledby="tabs-1-tab-1"
-                        role="tabpanel" tabindex="0">
-                        <div class="grid grid-cols-1 items-start gap-y-10 gap-x-6">
-                            <div class="grid grid-cols-1 gap-y-10 gap-x-6">
-                                <div>
-                                    <p id="mobile-featured-heading-0" class="font-medium text-gray-900">Featured</p>
-                                    <ul role="list" aria-labelledby="mobile-featured-heading-0" class="mt-6 space-y-6">
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Sleep </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Swimwear </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Underwear </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <p id="mobile-categories-heading" class="font-medium text-gray-900">Categories</p>
-                                    <ul role="list" aria-labelledby="mobile-categories-heading" class="mt-6 space-y-6">
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Basic Tees </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Artwork Tees </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Bottoms </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Underwear </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Accessories </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 gap-y-10 gap-x-6">
-                                <div>
-                                    <p id="mobile-collection-heading" class="font-medium text-gray-900">Collection</p>
-                                    <ul role="list" aria-labelledby="mobile-collection-heading" class="mt-6 space-y-6">
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Everything </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Core </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> New Arrivals </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Sale </a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div>
-                                    <p id="mobile-brand-heading" class="font-medium text-gray-900">Brands</p>
-                                    <ul role="list" aria-labelledby="mobile-brand-heading" class="mt-6 space-y-6">
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Full Nelson </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> My Way </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Re-Arranged </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Counterfeit </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Significant Other </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 'Men' tab panel, show/hide based on tab state. -->
-                    <div id="tabs-1-panel-2" class="px-4 pt-10 pb-6 space-y-12" aria-labelledby="tabs-1-tab-2"
-                        role="tabpanel" tabindex="0">
-                        <div class="grid grid-cols-1 items-start gap-y-10 gap-x-6">
-                            <div class="grid grid-cols-1 gap-y-10 gap-x-6">
-                                <div>
-                                    <p id="mobile-featured-heading-1" class="font-medium text-gray-900">Featured</p>
-                                    <ul role="list" aria-labelledby="mobile-featured-heading-1" class="mt-6 space-y-6">
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Casual </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Boxers </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Outdoor </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <p id="mobile-categories-heading" class="font-medium text-gray-900">Categories</p>
-                                    <ul role="list" aria-labelledby="mobile-categories-heading" class="mt-6 space-y-6">
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Artwork Tees </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Pants </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Accessories </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Boxers </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Basic Tees </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 gap-y-10 gap-x-6">
-                                <div>
-                                    <p id="mobile-collection-heading" class="font-medium text-gray-900">Collection</p>
-                                    <ul role="list" aria-labelledby="mobile-collection-heading" class="mt-6 space-y-6">
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Everything </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Core </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> New Arrivals </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Sale </a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div>
-                                    <p id="mobile-brand-heading" class="font-medium text-gray-900">Brands</p>
-                                    <ul role="list" aria-labelledby="mobile-brand-heading" class="mt-6 space-y-6">
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Significant Other </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> My Way </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Counterfeit </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Re-Arranged </a>
-                                        </li>
-
-                                        <li class="flex">
-                                            <a href="#" class="text-gray-500"> Full Nelson </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border-t border-gray-200 py-6 px-4 space-y-6">
-                    <div class="flow-root">
-                        <a href="#" class="-m-2 p-2 block font-medium text-gray-900">Company</a>
-                    </div>
-
-                    <div class="flow-root">
-                        <a href="#" class="-m-2 p-2 block font-medium text-gray-900">Stores</a>
-                    </div>
-                </div>
-
-                <div class="border-t border-gray-200 py-6 px-4 space-y-6">
-                    <div class="flow-root">
-                        <a href="#" class="-m-2 p-2 block font-medium text-gray-900">Create an account</a>
-                    </div>
-                    <div class="flow-root">
-                        <a href="#" class="-m-2 p-2 block font-medium text-gray-900">Sign in</a>
-                    </div>
-                </div>
-
-                <div class="border-t border-gray-200 py-6 px-4 space-y-6">
-                    <!-- Currency selector -->
-                    <form>
-                        <div class="inline-block">
-                            <label for="mobile-currency" class="sr-only">Currency</label>
-                            <div
-                                class="-ml-2 group relative border-transparent rounded-md focus-within:ring-2 focus-within:ring-white">
-                                <select id="mobile-currency" name="currency"
-                                    class="bg-none border-transparent rounded-md py-0.5 pl-2 pr-5 flex items-center text-sm font-medium text-gray-700 group-hover:text-gray-800 focus:outline-none focus:ring-0 focus:border-transparent">
-                                    <option>CAD</option>
-
-                                    <option>USD</option>
-
-                                    <option>AUD</option>
-
-                                    <option>EUR</option>
-
-                                    <option>GBP</option>
-                                </select>
-                                <div class="absolute right-0 inset-y-0 flex items-center pointer-events-none">
-                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 20 20" class="w-5 h-5 text-gray-500">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="1.5" d="M6 8l4 4 4-4" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
 
 
-        <main class="max-w-2xl mx-auto pt-8 pb-24 sm:pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
+        <main class="max-w-2xl mx-auto pt-8 pb-24 sm:pt-8 sm:px-6 lg:max-w-7xl lg:px-8">
             <div class="px-4 space-y-2 sm:px-0 sm:flex sm:items-baseline sm:justify-between sm:space-y-0">
                 <div class="flex sm:items-baseline sm:space-x-4">
                     <h1 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Orders</h1>
-                    <a href="#" class="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 sm:block">View
-                        invoice<span aria-hidden="true"> &rarr;</span></a>
                 </div>
                 <p class="text-sm text-gray-600">Order placed <time datetime="2021-03-22"
                         class="font-medium text-gray-900">March 22, 2021</time></p>
@@ -429,157 +158,122 @@
             {{-- {{ $shippings }} --}}
 
             <!-- Products -->
+
             <section aria-labelledby="products-heading" class="mt-6">
                 <h2 id="products-heading" class="sr-only">Products purchased</h2>
-                @foreach ($shippings as $shipping)
-                    <div class="space-y-8">
-                        <div class="bg-white border-t border-b border-gray-200 shadow-sm sm:border sm:rounded-lg">
-                            <div class="py-6 px-4 sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8">
-                                <div class="sm:flex lg:col-span-7">
-                                    <div
-                                        class="flex-shrink-0 w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-none sm:w-40 sm:h-40">
-                                        <img src="{{ $shipping->imageName }}"
-                                            alt="Insulated bottle with white base and black snap lid."
-                                            class="w-full h-full object-center object-cover sm:w-full sm:h-full">
+
+                <div class="grid grid-cols-2 gap-4">
+                    @foreach ($shippings as $shipping)
+                        <div>
+                            <div class="space-y-8">
+                                <div
+                                    class="bg-white border-t border-b border-gray-200 shadow-sm sm:border sm:rounded-lg">
+                                    <div class="flex justify-between border-b w-full pb-5 sm:px-6 lg:px-8 pt-5">
+                                        <dl class="text-sm font-medium">
+                                            <dt class="text-gray-900">Order Number</dt>
+                                            <a
+                                                href='http://{{ request()->getHttpHost() }}/order_confirmation/{{ $shipping->unique_order_number }} '>
+                                                <div
+                                                    class="text-indigo-600 hover:scale-110 ease-in-out duration-75 mt-2">
+                                                    {{ $shipping->unique_order_number }}
+                                                </div>
+                                            </a>
+                                        </dl>
+                                        <dl class="text-sm font-medium">
+                                            <dt class="text-gray-900">Tracking Number</dt>
+                                            <dd class="text-indigo-600 mt-2">2ZiMOjRGFBTA3rHZpEpx</dd>
+                                        </dl>
+                                        <dl class="text-sm font-medium">
+                                            <dt class="text-gray-900">Order date</dt>
+                                            <dd class="text-indigo-600 mt-2">
+                                                {{ date_format($shipping->updated_at, 'd-m-Y') }}</dd>
+                                        </dl>
                                     </div>
 
-                                    <div class="mt-6 sm:mt-0 sm:ml-6">
-                                        <h3 class="text-base font-medium text-gray-900">
-                                            <a href="#">{{ $shipping->title }}</a>
-                                        </h3>
-                                        <p class="mt-2 text-sm font-medium text-gray-900">$35.00</p>
-                                        <p class="mt-3 text-sm text-gray-500">{{ $shipping->shortDescription }}</p>
-                                    </div>
-                                </div>
+                                    <div class=" py-6 sm:px-6 lg:p-8 ">
+                                        @foreach ($order_items as $item)
+                                            @if ($item->order_id == $shipping->order_id)
+                                                <div class="py-4 ">
+                                                    <div class="flex items-center sm:items-start relative">
+                                                        <div
+                                                            class="flex-shrink-0 w-20 h-20 bg-gray-200 rounded-lg overflow-hidden sm:w-40 sm:h-40">
+                                                            <img src="{{ $item->imageName }}"
+                                                                alt="Moss green canvas compact backpack with double top zipper, zipper front pouch, and matching carry handle and backpack straps."
+                                                                class="w-full h-full object-center object-cover">
+                                                        </div>
+                                                        <div class="flex-1 ml-6 text-sm">
+                                                            <div class="sm:flex sm:justify-between">
+                                                                <h5 class="font-medium text-xl text-gray-900 ">
+                                                                    {{ $item->title }}</h5>
 
-                                <div class="mt-6 lg:mt-0 lg:col-span-5">
-                                    <dl class="grid grid-cols-2 gap-6 text-sm">
-                                        <div>
-                                            <dt class="font-medium text-gray-900">Shipping updates</dt>
-                                            <dd class="mt-3 text-gray-500 space-y-3">
-                                                <p>{{ $shipping->email }}</p>
-                                                {{-- <p>1•••••••••40</p>
-                                                <button type="button"
-                                                    class="font-medium text-indigo-600 hover:text-indigo-500">Edit</button> --}}
-                                            </dd>
-                                        </div>
-                                        <div>
-                                            <dt class="font-medium text-gray-900">Order ID</dt>
-                                            <dd class="mt-3 text-gray-500 space-y-3">
-                                                <p>{{ $shipping->order_id }}</p>
-                                                {{-- <p>1•••••••••40</p>
-                                                <button type="button"
-                                                    class="font-medium text-indigo-600 hover:text-indigo-500">Edit</button> --}}
-                                            </dd>
-                                        </div>
-                                        <div class="col-span-2">
-                                            <dt class="font-medium text-gray-900">Delivery address</dt>
-                                            <dd class="mt-3 text-gray-500">
-                                                <span class="block">{{ $shipping->address }}</span>
-                                                {{-- <span class="block">7363 Cynthia Pass</span>
-                                            <span class="block">Toronto, ON N3Y 4H8</span> --}}
-                                            </dd>
-                                        </div>
-                                    </dl>
-                                </div>
-                            </div>
-
-                            <div class="border-t border-gray-200 py-6 px-4 sm:px-6 lg:p-8">
-                                <h4 class="sr-only">Status</h4>
-                                <p class="text-sm font-medium text-gray-900">Preparing to ship on <time
-                                        datetime="2021-03-24">March 24, 2021</time></p>
-                                <div class="mt-6" aria-hidden="true">
-                                    <div class="bg-gray-200 rounded-full overflow-hidden">
-                                        <div class="h-2 bg-indigo-600 rounded-full"
-                                            style="width: calc((1 * 2 + 1) / 8 * 100%)">
-                                        </div>
+                                                            </div>
+                                                            <div class="flex gap-2 mt-3">
+                                                                <h5 class="font-medium text-gray-900 ">Price</h5>
+                                                                <p class="sm:mt-0">
+                                                                    {{ $theme->globle_currency }}{{ sprintf('%0.2f', $item->price) }}
+                                                                </p>
+                                                            </div>
+                                                            <div class="flex gap-2 mt-2">
+                                                                <h5 class="font-medium text-gray-900">Quantity</h5>
+                                                                <p class="hidden text-gray-500 sm:block">
+                                                                    {{ $item->quantity }}</p>
+                                                            </div>
+                                                            <div class="flex gap-2 mt-2">
+                                                                <h5 class="font-medium text-gray-900">Email</h5>
+                                                                <p class="hidden text-gray-500 sm:block">
+                                                                    {{ $item->email }}</p>
+                                                            </div>
+                                                            <div
+                                                                class="absolute bottom-0 right-0 mt-3 border-t border-gray-200 pt-4 space-x-4 divide-x divide-gray-200 text-sm font-medium sm:mt-0 sm:ml-4 sm:border-none sm:pt-0">
+                                                                <a
+                                                                    href="http://{{ request()->getHttpHost() }}/product/detail/{{ $item->product_id }}">
+                                                                    <div
+                                                                        class="text-indigo-600 whitespace-nowrap hover:scale-110 ease-in-out duration-75">
+                                                                        Buy
+                                                                        again
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endforeach
                                     </div>
-                                    <div class="hidden sm:grid grid-cols-4 text-sm font-medium text-gray-600 mt-6">
-                                        <div class="text-indigo-600">Order placed</div>
-                                        <div class="text-center text-indigo-600">Processing</div>
-                                        <div class="text-center">Shipped</div>
-                                        <div class="text-right">Delivered</div>
+                                    <div class="border-t border-gray-200 py-6 px-4 sm:px-6 lg:p-8">
+                                        <h4 class="sr-only">Status</h4>
+                                        <p class="text-sm font-medium text-gray-900">Preparing to ship on <time
+                                                datetime="2021-03-24">March 24, 2021</time></p>
+                                        <div class="mt-6" aria-hidden="true">
+                                            <div class="bg-gray-200 rounded-full overflow-hidden">
+                                                <div class="h-2 bg-indigo-600 rounded-full"
+                                                    style="width: calc((1 * 2 + 1) / 8 * 100%)">
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="hidden sm:grid grid-cols-4 text-sm font-medium text-gray-600 mt-6">
+                                                <div class="text-indigo-600">Order placed</div>
+                                                <div class="text-center text-indigo-600">Processing</div>
+                                                <div class="text-center">Shipped</div>
+                                                <div class="text-right">Delivered</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    @endforeach
+                </div>
+    </div>
+    </div>
+    </section>
 
-                        {{-- <div class="bg-white border-t border-b border-gray-200 shadow-sm sm:border sm:rounded-lg">
-                            <div class="py-6 px-4 sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8">
-                                <div class="sm:flex lg:col-span-7">
-                                    <div
-                                        class="flex-shrink-0 w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-none sm:w-40 sm:h-40">
-                                        <img src="https://tailwindui.com/img/ecommerce-images/confirmation-page-03-product-02.jpg"
-                                            alt="Arm modeling wristwatch with black leather band, white watch face, thin watch hands, and fine time markings."
-                                            class="w-full h-full object-center object-cover sm:w-full sm:h-full">
-                                    </div>
+    <!-- Billing -->
+    <section aria-labelledby="summary-heading" class="mt-16">
+        <h2 id="summary-heading" class="sr-only">Billing Summary</h2>
 
-                                    <div class="mt-6 sm:mt-0 sm:ml-6">
-                                        <h3 class="text-base font-medium text-gray-900">
-                                            <a href="#">Minimalist Wristwatch</a>
-                                        </h3>
-                                        <p class="mt-2 text-sm font-medium text-gray-900">$149.00</p>
-                                        <p class="mt-3 text-sm text-gray-500">This contemporary wristwatch has a clean,
-                                            minimalist look and high quality components.</p>
-                                    </div>
-                                </div>
-
-                                <div class="mt-6 lg:mt-0 lg:col-span-5">
-                                    <dl class="grid grid-cols-2 gap-x-6 text-sm">
-                                        <div>
-                                            <dt class="font-medium text-gray-900">Delivery address</dt>
-                                            <dd class="mt-3 text-gray-500">
-                                                <span class="block">Floyd Miles</span>
-                                                <span class="block">7363 Cynthia Pass</span>
-                                                <span class="block">Toronto, ON N3Y 4H8</span>
-                                            </dd>
-                                        </div>
-                                        <div>
-                                            <dt class="font-medium text-gray-900">Shipping updates</dt>
-                                            <dd class="mt-3 text-gray-500 space-y-3">
-                                                <p>f•••@example.com</p>
-                                                <p>1•••••••••40</p>
-                                                <button type="button"
-                                                    class="font-medium text-indigo-600 hover:text-indigo-500">Edit</button>
-                                            </dd>
-                                        </div>
-                                    </dl>
-                                </div>
-                            </div>
-
-                            <div class="border-t border-gray-200 py-6 px-4 sm:px-6 lg:p-8">
-                                <h4 class="sr-only">Status</h4>
-                                <p class="text-sm font-medium text-gray-900">Shipped on <time
-                                        datetime="2021-03-23">March
-                                        23,
-                                        2021</time></p>
-                                <div class="mt-6" aria-hidden="true">
-                                    <div class="bg-gray-200 rounded-full overflow-hidden">
-                                        <div class="h-2 bg-indigo-600 rounded-full"
-                                            style="width: calc((0 * 2 + 1) / 8 * 100%)">
-                                        </div>
-                                    </div>
-                                    <div class="hidden sm:grid grid-cols-4 text-sm font-medium text-gray-600 mt-6">
-                                        <div class="text-indigo-600">Order placed</div>
-                                        <div class="text-center">Processing</div>
-                                        <div class="text-center">Shipped</div>
-                                        <div class="text-right">Delivered</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
-
-                        <!-- More products... -->
-                    </div>
-                @endforeach
-            </section>
-
-            <!-- Billing -->
-            <section aria-labelledby="summary-heading" class="mt-16">
-                <h2 id="summary-heading" class="sr-only">Billing Summary</h2>
-
-                <div class="bg-gray-100 py-6 px-4 sm:px-6 sm:rounded-lg lg:px-8 lg:py-8 ">
-                    {{-- <dl class="grid grid-cols-2 gap-6 text-sm sm:grid-cols-2 md:gap-x-8 lg:col-span-7">
+        <div class="bg-gray-100 py-6 px-4 sm:px-6 sm:rounded-lg lg:px-8 lg:py-8 ">
+            {{-- <dl class="grid grid-cols-2 gap-6 text-sm sm:grid-cols-2 md:gap-x-8 lg:col-span-7">
                         <div>
                             <dt class="font-medium text-gray-900">Billing address</dt>
                             <dd class="mt-3 text-gray-500">
@@ -611,8 +305,8 @@
                         </div>
                     </dl> --}}
 
-                    <dl class="mt-8 divide-y divide-gray-200 text-sm lg:mt-0 lg:col-span-5">
-                        {{-- <div class="pb-4 flex items-center justify-between">
+            <dl class="mt-8 divide-y divide-gray-200 text-sm lg:mt-0 lg:col-span-5">
+                {{-- <div class="pb-4 flex items-center justify-between">
                             <dt class="text-gray-600">Subtotal</dt>
                             <dd class="font-medium text-gray-900">$72</dd>
                         </div>
@@ -624,118 +318,118 @@
                             <dt class="text-gray-600">Tax</dt>
                             <dd class="font-medium text-gray-900">$6.16</dd>
                         </div> --}}
-                        <div class="pt-4 flex items-center justify-between">
-                            <dt class="font-medium text-gray-900">Order total</dt>
-                            <dd class="font-medium text-indigo-600">{{ $shipping->total }}</dd>
-                        </div>
-                    </dl>
+                <div class="pt-4 flex items-center justify-between">
+                    <dt class="font-medium text-gray-900">Order total</dt>
+                    <dd class="font-medium text-indigo-600">{{ $shipping->total }}</dd>
                 </div>
-            </section>
-        </main>
+            </dl>
+        </div>
+    </section>
+    </main>
 
-        <footer aria-labelledby="footer-heading" class="bg-white border-t border-gray-200">
-            <h2 id="footer-heading" class="sr-only">Footer</h2>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="py-20 grid grid-cols-2 gap-8 sm:gap-y-0 sm:grid-cols-2 lg:grid-cols-4">
-                    <div class="grid grid-cols-1 gap-y-10 lg:col-span-2 lg:grid-cols-2 lg:gap-y-0 lg:gap-x-8">
-                        <div>
-                            <h3 class="text-sm font-medium text-gray-900">Account</h3>
-                            <ul role="list" class="mt-6 space-y-6">
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Manage Account </a>
-                                </li>
+    <footer aria-labelledby="footer-heading" class="bg-white border-t border-gray-200">
+        <h2 id="footer-heading" class="sr-only">Footer</h2>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="py-20 grid grid-cols-2 gap-8 sm:gap-y-0 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="grid grid-cols-1 gap-y-10 lg:col-span-2 lg:grid-cols-2 lg:gap-y-0 lg:gap-x-8">
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-900">Account</h3>
+                        <ul role="list" class="mt-6 space-y-6">
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Manage Account </a>
+                            </li>
 
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Saved Items </a>
-                                </li>
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Saved Items </a>
+                            </li>
 
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Orders </a>
-                                </li>
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Orders </a>
+                            </li>
 
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Redeem Gift card </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-medium text-gray-900">Service</h3>
-                            <ul role="list" class="mt-6 space-y-6">
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Shipping &amp; Returns </a>
-                                </li>
-
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Warranty </a>
-                                </li>
-
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> FAQ </a>
-                                </li>
-
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Find a store </a>
-                                </li>
-
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Get in touch </a>
-                                </li>
-                            </ul>
-                        </div>
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Redeem Gift card </a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="grid grid-cols-1 gap-y-10 lg:col-span-2 lg:grid-cols-2 lg:gap-y-0 lg:gap-x-8">
-                        <div>
-                            <h3 class="text-sm font-medium text-gray-900">Company</h3>
-                            <ul role="list" class="mt-6 space-y-6">
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Who we are </a>
-                                </li>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-900">Service</h3>
+                        <ul role="list" class="mt-6 space-y-6">
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Shipping &amp; Returns </a>
+                            </li>
 
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Press </a>
-                                </li>
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Warranty </a>
+                            </li>
 
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Careers </a>
-                                </li>
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> FAQ </a>
+                            </li>
 
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Terms &amp; Conditions </a>
-                                </li>
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Find a store </a>
+                            </li>
 
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Privacy </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-medium text-gray-900">Connect</h3>
-                            <ul role="list" class="mt-6 space-y-6">
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Instagram </a>
-                                </li>
-
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Pinterest </a>
-                                </li>
-
-                                <li class="text-sm">
-                                    <a href="#" class="text-gray-500 hover:text-gray-600"> Twitter </a>
-                                </li>
-                            </ul>
-                        </div>
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Get in touch </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+                <div class="grid grid-cols-1 gap-y-10 lg:col-span-2 lg:grid-cols-2 lg:gap-y-0 lg:gap-x-8">
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-900">Company</h3>
+                        <ul role="list" class="mt-6 space-y-6">
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Who we are </a>
+                            </li>
 
-                <div class="border-t border-gray-100 py-10 sm:flex sm:items-center sm:justify-between">
-                    <div class="flex items-center justify-center text-sm text-gray-500">
-                        <p>Shipping to Canada ($CAD)</p>
-                        <p class="ml-3 border-l border-gray-200 pl-3">English</p>
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Press </a>
+                            </li>
+
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Careers </a>
+                            </li>
+
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Terms &amp; Conditions </a>
+                            </li>
+
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Privacy </a>
+                            </li>
+                        </ul>
                     </div>
-                    <p class="mt-6 text-sm text-gray-500 text-center sm:mt-0">&copy; 2021 Clothing Company, Ltd.</p>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-900">Connect</h3>
+                        <ul role="list" class="mt-6 space-y-6">
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Instagram </a>
+                            </li>
+
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Pinterest </a>
+                            </li>
+
+                            <li class="text-sm">
+                                <a href="#" class="text-gray-500 hover:text-gray-600"> Twitter </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </footer>
+
+            <div class="border-t border-gray-100 py-10 sm:flex sm:items-center sm:justify-between">
+                <div class="flex items-center justify-center text-sm text-gray-500">
+                    <p>Shipping to Canada ($CAD)</p>
+                    <p class="ml-3 border-l border-gray-200 pl-3">English</p>
+                </div>
+                <p class="mt-6 text-sm text-gray-500 text-center sm:mt-0">&copy; 2021 Clothing Company, Ltd.</p>
+            </div>
+        </div>
+    </footer>
     </div>
     <script>
         var currentColorTheme = {!! json_encode($theme->toArray()) !!};

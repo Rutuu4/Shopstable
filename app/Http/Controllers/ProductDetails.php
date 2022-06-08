@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menubuilder;
 use App\Models\Purchase_items;
+use App\Models\Themecolor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -55,6 +56,11 @@ class ProductDetails extends Controller
     public function show($id)
     {
         $purchase_product_count = Purchase_items::count();
+
+        $theme = Themecolor::where('page_id', 'globle')->first();
+        if ($theme->flag == 'globle') {
+            $theme = Themecolor::where('page_id', 'globle')->first();
+        }
         $productDetail = DB::table('product')
             ->leftJoin('product_image', 'product_image.product_id', 'product.id')
             ->where('product.id', $id)
@@ -79,6 +85,7 @@ class ProductDetails extends Controller
 
         $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
         return view('products.productDetail', [
+            'theme' => $theme,
             'productDetail' => $productDetail,
             'productQuantity' => $productQuantity,
             'productImage' => $productImage, 'id' => $id, 'navbar' => $navbar,

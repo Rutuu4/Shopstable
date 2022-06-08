@@ -132,6 +132,13 @@ class ThemeBuilder extends Controller
                         ]);
                         return response()->json(['success' => "uploaded", 'paragraph_size' => $request->paragraph_size]);
                     }
+                    if ($request->flag == 'content_currency') {
+                        $theme->update([
+                            'globle_currency' => $request->globle_currency,
+                            'flag' => $request->theme_flag
+                        ]);
+                        return response()->json(['success' => "uploaded", 'globle_currency' => $request->globle_currency]);
+                    }
                 } else {
                     Themecolor::create([
                         'page_id' => $id,

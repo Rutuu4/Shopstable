@@ -17,6 +17,7 @@ use App\Http\Controllers\CustomerAuthenticationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LinkDataController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OrderConfirmationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageBuilder;
 use App\Http\Controllers\pageBuilderPreview;
@@ -257,6 +258,10 @@ Route::middleware([
 
     //shipping
     Route::resource('shipping', ShippingController::class)->middleware(['auth']);
+
+    // order confirmation
+    Route::resource('order_confirmation', OrderConfirmationController::class)->middleware(['auth']);
+
 
     // Auth Routing
     Route::get('login', [AuthenticatedSessionController::class, 'create'])

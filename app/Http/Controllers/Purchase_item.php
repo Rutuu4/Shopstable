@@ -8,6 +8,7 @@ use App\Models\Purchase_items;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -138,6 +139,9 @@ class Purchase_item extends Controller
             $purchase_item->quantity = $request->quantity;
             $purchase_item->sub_total = $request->sub_total;
             $purchase_item->save();
+
+            // dd(Session::flash('message', 'Item Updated Successfully!'));
+            Session::flash('message', 'Item Updated Successfully!');
             return response()->json(['success' => "uploaded", 'purchase_item' => $purchase_item]);
         } catch (Exception $e) {
             Log::error($e->getMessage());
