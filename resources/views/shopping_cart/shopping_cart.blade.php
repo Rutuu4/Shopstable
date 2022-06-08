@@ -16,8 +16,11 @@
     {{-- <link rel="stylesheet" href="/css/app.css"> --}}
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/@tailwindcss/forms@0.2.1/dist/forms.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
     <script src="/js/app.js" defer></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"
@@ -39,10 +42,28 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
-
 </style>
 
 <body class="globle_theme_attach">
+
+    {{-- Toster --}}
+    <div class="relative">
+        <div class="toast absolute w-fit hidden right-0">
+            <div class="toast-content shadow-xl z-10 bg-white px-4 py-2 rounded-xl flex items-center gap-4">
+                <img src="/Icons/check.svg" class="bg-green-400/50 p-1 rounded-full"></img>
+                <div class="message">
+                    <span class="text text-1 toster_text_1"></span>
+                    <p class="alert">
+                        {{ Session::get('message') }}</p>
+                    <span class="text text-2 toster_text_2"></span>
+                </div>
+            </div>
+            {{-- <i class="fa-solid fa-xmark close"></i> --}}
+            {{-- 3 second progress bar --}}
+
+        </div>
+    </div>
+
     <div class="bg-white">
         <!--
         Mobile menu
@@ -115,6 +136,10 @@
                             class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
                             {{ $purchase_product_count }}</div>
 
+                        <a href="http://{{ tenant('domain') }}/shipping">
+                            <img src="/Icons/order_list.svg" class='w-5 ml-2' alt="">
+                        </a>
+
                         <div class="py-2 px-5">
                             <x-button onclick="history.back()">
                                 {{ __('Back') }}
@@ -164,7 +189,7 @@
                                                 </div>
                                                 <div
                                                     class="absolute bottom-0 flex mt-1 text-sm font-medium text-gray-900">
-                                                    <p>Subtotal:</p>
+                                                    <p class="">Subtotal:</p>
                                                     <p class="shopping_cart_subtotal ">
                                                         {{ $item->sub_total }}</p>
                                                 </div>
@@ -263,14 +288,12 @@
                         <div class="border-t border-gray-200 pt-4 flex items-center justify-between">
                             <dt class="text-base font-medium text-gray-900">Order total</dt>
                             <dd class="shopping_cart_total text-base font-medium text-gray-900">
-
                             </dd>
                         </div>
                     </dl>
 
 
                     <div class="mt-6">
-
                         <button type="submit"
                             class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">Checkout</button>
 
@@ -321,7 +344,8 @@
                             </div>
                         </div>
                         <div class="mt-6 md:mt-0 md:ml-4 lg:mt-6 lg:ml-0">
-                            <h3 class="text-sm font-semibold tracking-wide uppercase text-gray-900">Free returns</h3>
+                            <h3 class="text-sm font-semibold tracking-wide uppercase text-gray-900">Free returns
+                            </h3>
                             <p class="mt-3 text-sm text-gray-500">Not what you expected? Place it back in the parcel
                                 and attach the pre-paid postage stamp.</p>
                         </div>
@@ -335,9 +359,11 @@
                             </div>
                         </div>
                         <div class="mt-6 md:mt-0 md:ml-4 lg:mt-6 lg:ml-0">
-                            <h3 class="text-sm font-semibold tracking-wide uppercase text-gray-900">Same day delivery
+                            <h3 class="text-sm font-semibold tracking-wide uppercase text-gray-900">Same day
+                                delivery
                             </h3>
-                            <p class="mt-3 text-sm text-gray-500">We offer a delivery service that has never been done
+                            <p class="mt-3 text-sm text-gray-500">We offer a delivery service that has never been
+                                done
                                 before. Checkout today and receive your products within hours.</p>
                         </div>
                     </div>
@@ -350,7 +376,8 @@
                             </div>
                         </div>
                         <div class="mt-6 md:mt-0 md:ml-4 lg:mt-6 lg:ml-0">
-                            <h3 class="text-sm font-semibold tracking-wide uppercase text-gray-900">All year discount
+                            <h3 class="text-sm font-semibold tracking-wide uppercase text-gray-900">All year
+                                discount
                             </h3>
                             <p class="mt-3 text-sm text-gray-500">Looking for a deal? You can use the code
                                 &quot;ALLYEAR&quot; at checkout and get money off all year round.</p>
@@ -365,7 +392,8 @@
                             </div>
                         </div>
                         <div class="mt-6 md:mt-0 md:ml-4 lg:mt-6 lg:ml-0">
-                            <h3 class="text-sm font-semibold tracking-wide uppercase text-gray-900">For the planet</h3>
+                            <h3 class="text-sm font-semibold tracking-wide uppercase text-gray-900">For the planet
+                            </h3>
                             <p class="mt-3 text-sm text-gray-500">We’ve pledged 1% of sales to the preservation and
                                 restoration of the natural environment.</p>
                         </div>
@@ -422,7 +450,8 @@
                                         </li>
 
                                         <li class="text-sm">
-                                            <a href="#" class="text-gray-500 hover:text-gray-600"> Sustainability </a>
+                                            <a href="#" class="text-gray-500 hover:text-gray-600"> Sustainability
+                                            </a>
                                         </li>
 
                                         <li class="text-sm">
@@ -514,8 +543,7 @@
         element.setAttribute('contenteditable', 'false');
     });
 
-    $(document).html($(document).html().replaceAll('indigo',
-        currentColorTheme));
+    $(document).html($(document).html().replaceAll('indigo', currentColorTheme));
 
     function shopping_cart_quantity_change(el, item_price, item_id) {
         console.log(el.value, '--quantity');
@@ -538,12 +566,22 @@
             },
             success: function(data) {
                 console.log(count, '==count');
+                console.log('-------------------------toggleClass("hidden")');
+                // $('.toast').removeClass("hidden");
+                toastr.success('Have fun storming the castle!', 'Miracle Max Says')
+
+                // add toster concatenation
+
                 console.log($(el.parentNode.parentNode.parentNode.parentNode
                     .querySelector('.shopping_cart_subtotal')).text(let_sub_total));
                 $(el.parentNode.parentNode.parentNode.parentNode
                     .querySelector('.shopping_cart_subtotal')).text(let_sub_total);
                 $('.shopping_cart_total').text(parseInt($('.shopping_cart_total').text()) + let_sub_total -
                     let_old_sub_total);
+
+                setTimeout(function() {
+                    $('.toast').addClass("hidden");;
+                }, 3000);
             }
         });
     };
@@ -595,5 +633,23 @@
 
     };
 </script>
+<script>
+    // if session have message show it
+    if (sessionStorage.getItem('message')) {
+        console.log(sessionStorage.getItem('message'), 'sessionStorage.getItem(message)');
+        // $('.alert-success').text(sessionStorage.getItem('message'));
+        // $('.alert-success').show();
+        Toastify({
+            text: sessionStorage.getItem('message'),
+            duration: 3000
+        }).showToast();
+        sessionStorage.removeItem('message');
+    }
+</script>
+<style>
+
+</style>
 
 </html>
+
+<x-toster />

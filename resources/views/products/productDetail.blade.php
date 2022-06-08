@@ -462,7 +462,6 @@
         div:empty::before {
             content: 'fallback placeholder';
         } */
-
     </style>
 
     <style>
@@ -470,7 +469,6 @@
             display: flex;
             align-items: center;
         }
-
     </style>
     {{-- <div class="py-4 px-24 flex justify-between border-b-4 ">
         <a href="http://{{ tenant('domain') }}/pageBuilder/{{ $id }}">
@@ -539,9 +537,13 @@
                         <img src="/Icons/cart.svg" class='w-5' alt="">
                     </a>
 
-                        <div id="cart_count"
-                            class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
-                            {{ $purchase_product_count }}</div>
+                    <div id="cart_count"
+                        class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
+                        {{ $purchase_product_count }}</div>
+
+                    <a href="http://{{ tenant('domain') }}/shipping">
+                        <img src="/Icons/order_list.svg" class='w-5 ml-2' alt="">
+                    </a>
 
                     <div class="py-2 px-5">
                         <x-button onclick="history.back()">
@@ -554,9 +556,7 @@
         </div>
     </header>
 
-
     <div class="py-2 px-6 md:py-4 md:px-24 ">
-
         <div class="">
             <div class="grid grid-cols-2 gap-8 realtive">
 
@@ -576,7 +576,6 @@
                                 display: flex;
                                 align-items: center;
                             }
-
                         </style>
                         <div class="carousel carousel-nav"
                             data-flickity='{ "asNavFor": ".carousel-main", "contain": true, "pageDots": false }'>
@@ -593,7 +592,8 @@
                     <h1 class="text-4xl uppercase border-b pb-4  ">{{ $productDetail->title }}</h1>
                     <input type="hidden" class="product_price">
                     <div class="flex">
-                        <h1 class="text-lg font-light font-sans-serif py-4 ">Rs.</h1>
+                        <h1 class="globle_currency text-lg font-light font-sans-serif py-4 ">
+                            {{ $theme->globle_currency }}</h1>
                         <h1 class="product_price_value text-lg font-light font-sans-serif py-4 ">
                             {{ $productDetail->price }}</h1>
                     </div>
@@ -724,7 +724,6 @@
             .morecontent span {
                 display: none;
             }
-
         </style>
         <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
         <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
@@ -814,6 +813,18 @@
                     }
                 });
             }
+            // ajax call to themebuilder
+
+            $.ajax({
+                url: "http://{{ tenant('domain') }}/themeBuilder",
+                type: "GET",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(data) {
+                    console.log(theme, '----------data');
+                }
+            });
         </script>
 
 </body>

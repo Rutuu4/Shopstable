@@ -1445,8 +1445,8 @@
                                                              <h3 class="font-medium text-gray-900"> ` +
                                                  product_datas[index]['title'] + `</h3>
                                                  <div class="relative mt-4">
-                                                             <h3 class="font-medium text-gray-900"> ` +
-                                                 product_datas[index]['price'] + `</h3>
+                                                             <h3 class="font-medium text-gray-900"> ` + `{{$theme->globle_currency}}` + `</h3> ` +
+                                                 product_datas[index]['price'] +   ` </h3>
                                                              </div>
 
                                                              </div>

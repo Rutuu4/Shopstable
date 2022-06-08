@@ -31,9 +31,8 @@ class ShippingController extends Controller
             ->leftjoin('orders', 'orders.id', '=', 'orders_items.id')
             ->where('orders_items.user_id', $user_info->id)
             ->select('product_image.imageName', 'product.title', 'orders_items.price', 'product.shortDescription', 'orders.address', 'orders.email', 'orders.id as order_id', 'orders.total')
-            ->groupBy('orders.id')
+            ->groupBy('product.id')
             ->get();
-
 
         $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
         return view('shipping.shipping', [

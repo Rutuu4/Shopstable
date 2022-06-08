@@ -297,10 +297,14 @@
                         <img src="/Icons/cart.svg" class='w-5' alt="">
                     </a>
 
- {{-- @if ($purchase_product_count > 0) --}}
+                {{-- @if ($purchase_product_count > 0) --}}
                         <div id="cart_count"
                             class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
-                            {{ $purchase_product_count }}</div>
+     {{ $purchase_product_count }}</div>
+
+                    <a href="http://{{ tenant('domain') }}/shipping">
+                        <img src="/Icons/order_list.svg" class='w-5 ml-2' alt="">
+                    </a>
                     {{-- @endif --}}
                     <div class="py-2 px-5">
                         <x-button onclick="history.back()">

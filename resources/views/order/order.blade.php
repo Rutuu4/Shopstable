@@ -95,9 +95,13 @@
                         <img src="/Icons/cart.svg" class='w-5' alt="">
                     </a>
 
-                        <div id="cart_count"
-                            class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
-                            {{ $purchase_product_count }}</div>
+                    <div id="cart_count"
+                        class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
+                        {{ $purchase_product_count }}</div>
+
+                    <a href="http://{{ tenant('domain') }}/shipping">
+                        <img src="/Icons/order_list.svg" class='w-5 ml-2' alt="">
+                    </a>
 
                     <div class="py-2 px-5">
                         <x-button onclick="history.back()">
@@ -350,21 +354,21 @@
         <main class="max-w-7xl mx-auto  pb-24 px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl mx-auto lg:max-w-none">
                 <h1 class="sr-only">Checkout</h1>
+                <div class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
 
-                <form class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16"
-                    action="http://{{ tenant('domain') }}/order" method='post'>
-                    @csrf
                     <div>
                         <div>
                             <h2 class="text-lg font-medium text-gray-900">Contact information</h2>
-                            <input class="order_total_input" type="hidden" name="order_total">
+                            <input
+                                class="order_total_input block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                type="hidden" name="order_total">
 
                             <div class="mt-4">
                                 <label for="email-address" class="block text-sm font-medium text-gray-700">Email
                                     address</label>
                                 <div class="mt-1">
                                     <input type="email" id="email-address" name="email" autocomplete="email"
-                                        class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        class="email block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                                 </div>
                             </div>
                         </div>
@@ -378,7 +382,7 @@
                                         name</label>
                                     <div class="mt-1">
                                         <input type="text" id="first-name" name="first_name" autocomplete="given-name"
-                                            class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                            class="first_name block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
@@ -387,7 +391,7 @@
                                         name</label>
                                     <div class="mt-1">
                                         <input type="text" id="last-name" name="last_name" autocomplete="family-name"
-                                            class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                            class="last_name block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
@@ -396,7 +400,7 @@
                                         class="block text-sm font-medium text-gray-700">Company</label>
                                     <div class="mt-1">
                                         <input type="text" name="company" id="company"
-                                            class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                            class="company block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
@@ -405,7 +409,7 @@
                                         class="block text-sm font-medium text-gray-700">Address</label>
                                     <div class="mt-1">
                                         <input type="text" name="address" id="address" autocomplete="street-address"
-                                            class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                            class="address block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
@@ -414,7 +418,7 @@
                                         suite, etc.</label>
                                     <div class="mt-1">
                                         <input type="text" name="apartment" id="apartment"
-                                            class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                            class="apartment first-of-type:block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
@@ -422,7 +426,7 @@
                                     <label for="city" class="block text-sm font-medium text-gray-700">City</label>
                                     <div class="mt-1">
                                         <input type="text" name="city" id="city" autocomplete="address-level2"
-                                            class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                            class="city odd:block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
@@ -445,7 +449,7 @@
                                         Province</label>
                                     <div class="mt-1">
                                         <input type="text" name="state" id="region" autocomplete="address-level1"
-                                            class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                            class="state block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
@@ -455,7 +459,7 @@
                                     <div class="mt-1">
                                         <input type="text" name="postal_code" id="postal-code"
                                             autocomplete="postal-code"
-                                            class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                            class="postal_code block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
@@ -463,7 +467,7 @@
                                     <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
                                     <div class="mt-1">
                                         <input type="text" name="phone" id="phone" autocomplete="tel"
-                                            class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                            class="phone block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
                             </div>
@@ -640,7 +644,7 @@
                                         </script>
                                         <li class="relative flex py-6 px-4 sm:px-6">
                                             <div class=" flex-shrink-0">
-                                                <input type="hidden" name='product_id'
+                                                <input type="hidden" class='product_id' name='product_id'
                                                     value="{{ $data->product_id }}">
                                                 <img src="{{ $data->imageName }}"
                                                     alt="Front of men&#039;s Basic Tee in black."
@@ -655,11 +659,12 @@
                                                                 class="font-medium text-gray-700 hover:text-gray-800">
                                                                 {{ $data->title }} </a>
                                                         </h4>
-                                                        <input type="hidden" name="quantity"
+                                                        <input type="hidden" class="quantity" name="quantity"
                                                             value="{{ $data->quantity }}">
                                                         <p class="mt-1 text-sm text-gray-500">
                                                             quantity: {{ $data->quantity }}</p>
-                                                        <input type="hidden" name="price" value="{{ $data->price }}">
+                                                        <input type="hidden" class="price" name="price"
+                                                            value="{{ $data->price }}">
                                                         <p class="mt-1 text-sm text-gray-500">
                                                             price: ₹{{ $data->price }}</p>
                                                     </div>
@@ -684,7 +689,7 @@
                                                         class="absolute bottom-5 right-6 flex-1 pt-2 flex items-end justify-between">
                                                         <p class="mt-1 text-sm font-medium text-gray-900">
                                                         </p>
-                                                        <input type="hidden" name="sub_total"
+                                                        <input type="hidden" class='sub_total' name="sub_total"
                                                             value="{{ $data->sub_total }}">
                                                         <div class="ml-4">
                                                             <p class="mt-1 text-sm font-medium text-gray-900">
@@ -721,13 +726,14 @@
                             </dl>
 
                             <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
-                                <button type="submit"
+                                <button type="submit" onclick="submitOrder()"
                                     class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">Confirm
                                     order</button>
                             </div>
                         </div>
                     </div>
-                </form>
+
+                </div>
             </div>
         </main>
 
@@ -844,7 +850,8 @@
                                 weekly.</p>
                             <form class="mt-2 flex sm:max-w-md">
                                 <label for="newsletter-email-address" class="sr-only">Email address</label>
-                                <input id="newsletter-email-address" type="text" autocomplete="email" required
+                                <input class='email' id="newsletter-email-address" type="text" autocomplete="email"
+                                    required
                                     class="appearance-none min-w-0 w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
                                 <div class="ml-4 flex-shrink-0">
                                     <button type="submit"
@@ -864,6 +871,82 @@
     </div>
 </body>
 <script>
+    let purchase_item_data = {!! json_encode($datas->toArray()) !!};
+    console.log(purchase_item_data, 'purchase_item_data');
+
+    var orderItemData = [];
+
+    console.log($('.first_name').val(), 'first_name');
+
+
+    function submitOrder() {
+        var orderInfo = [{
+            id: 1,
+            first_name: $('.first_name').val(),
+            last_name: $('.last_name').val(),
+            address: $('.address').val(),
+            total: $('.order_total').text(),
+            phone: $('.phone').val(),
+            email: $('email').val(),
+            city: $('.city').val(),
+            state: $('.state').val(),
+            postal_code: $('.postal_code').val(),
+        }];
+
+        orderItemData = orderItemData.concat(orderInfo);
+        console.log(orderItemData, 'orderItemData');
+
+
+        for (let i = 0; i < purchase_item_data.length; i++) {
+            let obj = [{
+                user_id: {{ $user_id }},
+                order_id: 1,
+                product_id: purchase_item_data[i].product_id,
+                category_id: 1,
+                quantity: purchase_item_data[i].quantity,
+                price: purchase_item_data[i].price,
+                sub_total: purchase_item_data[i].sub_total,
+            }];
+            orderItemData = orderItemData.concat(obj);
+        }
+
+        console.log(orderItemData, 'orderItemData');
+        $.ajax({
+            url: 'http://{{ request()->getHttpHost() }}/order',
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                orderItemData: orderItemData,
+                // email: orderItemData[0].email,
+                // user_name: orderItemData[0].user_name,
+                // address: orderItemData[0].address,
+                // city: orderItemData[0].city,
+                // state: orderItemData[0].state,
+
+                // for (let index = 1; index < orderItemData.length; index++) {
+                //     order_id: orderItemData[index].order_id,
+                //     product_id: orderItemData[index].product_id,
+                //     category_id: orderItemData[index].category_id,
+                //     quantity:   orderItemData[index].quantity,
+                //     price: orderItemData[index].price,
+                //     sub_total: orderItemData[index].sub_total,
+                // }
+            },
+            success: function(data) {
+                console.log(data, 'data');
+                if (data.status == 'success') {
+                    alert('Order Successfully Placed');
+                }
+                // reditrect to order page
+                window.location.href = 'http://{{ request()->getHttpHost() }}/order_confirmation/' +
+                    data.order_confirmation_id;
+            },
+            error: function(error) {
+                console.log(error, 'error');
+            }
+        });
+    }
+
     console.log(count, '==count');
     $('.order_total').text(count);
 
