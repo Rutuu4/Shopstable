@@ -51,7 +51,7 @@ class OrderConfirmationController extends Controller
     {
         try {
 
-            $order = Order::where('tracking_number', $id)->first();
+            $order = Order::where('unique_order_number', $id)->first();
             $token = $_COOKIE['customer_token'];
             $user_info = Customer::where('remember_token', $token)->first();
             $order_items = Orders_items::leftjoin('product', 'product.id', '=', 'orders_items.product_id')
@@ -59,7 +59,7 @@ class OrderConfirmationController extends Controller
                 ->leftjoin('product_image', 'product_image.product_id', '=', 'product.id')
                 ->leftjoin('orders', 'orders.id', '=', 'orders_items.id')
                 ->where('orders_items.user_id', $user_info->id)
-                ->select('product_image.imageName', 'product.title', 'orders_items.quantity', 'orders_items.price', 'product.shortDescription', 'orders.address', 'orders.email', 'orders.id as order_id', 'orders.total', 'orders_items.sub_total', 'product.id as product_id', 'orders.tracking_number')
+                ->select('product_image.imageName', 'product.title', 'orders_items.quantity', 'orders_items.price', 'product.shortDescription', 'orders.address', 'orders.email', 'orders.id as order_id', 'orders.total', 'orders_items.sub_total', 'product.id as product_id', 'orders.unique_order_number', 'orders.updated_at')
                 ->groupBy('orders.id')
                 ->get();
 

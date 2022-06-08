@@ -98,7 +98,7 @@
 
                     <div id="cart_count"
                         class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
- {{ $purchase_product_count }}</div>
+                        {{ $purchase_product_count }}</div>
 
                     <a href="http://{{ tenant('domain') }}/shipping">
                         <img src="/Icons/order_list.svg" class='w-5 ml-2' alt="">
@@ -121,16 +121,25 @@
         <div class="bg-white">
             <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-xl">
-
                     <p class="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Thanks for ordering
                     </p>
                     <p class="mt-2 text-base text-gray-500">Thank you for being our valued customer. We hope our product
                         will meet your expectations</p>
+                    <div class="flex justify-between">
 
-                    <dl class="mt-12 text-sm font-medium">
-                        <dt class="text-gray-900">Tracking number</dt>
-                        <dd class="text-indigo-600 mt-2">{{ $order->tracking_number }}</dd>
-                    </dl>
+                        <dl class="mt-12 text-sm font-medium">
+                            <dt class="text-gray-900">Order Number</dt>
+                            <dd class="text-indigo-600 mt-2">{{ $order->unique_order_number }}</dd>
+                        </dl>
+                        <dl class="mt-12 text-sm font-medium">
+                            <dt class="text-gray-900">Tracking Number</dt>
+                            <dd class="text-indigo-600 mt-2">2ZiMOjRGFBTA3rHZpEpx</dd>
+                        </dl>
+                        <dl class="mt-12 text-sm font-medium">
+                            <dt class="text-gray-900">Order date</dt>
+                            <dd class="text-indigo-600 mt-2">{{ date_format($order->updated_at, 'd-m-Y') }}</dd>
+                        </dl>
+                    </div>
                 </div>
                 <script>
                     var count = 0;
@@ -142,7 +151,6 @@
                     @foreach ($order_items as $item)
                         <div class="py-10 border-b border-gray-200 flex space-x-6">
                             {{-- <div href=''> --}}
-
                             <img src="/{{ $item->imageName }}" alt="{{ $item->title }}"
                                 class="flex-none object-center object-cover bg-gray-100 rounded-lg w-40 h-40">
 
@@ -165,16 +173,16 @@
                                         </div>
                                         <div class="pl-2 flex">
                                             <dt class="font-medium text-sm text-gray-900">Price</dt>
-                                            <div class="flex">
-                                                <dd class="ml-2 text-sm text-gray-700 globle_currency">
+                                            <div class="flex text-sm text-gray-700">
+                                                <dd class="ml-2  globle_currency">
                                                     {{ $theme->globle_currency }}</dd>
-                                                <dd class="text-gray-700">{{ $item->price }}</dd>
+                                                <dd class="">{{ $item->price }}</dd>
                                             </div>
                                         </div>
                                         <div class="pl-2">
                                             <div class="flex">
                                                 <dt class="font-medium text-sm text-gray-900">Subtotal</dt>
-                                                <dd class="ml-2 text-sm text-gray-700 globle_currency">
+                                                <dd class="ml-2  text-sm text-gray-700 globle_currency">
                                                     {{ $theme->globle_currency }}</dd>
                                                 <dd class="text-gray-700">{{ $item->sub_total }}</dd>
                                             </div>

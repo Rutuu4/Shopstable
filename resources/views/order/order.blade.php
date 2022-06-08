@@ -887,7 +887,7 @@
             address: $('.address').val(),
             total: $('.order_total').text(),
             phone: $('.phone').val(),
-            email: $('email').val(),
+            email: $('.email').val(),
             city: $('.city').val(),
             state: $('.state').val(),
             postal_code: $('.postal_code').val(),
