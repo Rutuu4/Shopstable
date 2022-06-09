@@ -330,7 +330,7 @@
 
     $('.order_total_input').val($('.order_total').text());
     var currentColorTheme = {!! json_encode($theme->toArray()) !!};
-    let theme = {!! json_encode($theme->toArray()) !!};
+m
     console.log(currentColorTheme['theme_color'], 'currentColorTheme');
     currentColorTheme = currentColorTheme['theme_color'];
     //    change all *-indigo-* with currentColorTheme
