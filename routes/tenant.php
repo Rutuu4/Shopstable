@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\ProductDetails;
 use App\Http\Controllers\Purchase_item;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\ShoppingCartController;
+use App\Http\Controllers\TenantController;
 use App\Http\Controllers\ThemeBuilder;
 use App\Http\Controllers\WebBuilderController;
 use App\Models\Menubuilder;
@@ -79,6 +81,11 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
+    Route::get('/admin/register', [AdminController::class, 'register'])->name('auth.register');
+    Route::post('/admin/save', [AdminController::class, 'save'])->name('auth.save');
+    Route::get('tenant', [TenantController::class, 'index']);
+    Route::get('tenant/{id}', [TenantController::class, 'show']);
+    Route::get('customer', [CustomerAuthenticationController::class, 'show']);
 
     // route for get purchase count
     Route::get('/purchase_count', function () {
@@ -97,7 +104,7 @@ Route::middleware([
     });
 
     Route::get('/', function () {
-        $id = 3;
+        $id = 2;
         $purchase_product_count = Purchase_items::count();
         // $data = Pages::select('pageData')->first();
         $nav_item = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
