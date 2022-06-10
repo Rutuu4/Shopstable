@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegisteredTenantController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,5 @@ Route::get('/', function () {
 // register create a tenant
 Route::get('/register', [RegisteredTenantController::class, 'create']);
 Route::post('/register', [RegisteredTenantController::class, 'store']);
+Route::get('/admin/login', [AdminController::class, 'login'])->name('auth.login');
+Route::post('/admin/save', [AdminController::class, 'save'])->name('auth.save');

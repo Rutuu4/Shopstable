@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,15 +20,28 @@ class AdminController extends Controller
     function save(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'email'=>'required|email|unique:admins',
+            'email'=>'required|email',
             'password'=>'required|min:6|max:12'
         ]);
-        $admin=new Admin();
-        $admin->name=$request->name;
-        $admin->email=$request->email;
-        $admin->password=Hash::make($request->password);
-        $admin->save();
+
+        // dd($request->email);
+        $data=Admin::where('email',$request->email)->get();
+        // dd($data[0]['email']);
+        // $admin=Admin::where($data->email,$request->email)->first();
+        if(!$data){
+            return back()->with( ['error' => 'Email already exists' ]);
+        }
+        else{
+            if(Hash::check($request->password, $data[0]['password']))
+            {
+
+                return redirect('/tenant');
+            }
+            else
+            {
+                return back()->with('failure','Invalid Password');
+            }
+        }
 
     }
 }
