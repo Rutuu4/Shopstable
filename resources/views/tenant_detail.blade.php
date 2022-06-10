@@ -27,14 +27,27 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($data as $item)
                     <tr>
-                        <a href="http://{{ tenant('domain') }}/tenant/{{tenant('id')}}"><td> {{ tenant('id') }}</td></a>
-                        <td> {{ tenant('name') }}</td>
-                        <td> {{ tenant('email') }}</td>
+                        <td>
+                            <a href="http://{{ $item->domain }}/customer/{{ tenant('id') }}">
+                                {{ $item->id }}
+                            </a>
+                        </td>
+                        <td> {{ $item->name }}</td>
+                        <td> {{ $item->email }}</td>
                     </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
 </body>
+
+<style>
+    a {
+        color: black !important;
+        text-decoration: none !important;
+    }
+</style>
 
 </html>

@@ -81,6 +81,7 @@ class OrderController extends Controller
             $length = 20;
             $unique_order_number = substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
 
+            $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
             // User token
             $token = $_COOKIE['customer_token'];
             $user_info = Customer::where('remember_token', $token)->first();
@@ -126,6 +127,7 @@ class OrderController extends Controller
 
             return response()->json([
                 'order_confirmation_id' => $unique_order_number,
+                'navbar' => $navbar,
             ]);
             // return response()->json(['success' => "uploaded", 'order' => $request->$order]);
         } catch (Exception $e) {

@@ -84,7 +84,7 @@ Route::middleware([
 
     Route::get('tenant', [TenantController::class, 'index']);
     Route::get('tenant/{id}', [TenantController::class, 'show']);
-    Route::get('customer', [CustomerAuthenticationController::class, 'show']);
+    Route::get('customer', [CustomerAuthenticationController::class, 'show'])->name('customers');
 
     // route for get purchase count
     Route::get('/purchase_count', function () {
@@ -103,7 +103,7 @@ Route::middleware([
     });
 
     Route::get('/', function () {
-        $id = 2;
+        $id = 3;
         $purchase_product_count = Purchase_items::count();
         // $data = Pages::select('pageData')->first();
         $nav_item = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
@@ -235,7 +235,13 @@ Route::middleware([
     Route::get('/web_view/{id}', [WebBuilderController::class, 'webView'])->middleware(['auth'])->name('previewPageData');
 
     // Setting
-    Route::view('/settings', 'setting.setting')->middleware(['auth'])->name('settings');
+    Route::get(
+        '/settings',
+        function () {
+            $theme = Themecolor::orderBy('id')->get();
+            return view('setting.setting', ['theme' => $theme]);
+        }
+    )->middleware(['auth'])->name('settings');
     Route::resource('themeBuilder', ThemeBuilder::class)->middleware(['auth']);
 
     // PageBuilder

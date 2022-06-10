@@ -23,7 +23,7 @@ class ProductDetails extends Controller
             ->select('product.id', 'product_image.imageName', 'product.title', 'product.price', 'product.status', 'product.isFeatured')
             ->take(2)
             ->get();
-        dd($productDetail);
+        // dd($productDetail);
         return view('products.productDetail', ['productDetail' => $productDetail]);
     }
 

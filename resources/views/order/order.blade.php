@@ -664,9 +664,11 @@
                                                         <p class="mt-1 text-sm text-gray-500">
                                                             quantity: {{ $data->quantity }}</p>
                                                         <input type="hidden" class="price" name="price"
-                                                            value="{{ $data->price }}">
-                                                        <p class="mt-1 text-sm text-gray-500">
-                                                            price: ₹{{ $data->price }}</p>
+                                                            value="{{ $data->price ? sprintf('%0.2f', $data->price) : 0.0 }}">
+                                                        <p class=" mt-1 text-sm text-gray-500">
+                                                            price:
+                                                            &nbsp{{ $theme->globle_currency }}{{ $data->price ? sprintf('%0.2f', $data->price) : 0.0 }}
+                                                        </p>
                                                     </div>
 
                                                     {{-- <div class="ml-4 flex-shrink-0 flow-root">
@@ -694,7 +696,8 @@
                                                         <div class="ml-4">
                                                             <p class="mt-1 text-sm font-medium text-gray-900">
                                                                 Subtotal:
-                                                                ₹{{ $data->sub_total }}</p>
+                                                                {{ $theme->globle_currency }}{{ $data->sub_total ? sprintf('%0.2f', $data->sub_total) : 0.0 }}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -874,6 +877,7 @@
     let purchase_item_data = {!! json_encode($datas->toArray()) !!};
     console.log(purchase_item_data, 'purchase_item_data');
 
+
     var orderItemData = [];
 
     console.log($('.first_name').val(), 'first_name');
@@ -949,8 +953,10 @@
 
     console.log(count, '==count');
     $('.order_total').text(count);
+    $('.email').text('sadada');
+    console.log($('.email').val(), 'sdasdaasdasdasdsasa');
 
-    $('.order_total_input').val($('.order_total').text());
+    $('.order_total_input').val({{ $theme->global_currency }} $('.order_total').text());
     var currentColorTheme = {!! json_encode($theme->toArray()) !!};
     let theme = {!! json_encode($theme->toArray()) !!};
     console.log(currentColorTheme['theme_color'], 'currentColorTheme');

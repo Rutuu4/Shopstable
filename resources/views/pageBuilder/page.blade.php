@@ -237,7 +237,6 @@
         div:empty::before {
             content: 'fallback placeholder';
         } */
-
     </style>
     <!-- Page Heading -->
     <header class="bg-white border-b border-indigo-200 shadow">
@@ -1427,15 +1426,15 @@
                             // console.log(product_datas.length);
                             console.log('asdadaf', $(".product_grid_1")[0]);
                             $(".product_grid_1")[0].innerHTML +=
-                                            `
+                                `
                                                  <div>
                                                  <a href="http://{{ tenant('domain') }}/product/detail/` +
-                                                 product_datas[index]['id'] + `">
+                                product_datas[index]['id'] + `">
                                                      <div class="relative">
                                                          <div class="bg-gray-100 bg-auto bg-center relative w-full h-40 rounded-lg overflow-hidden">
                                                          <img class="h-full mx-auto" src="/` + product_datas[index][
-                                                     'imageName'
-                                                 ] + `"
+                                    'imageName'
+                                ] + `"
                                                              alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
                                                              class="w-full h-full object-center object-cover">
                                                      </div>
@@ -1443,17 +1442,20 @@
                                                          <div class="relative mt-4">
                                                             <div class='flex justify-between items-center'>
                                                              <h3 class="font-medium text-gray-900"> ` +
-                                                 product_datas[index]['title'] + `</h3>
+                                product_datas[index]['title'] + `</h3>
                                                  <div class="relative mt-4">
-                                                             <h3 class="font-medium text-gray-900"> ` + `{{$theme->globle_currency}}` + `</h3> ` +
-                                                 product_datas[index]['price'] +   ` </h3>
+                                                    <div class='flex '>
+                                                        <h3 class="globle_currency font-medium text-gray-900"> ` +
+                                `{{ $theme->globle_currency }}` + `</h3> ` +
+                                product_datas[index]['price'] + ` </h3>
+                                                        </div>
                                                              </div>
 
                                                              </div>
                                                              <p class="text-truncate mt-1 text-sm text-gray-500">` +
-                                                 product_datas[index][
-                                                     'shortDescription'
-                                                 ] + `</p>
+                                product_datas[index][
+                                    'shortDescription'
+                                ] + `</p>
                                                      </div>
                                                      <div class="mt-6">
                                                  </div>
@@ -1734,12 +1736,12 @@
                                             `
                                                  <div>
                                                  <a href="http://{{ tenant('domain') }}/product/detail/` +
-                                                 product_datas[index]['id'] + `">
+                                            product_datas[index]['id'] + `">
                                                      <div class="relative">
                                                          <div class="bg-gray-100 bg-auto bg-center relative w-full h-40 rounded-lg overflow-hidden">
                                                          <img class="h-full mx-auto" src="/` + product_datas[index][
-                                                     'imageName'
-                                                 ] + `"
+                                                'imageName'
+                                            ] + `"
                                                              alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls."
                                                              class="w-full h-full object-center object-cover">
                                                      </div>
@@ -1747,17 +1749,21 @@
                                                          <div class="relative mt-4">
                                                             <div class='flex justify-between items-center'>
                                                              <h3 class="font-medium text-gray-900"> ` +
-                                                 product_datas[index]['title'] + `</h3>
+                                            product_datas[index]['title'] + `</h3>
                                                  <div class="relative mt-4">
-                                                             <h3 class="font-medium text-gray-900"> ` +
-                                                 product_datas[index]['price'] + `</h3>
+
+                                                    <div class='flex '>
+                                                        <h3 class="globle_currency font-medium text-gray-900"> ` +
+                                `{{ $theme->globle_currency }}` + `</h3> ` +
+                                product_datas[index]['price'] + ` </h3>
+                                                        </div>
                                                              </div>
 
                                                              </div>
                                                              <p class="text-truncate mt-1 text-sm text-gray-500">` +
-                                                 product_datas[index][
-                                                     'shortDescription'
-                                                 ] + `</p>
+                                            product_datas[index][
+                                                'shortDescription'
+                                            ] + `</p>
                                                      </div>
                                                      <div class="mt-6">
                                                  </div>

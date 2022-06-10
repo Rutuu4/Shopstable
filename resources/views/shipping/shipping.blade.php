@@ -150,8 +150,8 @@
                 <div class="flex sm:items-baseline sm:space-x-4">
                     <h1 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Orders</h1>
                 </div>
-                <p class="text-sm text-gray-600">Order placed <time datetime="2021-03-22"
-                        class="font-medium text-gray-900">March 22, 2021</time></p>
+                {{-- <p class="text-sm text-gray-600">Order placed <time datetime="2021-03-22"
+                        class="font-medium text-gray-900">March 22, 2021</time></p> --}}
                 <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500 sm:hidden">View
                     invoice<span aria-hidden="true"> &rarr;</span></a>
             </div>
@@ -162,37 +162,56 @@
             <section aria-labelledby="products-heading" class="mt-6">
                 <h2 id="products-heading" class="sr-only">Products purchased</h2>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-3 gap-4">
                     @foreach ($shippings as $shipping)
                         <div>
-                            <div class="space-y-8">
-                                <div
-                                    class="bg-white border-t border-b border-gray-200 shadow-sm sm:border sm:rounded-lg">
-                                    <div class="flex justify-between border-b w-full pb-5 sm:px-6 lg:px-8 pt-5">
-                                        <dl class="text-sm font-medium">
+
+                            <div class="bg-white border-t border-b border-gray-200 shadow-sm sm:border sm:rounded-lg">
+                                <div class="flex flex-col gap-4 border-b w-full  sm:px-6 lg:px-8 pt-5 ">
+                                    <div class="">
+                                        <dl class="flex justify-between text-sm font-medium">
                                             <dt class="text-gray-900">Order Number</dt>
-                                            <a
-                                                href='http://{{ request()->getHttpHost() }}/order_confirmation/{{ $shipping->unique_order_number }} '>
-                                                <div
-                                                    class="text-indigo-600 hover:scale-110 ease-in-out duration-75 mt-2">
-                                                    {{ $shipping->unique_order_number }}
-                                                </div>
+                                            <div class="text-gray-600">
+                                                {{ $shipping->unique_order_number }}
+                                            </div>
                                             </a>
+                                        </dl>
+                                    </div>
+                                    <div class=""></div>
+                                </div>
+                                <div class="flex flex-col gap-4 border-b w-full pb-5 sm:px-6 lg:px-8 pt-5">
+                                    <div class="flex justify-between">
+                                        <dl class="text-sm font-medium">
+                                            <dt class="text-gray-900">Order date</dt>
+                                            <dd class="text-gray-600 text-xs mt-2">
+                                                {{ date_format($shipping->updated_at, 'd-m-Y') }}</dd>
                                         </dl>
                                         <dl class="text-sm font-medium">
                                             <dt class="text-gray-900">Tracking Number</dt>
-                                            <dd class="text-indigo-600 mt-2">2ZiMOjRGFBTA3rHZpEpx</dd>
-                                        </dl>
-                                        <dl class="text-sm font-medium">
-                                            <dt class="text-gray-900">Order date</dt>
-                                            <dd class="text-indigo-600 mt-2">
-                                                {{ date_format($shipping->updated_at, 'd-m-Y') }}</dd>
+                                            <dd class="text-gray-600 text-xs mt-2">2ZiMOjRGFBTA3rHZpEpx</dd>
                                         </dl>
                                     </div>
 
-                                    <div class=" py-6 sm:px-6 lg:p-8 ">
-                                        @foreach ($order_items as $item)
-                                            @if ($item->order_id == $shipping->order_id)
+                                    <dl class="text-sm font-medium">
+                                        <dt class="text-gray-900">Price</dt>
+                                        <dd class="text-gray-600 text-xs mt-2">
+                                            {{ $theme->globle_currency }}{{ $shipping->total }}</dd>
+                                    </dl>
+                                    <a
+                                        href='http://{{ request()->getHttpHost() }}/order_confirmation/{{ $shipping->unique_order_number }} '>
+                                        <dl class="text-sm font-medium">
+                                            <dd class="text-indigo-600 mt-2">order info</dd>
+                                        </dl>
+                                    </a>
+                                </div>
+
+                                <div class=" p-4 ">
+                                    <div class="flex gap-4">
+                                        <img class='w-5' src="Icons/location-pin.svg" alt="">
+                                        {{ $shipping->address }}
+                                    </div>
+                                    @foreach ($order_items as $item)
+                                        {{-- @if ($item->order_id == $shipping->order_id)
                                                 <div class="py-4 ">
                                                     <div class="flex items-center sm:items-start relative">
                                                         <div
@@ -228,7 +247,7 @@
                                                                 <a
                                                                     href="http://{{ request()->getHttpHost() }}/product/detail/{{ $item->product_id }}">
                                                                     <div
-                                                                        class="text-indigo-600 whitespace-nowrap hover:scale-110 ease-in-out duration-75">
+                                                                        class="text-indigo-600 whitespace-nowrap">
                                                                         Buy
                                                                         again
                                                                     </div>
@@ -237,29 +256,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                    <div class="border-t border-gray-200 py-6 px-4 sm:px-6 lg:p-8">
-                                        <h4 class="sr-only">Status</h4>
-                                        <p class="text-sm font-medium text-gray-900">Preparing to ship on <time
-                                                datetime="2021-03-24">March 24, 2021</time></p>
-                                        <div class="mt-6" aria-hidden="true">
-                                            <div class="bg-gray-200 rounded-full overflow-hidden">
-                                                <div class="h-2 bg-indigo-600 rounded-full"
-                                                    style="width: calc((1 * 2 + 1) / 8 * 100%)">
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="hidden sm:grid grid-cols-4 text-sm font-medium text-gray-600 mt-6">
-                                                <div class="text-indigo-600">Order placed</div>
-                                                <div class="text-center text-indigo-600">Processing</div>
-                                                <div class="text-center">Shipped</div>
-                                                <div class="text-right">Delivered</div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                            @endif --}}
+                                    @endforeach
                                 </div>
+
                             </div>
                         </div>
                     @endforeach
@@ -320,7 +320,6 @@
                         </div> --}}
                 <div class="pt-4 flex items-center justify-between">
                     <dt class="font-medium text-gray-900">Order total</dt>
-                    <dd class="font-medium text-indigo-600">{{ $shipping->total }}</dd>
                 </div>
             </dl>
         </div>

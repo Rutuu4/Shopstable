@@ -178,20 +178,26 @@
                                                 <div class="flex justify-between">
                                                     <h3 class="purchase_item_title text-sm">
                                                         <a href="#"
-                                                            class="text-xl font-medium text-gray-700 hover:text-gray-800">
+                                                            class="font-medium text-lg text-gray-700 hover:text-gray-800">
                                                             {{ $item->title }}
                                                         </a>
                                                     </h3>
                                                 </div>
-                                                <p class="truncate-text">{{ $item->shortDescription }}</p>
-                                                <div class="absolute bottom-6 mt-1 flex text-base">
-                                                    <p class="text-gray-500">Rs. {{ $item->price }}</p>
+                                                <p class="mt-2 text-sm truncate-text">{{ $item->shortDescription }}
+                                                </p>
+                                                <div
+                                                    class="absolute bottom-6 flex mt-1 text-sm font-medium text-gray-900">
+                                                    <p class="">Price:</p>
+                                                    <p class="">
+                                                        &nbsp{{ $theme->globle_currency }}{{ $item->price ? sprintf('%0.2f', $item->price) : 0.0 }}
+                                                    </p>
                                                 </div>
                                                 <div
                                                     class="absolute bottom-0 flex mt-1 text-sm font-medium text-gray-900">
                                                     <p class="">Subtotal:</p>
                                                     <p class="shopping_cart_subtotal ">
-                                                        {{ $item->sub_total }}</p>
+                                                        &nbsp{{ $theme->globle_currency }}{{ $item->sub_total ? sprintf('%0.2f', $item->sub_total) : 0.0 }}
+                                                    </p>
                                                 </div>
                                             </div>
 
@@ -288,6 +294,7 @@
                         <div class="border-t border-gray-200 pt-4 flex items-center justify-between">
                             <dt class="text-base font-medium text-gray-900">Order total</dt>
                             <dd class="shopping_cart_total text-base font-medium text-gray-900">
+                                {{ $theme->globle_currency }}
                             </dd>
                         </div>
                     </dl>
@@ -610,21 +617,23 @@
 
                 // after delete api
                 // remove card element
-
+                let currency = {!! $theme->globle_currency !!}
                 let deleted_amount = el.parentNode.parentNode.parentNode.parentNode.parentNode
                     .querySelector('.shopping_cart_subtotal').textContent.replace(/\s+/g, '');
                 console.log(el.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector(
                     '.shopping_cart_subtotal').textContent.replace(/\s+/g, ''));
                 $(el.parentNode.parentNode.parentNode.parentNode.parentNode).remove();
                 // update total
-                $('.shopping_cart_total').text(count - deleted_amount);
+                $('.shopping_cart_total').text(currency + Number(count - deleted_amount)
+                    .toFixed(2));
                 count = count - deleted_amount;
                 console.log('--------------');
                 console.log('count-----------', count);
+                console.log('currency-----------', currency);
                 console.log('deleted_amount--', deleted_amount);
                 console.log('--------------');
                 shopping_item_count -= 1;
-                $('#cart_count').text(shopping_item_count);
+                $('#cart_count').text({!! $theme->globle_currency !!} + shopping_item_count);
 
             }
         }).done((data) => {

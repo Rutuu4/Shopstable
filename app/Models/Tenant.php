@@ -17,7 +17,6 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     {
         static::creating(function ($tenant) {
             $tenant->password = Hash::make($tenant->password);
-            // dd($user->name);
         });
     }
 }
