@@ -405,9 +405,12 @@
 </head>
 
 <body class="antialiased">
+    <a href="/tenant">Tenants
+    </a>
+    <a href="/admin/login">Login
+    </a>
+
     <div class="relative flex flex-col items-top justify-center min-h-screen sm:items-center py-4 sm:pt-0">
-        <a href="/tenant">Tenants
-        </a>
         <br>
         @if (Route::has('login'))
             <div class="hidden px-6 py-4 sm:block">
