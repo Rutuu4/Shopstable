@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Menubuilder;
 use App\Models\Order;
 use App\Models\Orders_items;
 use App\Models\Purchase_items;
@@ -52,6 +53,7 @@ class OrderConfirmationController extends Controller
         try {
 
             $order = Order::where('unique_order_number', $id)->first();
+
             $token = $_COOKIE['customer_token'];
             $user_info = Customer::where('remember_token', $token)->first();
             $order_items = Orders_items::leftjoin('product', 'product.id', '=', 'orders_items.product_id')
@@ -67,11 +69,11 @@ class OrderConfirmationController extends Controller
             if ($theme->flag == 'globle') {
                 $theme = Themecolor::where('page_id', 'globle')->first();
             }
-
+            $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
             $purchase_product_count = Purchase_items::count();
 
             return view('orderConfirmation.orderConfirmation', [
-                'purchase_product_count' => $purchase_product_count ? $purchase_product_count : 0, 'order' => $order, 'theme' => $theme,
+                'purchase_product_count' => $purchase_product_count ? $purchase_product_count : 0, 'order' => $order, 'theme' => $theme,'navbar' => $navbar, 
                 'order_items' => $order_items
             ]);
         } catch (\Exception $e) {

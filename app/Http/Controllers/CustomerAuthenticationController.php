@@ -123,10 +123,15 @@ class CustomerAuthenticationController extends Controller
     }
     public function show()
     {
-        $customer=Customer::leftjoin('orders','orders.email','=','customers.email')
-        ->leftjoin('orders_items','orders_items.order_id','=','orders.id')
-        ->leftjoin('product','product.id','=','orders_items.product_id')
-        ->select('customers.id as id','product.id as product','customers.name as name','orders.address as address','orders.total as total', DB::raw('COUNT(orders_items.product_id) as no_of_orders'))->paginate(10);
-        return view('customer.customer',['customers'=>$customer]);
+        $customer = Customer::leftjoin('orders', 'orders.user_id', '=', 'customers.id')
+            // ->leftjoin('orders_items', 'orders_items.order_id', '=', 'orders.unique_order_number')
+            
+            ->select('customers.id as id', 'customers.name as name', 'orders.address as address', 'customers.email as email', 'orders.total as total', DB::raw('COUNT(orders.id) as no_of_orders'))
+            ->groupBy('customers.id')
+            ->orderBy('customers.id')
+            ->paginate(10);
+        // dd($customer);
+
+        return view('customer.customer', ['customers' => $customer]);
     }
 }

@@ -395,25 +395,25 @@
                 color: rgba(107, 114, 128, var(--tw-text-opacity))
             }
         }
-
     </style>
 
     <style>
         body {
             font-family: 'Nunito', sans-serif;
         }
-
     </style>
 </head>
 
 <body class="antialiased">
-    <div class="relative flex items-top justify-center min-h-screen sm:items-center py-4 sm:pt-0">
-
+    <div class="relative flex flex-col items-top justify-center min-h-screen sm:items-center py-4 sm:pt-0">
+        <a href="/tenant">Tenants
+        </a>
+        <br>
         @if (Route::has('login'))
             <div class="hidden px-6 py-4 sm:block">
                 @auth
                     <a href="{{ url('/dashboard') }}"
-                        class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
+                        class="text-xl text-gray-700 dark:text-gray-500 underline">Dashboard</a>
                 @else
                     <a href="{{ url('/register') }}" class="text-2xl text-center text-gray-700 underline">Register</a>
 

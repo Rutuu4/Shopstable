@@ -116,7 +116,7 @@
         </div>
     </header>
     <main class="relative lg:min-h-full w-1/2 mx-auto">
-
+        <img class='mx-auto w-1/4 mb-10' src="/Icons/success.svg" alt="">
 
         <div class="bg-white">
             <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -176,7 +176,8 @@
                                             <div class="flex text-sm text-gray-700">
                                                 <dd class="ml-2  globle_currency">
                                                     {{ $theme->globle_currency }}</dd>
-                                                <dd class="">{{ $item->price }}</dd>
+                                                <dd class="">
+                                                    {{ $item->price ? sprintf('%0.2f', $item->price) : 0.0 }}</dd>
                                             </div>
                                         </div>
                                         <div class="pl-2">
@@ -184,7 +185,9 @@
                                                 <dt class="font-medium text-sm text-gray-900">Subtotal</dt>
                                                 <dd class="ml-2  text-sm text-gray-700 globle_currency">
                                                     {{ $theme->globle_currency }}</dd>
-                                                <dd class="text-gray-700">{{ $item->sub_total }}</dd>
+                                                <dd class="text-gray-700">
+                                                    {{ $item->sub_total ? sprintf('%0.2f', $item->sub_total) : 0.0 }}
+                                                </dd>
                                             </div>
                                         </div>
                                     </dl>
@@ -229,7 +232,9 @@
                             <dt class="font-medium text-gray-900">Subtotal</dt>
                             <div class="flex">
                                 <dd class="ml-2 text-gray-700 globle_currency">{{ $theme->globle_currency }}</dd>
-                                <dd class="text-gray-700">{{ $order->total }}</dd>
+                                <dd class="text-gray-700">
+                                    {{ $order->total ? sprintf('%0.2f', $order->total) : 0.0 }}
+                                </dd>
                             </div>
                         </div>
                         <div class="flex justify-between">
@@ -255,7 +260,8 @@
                             <dt class="font-medium text-gray-900">Total</dt>
                             <div class="flex">
                                 <dd class="ml-2 text-gray-700 globle_currency">{{ $theme->globle_currency }}</dd>
-                                <dd class="text-gray-900">{{ $order->total - 18 + 5 }}</dd>
+                                <dd class="text-gray-900">
+                                    {{ $order->total ? sprintf('%0.2f', $order->total - 18 + 5) : 0.0 }}</dd>
                             </div>
                         </div>
                     </dl>
@@ -330,7 +336,7 @@
 
     $('.order_total_input').val($('.order_total').text());
     var currentColorTheme = {!! json_encode($theme->toArray()) !!};
-m
+    m
     console.log(currentColorTheme['theme_color'], 'currentColorTheme');
     currentColorTheme = currentColorTheme['theme_color'];
     //    change all *-indigo-* with currentColorTheme

@@ -28,14 +28,14 @@ class ShippingController extends Controller
 
         $purchase_product_count = Purchase_items::count();
 
-        $order = Order::get(['id as order_id', 'unique_order_number', 'order_status', 'address', 'updated_at']);
+        $order = Order::get(['id as order_id', 'unique_order_number', 'order_status','orders.email',  'orders.total','address', 'updated_at']);
 
         $shipping = Orders_items::leftjoin('product', 'product.id', '=', 'orders_items.product_id')
             ->leftjoin('product_image', 'product_image.product_id', '=', 'product.id')
             ->leftjoin('orders', 'orders.unique_order_number', '=', 'orders_items.order_id')
             ->where('orders_items.user_id', $user_info->id)
             ->where('product_image.isFeatured', '1')
-            ->select('product_image.imageName', 'product.id as product_id', 'product.title', 'orders_items.price', 'orders_items.quantity', 'product.shortDescription', 'orders.address', 'orders.email', 'orders.id as order_id', 'orders.total', 'orders.unique_order_number', 'orders.updated_at')
+            ->select('product_image.imageName', 'product.id as product_id', 'product.title', 'orders_items.price', 'orders_items.quantity', 'product.shortDescription', 'orders.address', 'orders.email as email', 'orders.id as order_id', 'orders.total as order_total', 'orders.unique_order_number', 'orders.updated_at')
             // ->groupBy('orders_items.order_id')
             ->get();
 
