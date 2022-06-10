@@ -81,8 +81,8 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::get('/admin/register', [AdminController::class, 'register'])->name('auth.register');
-    Route::post('/admin/save', [AdminController::class, 'save'])->name('auth.save');
+
+    Route::get('tenant', [TenantController::class, 'index']);
     Route::get('tenant/{id}', [TenantController::class, 'show']);
     Route::get('customer', [CustomerAuthenticationController::class, 'show'])->name('customers');
 
