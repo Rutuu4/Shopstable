@@ -13,16 +13,15 @@
     <!-- Styles -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/@tailwindcss/forms@0.2.1/dist/forms.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="/css/style.css">
 
     <!-- Scripts -->
     <script src="/js/app.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"
-        integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-</head>
 </head>
 
 <body>
@@ -480,9 +479,7 @@
         <div class="flex justify-between items-center ">
             <div class="flex flex-wrap p-5 flex-col md:flex-row items-center">
                 <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2"
-                        class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
                     <a href="http://{{ tenant('domain') }}/">
@@ -495,8 +492,7 @@
                 </script>
 
                 @if (!empty($navbar))
-                    <div
-                        class="md:mr-auto md:ml-4 md:py-1 md:pl-4  md:border-gray-400 flex flex-wrap text-base justify-center">
+                    <div class="md:mr-auto md:ml-4 md:py-1 md:pl-4  md:border-gray-400 flex flex-wrap text-base justify-center">
                         @foreach ($navbar as $item)
                             <a href={{ $item->nav_item_link }} class="mx-2">
                                 {{ $item->nav_item_name }}
@@ -510,22 +506,17 @@
                 {{-- @if ($user_id == null) --}}
                 @if (1 == 1)
                     @if (!($_COOKIE['customer_token'] ?? null) == null)
-                        <form class='inline-flex items-center'
-                            action="http://{{ request()->getHttpHost() }}/customer/logout" method="POST">
+                        <form class='inline-flex items-center' action="http://{{ request()->getHttpHost() }}/customer/logout" method="POST">
                             @csrf
-                            <button
-                                class="border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
-                                type="submit">Logout</button>
+                            <button class="border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0" type="submit">Logout</button>
                         </form>
                     @endif
 
                     @if (($_COOKIE['customer_token'] ?? null) == null)
-                        <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
-                            href="http://{{ request()->getHttpHost() }}/customer/login">
+                        <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0" href="http://{{ request()->getHttpHost() }}/customer/login">
                             Login
                         </a>
-                        <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
-                            href="http://{{ request()->getHttpHost() }}/customer/register">
+                        <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0" href="http://{{ request()->getHttpHost() }}/customer/register">
                             Register
                         </a>
                     @endif
@@ -537,8 +528,7 @@
                         <img src="/Icons/cart.svg" class='w-5' alt="">
                     </a>
 
-                    <div id="cart_count"
-                        class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
+                    <div id="cart_count" class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
                         {{ $purchase_product_count }}</div>
 
                     <a href="http://{{ tenant('domain') }}/shipping">
@@ -556,6 +546,23 @@
         </div>
     </header>
 
+    {{-- Toster --}}
+    <div class="relative">
+        <div class="toast absolute w-fit hidden right-0">
+            <div class="toast-content shadow-xl z-10 bg-white px-4 py-2 rounded-xl flex items-center gap-4">
+                <img src="/Icons/check.svg" class="bg-green-400/50 p-1 rounded-full"></img>
+                <div class="message">
+                    <span class="text text-1 toster_text_1"></span>
+                    <p class="alert">
+                        {{ Session::get('message') }}</p>
+                    <span class="text text-2 toster_text_2"></span>
+                </div>
+            </div>
+            {{-- <i class="fa-solid fa-xmark close"></i> --}}
+            {{-- 3 second progress bar --}}
+
+        </div>
+    </div>
     <div class="py-2 px-6 md:py-4 md:px-24 ">
         <div class="">
             <div class="grid grid-cols-2 gap-8 realtive">
@@ -567,8 +574,7 @@
 
                         <div class="carousel carousel-main -mt-24" data-flickity='{"pageDots": false }'>
                             @foreach ($productImage as $productImageItem)
-                                <div class="carousel-cell"><img class="w-full h-full object-contain"
-                                        src="/{{ $productImageItem->imageName }}" /></div>
+                                <div class="carousel-cell"><img class="w-full h-full object-contain" src="/{{ $productImageItem->imageName }}" /></div>
                             @endforeach
                         </div>
                         <style>
@@ -577,11 +583,9 @@
                                 align-items: center;
                             }
                         </style>
-                        <div class="carousel carousel-nav"
-                            data-flickity='{ "asNavFor": ".carousel-main", "contain": true, "pageDots": false }'>
+                        <div class="carousel carousel-nav" data-flickity='{ "asNavFor": ".carousel-main", "contain": true, "pageDots": false }'>
                             @foreach ($productImage as $item)
-                                <div class="carousel-cell"><img class="w-full h-full object-contain"
-                                        src="/{{ $item->imageName }}" /></div>
+                                <div class="carousel-cell"><img class="w-full h-full object-contain" src="/{{ $item->imageName }}" /></div>
                             @endforeach
 
                         </div>
@@ -595,7 +599,7 @@
                         <h1 class="globle_currency text-lg font-light font-sans-serif py-4 ">
                             {{ $theme->globle_currency }}</h1>
                         <h1 class="product_price_value text-lg font-light font-sans-serif py-4 ">
-                            {{ $productDetail->price }}</h1>
+                            {{ $productDetail->price ? sprintf('%0.2f', $productDetail->price) : 0.0 }}</h1>
                     </div>
                     {{-- <div class="text-md py-2 text-stone-500 font-light">Quantity</div> --}}
 
@@ -603,15 +607,11 @@
                         <label for="custom-input-number" class="w-full text-gray-700 text-sm font-semibold">Quantity
                         </label>
                         <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-2 pb-2">
-                            <button data-action="decrement"
-                                class="text-gray-600 border-t border-b border-l border-gray-700 hover:text-gray-700 bg-red-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                            <button data-action="decrement" class="text-gray-600 border-t border-b border-l border-gray-700 hover:text-gray-700 bg-red-400 h-full w-20 rounded-l cursor-pointer outline-none">
                                 <span class="m-auto text-2xl text-white font-light w-5">−</span>
                             </button>
-                            <input type="number"
-                                class="product_quantity border-b border-t  text-center w-full  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
-                                name="custom-input-number" value={{ $productQuantity }} min='1' />
-                            <button data-action="increment"
-                                class="text-gray-600 border-t border-b border-r border-gray-700  hover:text-gray-700 bg-green-400 h-full w-20 rounded-r cursor-pointer">
+                            <input type="number" class="product_quantity border-b border-t  text-center w-full  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 " name="custom-input-number" value={{ $productQuantity }} min='1' />
+                            <button data-action="increment" class="text-gray-600 border-t border-b border-r border-gray-700  hover:text-gray-700 bg-green-400 h-full w-20 rounded-r cursor-pointer">
                                 <span class="m-auto text-2xl text-white font-light w-5">+</span>
                             </button>
                         </div>
@@ -623,12 +623,10 @@
                                 <p class="">1</p>
                                 <img class="w-5" src="/Icons/plus.svg" alt="">
                             </div> --}}
-                    <button onclick="AddToCart({{ $productDetail->id }}, 0)"
-                        class="pb-3 w-full mt-9 px-6 py-4 border border-black font-bold font-xl">Add to
+                    <button onclick="AddToCart({{ $productDetail->id }}, 0)" class="pb-3 w-full mt-9 px-6 py-4 border border-black font-bold font-xl">Add to
                         Cart</button>
                     <a href="#">
-                        <button onclick="AddToCart({{ $productDetail->id }}, 1)"
-                            class="w-full mt-4 px-6 py-4 border border-black font-bold font-xl bg-black text-white">Buy
+                        <button onclick="AddToCart({{ $productDetail->id }}, 1)" class="w-full mt-4 px-6 py-4 border border-black font-bold font-xl bg-black text-white">Buy
                             it Now</button>
                     </a>
                     <p class="comment more tracking-wider py-4 text-gray-800">{{ $item->shortDescription }}
@@ -668,6 +666,23 @@
         </div><!-- /.container --> --}}
         <script>
             $(document).ready(function() {
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
                 var showChar = 100;
                 var ellipsestext = "...";
                 var moretext = "show more";
@@ -728,7 +743,12 @@
         <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
         <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
         <script>
+            $('.product_quantity').change(function() {
+                toastr.success('Product successfully updated quantity');
+            });
+
             function decrement(e) {
+                toastr.success('Product successfully updated quantity');
                 const btn = e.target.parentNode.parentElement.querySelector(
                     'button[data-action="decrement"]'
                 );
@@ -741,6 +761,7 @@
             }
 
             function increment(e) {
+                toastr.success('Product successfully updated quantity');
                 const btn = e.target.parentNode.parentElement.querySelector(
                     'button[data-action="decrement"]'
                 );
@@ -771,6 +792,7 @@
             })
 
             function AddToCart(id, flag) {
+                toastr.success('Product successfully added to cart');
                 var quantity = $(".custom-number-input input").val();
                 var price = $(".product_price").val();
                 var total = quantity * price;

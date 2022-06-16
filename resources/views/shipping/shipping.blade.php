@@ -170,11 +170,12 @@
                                 <div class="flex flex-col gap-4 border-b w-full  sm:px-6 lg:px-8 pt-5 ">
                                     <div class="">
                                         <dl class="flex justify-between text-sm font-medium">
-                                            <dt class="text-gray-900">Order Number</dt>
-                                            <div class="text-gray-600">
-                                                {{ $shipping->unique_order_number }}
+                                            <div class="text-gray-600 font-bold">
+                                                #{{ $shipping->unique_order_number }}
                                             </div>
-                                            </a>
+                                            <div class="text-white bg-indigo-400 font-bold px-2 py-1 rounded-full">
+                                                {{ $theme->globle_currency }}{{ $shipping->total }}
+                                            </div>
                                         </dl>
                                     </div>
                                     <div class=""></div>
@@ -184,7 +185,7 @@
                                         <dl class="text-sm font-medium">
                                             <dt class="text-gray-900">Order date</dt>
                                             <dd class="text-gray-600 text-xs mt-2">
-                                                {{ date_format($shipping->updated_at, 'd-m-Y') }}</dd>
+                                                {{ date_format($shipping->updated_at, 'm-d-Y') }}</dd>
                                         </dl>
                                         <dl class="text-sm font-medium">
                                             <dt class="text-gray-900">Tracking Number</dt>
@@ -200,7 +201,7 @@
                                     <a
                                         href='http://{{ request()->getHttpHost() }}/order_confirmation/{{ $shipping->unique_order_number }} '>
                                         <dl class="text-sm font-medium">
-                                            <dd class="text-indigo-600 mt-2">order info</dd>
+                                            <dd class="text-indigo-600 mt-2">Order info</dd>
                                         </dl>
                                     </a>
                                 </div>

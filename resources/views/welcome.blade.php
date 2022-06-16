@@ -9,6 +9,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Styles -->
     <style>
@@ -405,36 +406,43 @@
 </head>
 
 <body class="antialiased">
-    <a href="/tenant">Tenants
-    </a>
-    <a href="/admin/login">Login
-    </a>
+    <div class="mx-20 mt-5 flex justify-between gap-4">
+        <div class="mx-4 text-xl flex gap-4 items-center ">
+            <a href="/tenant">
+                <p class="text-xl">Tenants</p>
+            </a>
 
-    <div class="relative flex flex-col items-top justify-center min-h-screen sm:items-center py-4 sm:pt-0">
-        <br>
-        @if (Route::has('login'))
-            <div class="hidden px-6 py-4 sm:block">
-                @auth
-                    <a href="{{ url('/dashboard') }}"
-                        class="text-xl text-gray-700 dark:text-gray-500 underline">Dashboard</a>
-                @else
-                    <a href="{{ url('/register') }}" class="text-2xl text-center text-gray-700 underline">Register</a>
-
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}"
-                            class="ml-4 text-6xl text-gray-700 dark:text-gray-500 underline">Register</a>
-                    @endif
-                @endauth
+            <div class="mx-4">
+                <a href="/admin/login">
+                    <p class="text-xl">Login</p>
+                </a>
             </div>
-        @endif
+        </div>
+
+
+        <div class="">
+            @if (Route::has('login'))
+                <div class="hidden px-6  sm:block">
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="text-gray-700 dark:text-gray-500 underline">Dashboard</a>
+                    @else
+                        <a href="{{ url('/register') }}" class="text-xl text-center text-gray-700 ">Register</a>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}"
+                                class=" text-xl text-gray-700 dark:text-gray-500 ">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+
+        </div>
 
     </div>
 </body>
 
 </html>
 
-
-<div id="1589470" class="border my-10" onclick="toggleBorder(event)">
+{{-- <div id="1589470" class="border my-10" onclick="toggleBorder(event)">
     <div class="z-10">
         <button onclick="deleteItem(this)" class="hidden deleteElement hover:bg-red-500" id="9004027"><img
                 class="w-10" src="/Icons/delete.svg" alt=""></button>
@@ -826,10 +834,7 @@
             // $("#simpleList")[0].childNodes[1].childNodes[1].querySelector('.menuItemName').innerHTML +=
             // order ? order : [];;
         });;
-    </script>
-
-
-
+    </script> --}}
 
 
 </div>

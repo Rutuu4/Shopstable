@@ -15,20 +15,17 @@
     <link href="https://unpkg.com/@tailwindcss/forms@0.2.1/dist/forms.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="/js/app.js" defer></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"
-        integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
 
@@ -66,8 +63,7 @@
                                 <div class="my-5">
                                     <x-label for="productTargetKeyword" :value="__('Menu Title')" />
 
-                                    <x-input id="productTitle" class="block mt-1 w-full " value="Main Menu" type="text"
-                                        name="productTitle" required autofocus />
+                                    <x-input id="productTitle" class="block mt-1 w-full " value="Main Menu" type="text" name="productTitle" required autofocus />
                                 </div>
                             </div>
                         </div>
@@ -80,44 +76,10 @@
                                 <div class="pt-5">
                                     <div id='simpleList' class="list-none">
 
-                                        {{-- <div id="home_default"
-                                            class="flex justify-between	border-t pl-4 rounded py-2 px-4">
-                                            <div class="flex items-center">
-                                                <img class='w-5 mr-2' src="/Icons/dragholder.svg" alt="">
-                                                <div class="menuItemName">Home</div>
-                                            </div>
-                                            <div class="flex">
-                                                <button
-                                                    class="menu_item_edit px-4 py-2 border hover:bg-green-400 hover:text-white hover:bg-opacity-70">
-                                                    edit</button>
-                                                <button
-                                                    class="menu_item_delete px-4 py-2 border hover:bg-red-400/40 hover:text-white hover:bg-opacity-70">
-                                                    delete</button>
-                                            </div>
-                                        </div>
-
-
-                                        <div id="contact_default"
-                                            class="flex justify-between	 border-t pl-4 rounded py-2 px-4">
-                                            <div class="flex items-center">
-                                                <img class='w-5 mr-2' src="/Icons/dragholder.svg" alt="">
-                                                <div class="menuItemName">contact</div>
-                                            </div>
-                                            <div class="flex">
-                                                <button
-                                                    class="menu_item_edit px-4 py-2 border hover:bg-green-400 hover:text-white hover:bg-opacity-70">
-                                                    edit</button>
-                                                <button
-                                                    class="menu_item_delete px-4 py-2 border hover:bg-red-400/40 hover:text-white hover:bg-opacity-70">
-                                                    delete</button>
-                                            </div>
-                                        </div> --}}
-
                                     </div>
                                     <div class="py-4 border-t hover:bg-blue-100 hover:bg-opacity-70">
                                         <button class='add_menu_item'>
-                                            <div class="add_menu_item flex text-[#2C6ECB] pl-4 rounded py-2"><img
-                                                    class='w-5 mr-2' src="/Icons/add.svg" alt="">
+                                            <div class="add_menu_item flex text-[#2C6ECB] pl-4 rounded py-2"><img class='w-5 mr-2' src="/Icons/add.svg" alt="">
                                                 Add
                                             </div>
                                         </button>
@@ -133,21 +95,16 @@
                     <div class="add_menu_item_model hidden">
                         <form name='addLinkForm' action="">
 
-                            <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
-                                aria-modal="">
-                                <div
-                                    class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                            <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="">
+                                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 
-                                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-                                        aria-hidden="true">
+                                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true">
                                     </div>
 
                                     <!-- This element is to trick the browser into centering the modal contents. -->
-                                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen"
-                                        aria-hidden="true">&#8203;</span>
+                                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-                                    <div
-                                        class="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                    <div class="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                             <h1 class='ml-4 my-2 ml-54 text-xl'>Add Menu Item</h1>
                                             <div class="sm:flex sm:items-start">
@@ -156,19 +113,14 @@
                                                         <x-label for="menu_name" :value="__('Name')" />
                                                         <p class="ml-2 text-red-400">*</p>
                                                     </div>
-                                                    <x-input id="menu_name" class="block mt-1 w-full " type="text"
-                                                        name="menu_name" required autofocus
-                                                        onblur="validateAddLinkNameForm()" />
+                                                    <x-input id="menu_name" class="block mt-1 w-full " type="text" name="menu_name" required autofocus onblur="validateAddLinkNameForm()" />
                                                     <p class="add_link_name_validation text-red-400 hidden">name is
                                                         required</p>
                                                     <div class="flex mt-4">
-                                                        <x-label for="menu_link" :value="__('Link')"
-                                                            class="" />
+                                                        <x-label for="menu_link" :value="__('Link')" class="" />
                                                         <p class="ml-2 text-red-400">*</p>
                                                     </div>
-                                                    <x-input onblur="validateAddLink_link()" id="menu_link"
-                                                        class="block mt-1 w-full " type="text" name="menu_link" required
-                                                        autofocus />
+                                                    <x-input onblur="validateAddLink_link()" id="menu_link" class="block mt-1 w-full " type="text" name="menu_link" required autofocus />
                                                     <p class="add_link_name_link_validation text-red-400 hidden">Link is
                                                         required</p>
                                                     <div class="mt-2">
@@ -179,10 +131,8 @@
                                         </div>
 
                                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                            <button id='add_menu_item_save' type="button"
-                                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm no-click">Save</button>
-                                            <button type="button"
-                                                class="cancel_model mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
+                                            <button id='add_menu_item_save' type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm no-click">Save</button>
+                                            <button type="button" class="cancel_model mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
                                         </div>
                                     </div>
                                 </div>
@@ -259,21 +209,16 @@
 
                     {{-- Model for edit link --}}
                     <div class="edit_menu_item_model hidden">
-                        <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
-                            aria-modal="">
-                            <div
-                                class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="">
+                            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 
-                                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-                                    aria-hidden="true">
+                                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true">
                                 </div>
 
                                 <!-- This element is to trick the browser into centering the modal contents. -->
-                                <span class="hidden sm:inline-block sm:align-middle sm:h-screen"
-                                    aria-hidden="true">&#8203;</span>
+                                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-                                <div
-                                    class="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                <div class="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                         <h1 class='ml-4 my-2 ml-54 text-xl'>Edit Menu Item</h1>
                                         <div class="sm:flex sm:items-start">
@@ -282,20 +227,15 @@
                                                     <x-label for="menu_name_edit" :value="__('Name')" />
                                                     <p class="ml-2 text-red-400">*</p>
                                                 </div>
-                                                <x-input onblur="validateEditLinkNameForm()" id="menu_name_edit"
-                                                    class="block mt-1 w-full " type="text" name="menu_name_edit"
-                                                    required autofocus />
+                                                <x-input onblur="validateEditLinkNameForm()" id="menu_name_edit" class="block mt-1 w-full " type="text" name="menu_name_edit" required autofocus />
                                                 <p class="edit_link_name_validation text-red-400 hidden">name is
                                                     required</p>
 
                                                 <div class="flex mt-4">
-                                                    <x-label for="menu_link_edit" :value="__('Link')"
-                                                        class="" />
+                                                    <x-label for="menu_link_edit" :value="__('Link')" class="" />
                                                     <p class="ml-2 text-red-400">*</p>
                                                 </div>
-                                                <x-input onblur="validateEditLink_link()" id="menu_link_edit"
-                                                    class="block mt-1 w-full " type="text" name="menu_link_edit"
-                                                    required autofocus />
+                                                <x-input onblur="validateEditLink_link()" id="menu_link_edit" class="block mt-1 w-full " type="text" name="menu_link_edit" required autofocus />
 
                                                 <p class="edit_link_name_link_validation text-red-400 hidden">Link is
                                                     required</p>
@@ -303,10 +243,8 @@
                                         </div>
                                     </div>
                                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                        <button id='edit_menu_item_save' type="button"
-                                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Update</button>
-                                        <button type="button"
-                                            class="cancel_model_edit mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
+                                        <button id='edit_menu_item_save' type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Update</button>
+                                        <button type="button" class="cancel_model_edit mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
                                     </div>
                                 </div>
                             </div>
@@ -515,8 +453,8 @@
 
             $('#menu_link_edit').val($(e.target.parentNode.parentNode.parentNode.childNodes[1].childNodes[5])
                 .text());
-            $('#menu_name_edit').val();
-            $('#menu_link_edit').val();
+            $('#menu_name_edit').val('');
+            $('#menu_link_edit').val('');
 
             $('.edit_menu_item_model').removeClass(
                 'hidden');
@@ -526,6 +464,7 @@
 
             $('#edit_menu_item_save').click(function() {
                 // let id = ;
+
                 let menu_name_edit = $('#menu_name_edit').val();
                 let menu_link_edit = $('#menu_link_edit').val();
                 // console.log('sdasd', menu_item_edit_id);
@@ -535,8 +474,12 @@
                     data: {
                         nav_item_name: menu_name_edit,
                         nav_item_link: menu_link_edit,
+                    },
+                    success: function() {
+                        toastr.success("Menu item's position updated successfully");
                     }
                 }).done((data) => {
+
                     console.log("edit menu updated");
                     $('.edit_menu_item_model').addClass('hidden');
                 });
@@ -578,7 +521,9 @@
                     nav_item_id: menu_item_id,
                     nav_item_order: sortable.toArray().length
                 },
-                success: 'success',
+                success: function() {
+                    toastr.success("Menu item added successfully");
+                }
             });
 
             $('.add_menu_item_model').addClass('hidden');
@@ -596,7 +541,10 @@
                 $.ajax({
                     type: "DELETE",
                     url: "http://{{ tenant('domain') }}/menuBuilder/" + delete_id,
-                    data: {}
+                    data: {},
+                    success: function() {
+                        toastr.success("Menu item deleted successfully");
+                    }
                 }).done((data) => {
                     console.log('item deleted')
                 });
@@ -916,7 +864,6 @@
             div:empty::before {
                 content: 'fallback placeholder';
             } */
-
 </style>
 
 </html>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Themecolor;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,8 +13,12 @@ class CategoryController extends Controller
 
     public function show()
     {
+        $theme = Themecolor::where('page_id', 'globle')->first();
+        if ($theme->flag == 'globle') {
+            $theme = Themecolor::where('page_id', 'globle')->first();
+        }
         $category = DB::table('category')->orderBy('id')->paginate(5);
-        return view('category.category', ['category' => $category]);
+        return view('category.category', ['category' => $category,  'theme' =>$theme]);
     }
 
     public function dropzoneStore(Request $request)
@@ -48,7 +53,7 @@ class CategoryController extends Controller
                     'title' => $title,
                     'status' => $status,
                     'is_feature' => $is_feature,
-                'category_image' => 'images/' . session('imageName'),
+                    'category_image' => 'images/' . session('imageName'),
                     'description' => $description,
                 ]);
             $request->session()->forget('imageName');

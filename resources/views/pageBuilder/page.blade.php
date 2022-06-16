@@ -1443,11 +1443,12 @@
                                                             <div class='flex justify-between items-center'>
                                                              <h3 class="font-medium text-gray-900"> ` +
                                 product_datas[index]['title'] + `</h3>
-                                                 <div class="relative mt-4">
-                                                    <div class='flex '>
+                                
+                                                 <div class="relative">
+                                                    <div class='flex items-center'>
                                                         <h3 class="globle_currency font-medium text-gray-900"> ` +
                                 `{{ $theme->globle_currency }}` + `</h3> ` +
-                                product_datas[index]['price'] + ` </h3>
+                                Number(product_datas[index]['price']).toFixed(2) + ` </h3>
                                                         </div>
                                                              </div>
 
@@ -1750,12 +1751,12 @@
                                                             <div class='flex justify-between items-center'>
                                                              <h3 class="font-medium text-gray-900"> ` +
                                             product_datas[index]['title'] + `</h3>
-                                                 <div class="relative mt-4">
+                                                 <div class="relative">
 
-                                                    <div class='flex '>
+                                                    <div class='flex items-center'>
                                                         <h3 class="globle_currency font-medium text-gray-900"> ` +
-                                `{{ $theme->globle_currency }}` + `</h3> ` +
-                                product_datas[index]['price'] + ` </h3>
+                                            `{{ $theme->globle_currency }}` + `</h3> ` +
+                                            Number(product_datas[index]['price']).toFixed(2) + ` </h3>
                                                         </div>
                                                              </div>
 

@@ -8,28 +8,19 @@
 
     <title>{{ config('app.name', 'Shopstable') }}</title>
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Styles -->
-    {{-- <link rel="stylesheet" href="/css/app.css"> --}}
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/@tailwindcss/forms@0.2.1/dist/forms.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 
     <!-- Scripts -->
     <script src="/js/app.js" defer></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"
-        integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
 
 </head>
 
@@ -38,9 +29,7 @@
         <div class="flex justify-between items-center ">
             <div class="flex flex-wrap p-5 flex-col md:flex-row items-center">
                 <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2"
-                        class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
                     <a href="http://{{ tenant('domain') }}/">
@@ -53,8 +42,7 @@
                 </script>
 
                 @if (!empty($navbar))
-                    <div
-                        class="md:mr-auto md:ml-4 md:py-1 md:pl-4  md:border-gray-400 flex flex-wrap text-base justify-center">
+                    <div class="md:mr-auto md:ml-4 md:py-1 md:pl-4  md:border-gray-400 flex flex-wrap text-base justify-center">
                         @foreach ($navbar as $item)
                             <a href={{ $item->nav_item_link }} class="mx-2">
                                 {{ $item->nav_item_name }}
@@ -68,22 +56,17 @@
                 {{-- @if ($user_id == null) --}}
                 @if (1 == 1)
                     @if (!($_COOKIE['customer_token'] ?? null) == null)
-                        <form class='inline-flex items-center'
-                            action="http://{{ request()->getHttpHost() }}/customer/logout" method="POST">
+                        <form class='inline-flex items-center' action="http://{{ request()->getHttpHost() }}/customer/logout" method="POST">
                             @csrf
-                            <button
-                                class="border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
-                                type="submit">Logout</button>
+                            <button class="border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0" type="submit">Logout</button>
                         </form>
                     @endif
 
                     @if (($_COOKIE['customer_token'] ?? null) == null)
-                        <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
-                            href="http://{{ request()->getHttpHost() }}/customer/login">
+                        <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0" href="http://{{ request()->getHttpHost() }}/customer/login">
                             Login
                         </a>
-                        <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
-                            href="http://{{ request()->getHttpHost() }}/customer/register">
+                        <a class="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0" href="http://{{ request()->getHttpHost() }}/customer/register">
                             Register
                         </a>
                     @endif
@@ -95,8 +78,7 @@
                         <img src="/Icons/cart.svg" class='w-5' alt="">
                     </a>
 
-                    <div id="cart_count"
-                        class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
+                    <div id="cart_count" class="w-5 h-5 text-xs -mt-5 bg-green-400/90 rounded-full mx-auto text-white p-1 flex items-center justify-center">
                         {{ $purchase_product_count }}</div>
 
                     <a href="http://{{ tenant('domain') }}/shipping">
@@ -113,6 +95,23 @@
 
         </div>
     </header>
+    {{-- Toster --}}
+    <div class="relative">
+        <div class="toast absolute w-fit hidden right-0">
+            <div class="toast-content shadow-xl z-10 bg-white px-4 py-2 rounded-xl flex items-center gap-4">
+                <img src="/Icons/check.svg" class="bg-green-400/50 p-1 rounded-full"></img>
+                <div class="message">
+                    <span class="text text-1 toster_text_1"></span>
+                    <p class="alert">
+                        {{ Session::get('message') }}</p>
+                    <span class="text text-2 toster_text_2"></span>
+                </div>
+            </div>
+            {{-- <i class="fa-solid fa-xmark close"></i> --}}
+            {{-- 3 second progress bar --}}
+
+        </div>
+    </div>
 
     <div class="bg-gray-50">
         <!--
@@ -145,14 +144,11 @@
           -->
             <div class="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto">
                 <div class="px-4 pt-5 pb-2 flex">
-                    <button type="button"
-                        class="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400">
+                    <button type="button" class="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400">
                         <span class="sr-only">Close menu</span>
                         <!-- Heroicon name: outline/x -->
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
@@ -162,27 +158,19 @@
                     <div class="border-b border-gray-200">
                         <div class="-mb-px flex px-4 space-x-8" aria-orientation="horizontal" role="tablist">
                             <!-- Selected: "text-indigo-600 border-indigo-600", Not Selected: "text-gray-900 border-transparent" -->
-                            <button id="tabs-1-tab-1"
-                                class="text-gray-900 border-transparent flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium"
-                                aria-controls="tabs-1-panel-1" role="tab" type="button">Women</button>
+                            <button id="tabs-1-tab-1" class="text-gray-900 border-transparent flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium" aria-controls="tabs-1-panel-1" role="tab" type="button">Women</button>
 
                             <!-- Selected: "text-indigo-600 border-indigo-600", Not Selected: "text-gray-900 border-transparent" -->
-                            <button id="tabs-1-tab-2"
-                                class="text-gray-900 border-transparent flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium"
-                                aria-controls="tabs-1-panel-2" role="tab" type="button">Men</button>
+                            <button id="tabs-1-tab-2" class="text-gray-900 border-transparent flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium" aria-controls="tabs-1-panel-2" role="tab" type="button">Men</button>
                         </div>
                     </div>
 
                     <!-- 'Women' tab panel, show/hide based on tab state. -->
-                    <div id="tabs-1-panel-1" class="px-4 py-6 space-y-12" aria-labelledby="tabs-1-tab-1" role="tabpanel"
-                        tabindex="0">
+                    <div id="tabs-1-panel-1" class="px-4 py-6 space-y-12" aria-labelledby="tabs-1-tab-1" role="tabpanel" tabindex="0">
                         <div class="grid grid-cols-2 gap-x-4 gap-y-10">
                             <div class="group relative">
-                                <div
-                                    class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg"
-                                        alt="Models sitting back to back, wearing Basic Tee in black and bone."
-                                        class="object-center object-cover">
+                                <div class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
+                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg" alt="Models sitting back to back, wearing Basic Tee in black and bone." class="object-center object-cover">
                                 </div>
                                 <a href="#" class="mt-6 block text-sm font-medium text-gray-900">
                                     <span class="absolute z-10 inset-0" aria-hidden="true"></span>
@@ -192,11 +180,8 @@
                             </div>
 
                             <div class="group relative">
-                                <div
-                                    class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg"
-                                        alt="Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees."
-                                        class="object-center object-cover">
+                                <div class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
+                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg" alt="Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees." class="object-center object-cover">
                                 </div>
                                 <a href="#" class="mt-6 block text-sm font-medium text-gray-900">
                                     <span class="absolute z-10 inset-0" aria-hidden="true"></span>
@@ -206,11 +191,8 @@
                             </div>
 
                             <div class="group relative">
-                                <div
-                                    class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-category-03.jpg"
-                                        alt="Model wearing minimalist watch with black wristband and white watch face."
-                                        class="object-center object-cover">
+                                <div class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
+                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-category-03.jpg" alt="Model wearing minimalist watch with black wristband and white watch face." class="object-center object-cover">
                                 </div>
                                 <a href="#" class="mt-6 block text-sm font-medium text-gray-900">
                                     <span class="absolute z-10 inset-0" aria-hidden="true"></span>
@@ -220,11 +202,8 @@
                             </div>
 
                             <div class="group relative">
-                                <div
-                                    class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-category-04.jpg"
-                                        alt="Model opening tan leather long wallet with credit card pockets and cash pouch."
-                                        class="object-center object-cover">
+                                <div class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
+                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-category-04.jpg" alt="Model opening tan leather long wallet with credit card pockets and cash pouch." class="object-center object-cover">
                                 </div>
                                 <a href="#" class="mt-6 block text-sm font-medium text-gray-900">
                                     <span class="absolute z-10 inset-0" aria-hidden="true"></span>
@@ -236,15 +215,11 @@
                     </div>
 
                     <!-- 'Men' tab panel, show/hide based on tab state. -->
-                    <div id="tabs-1-panel-2" class="px-4 py-6 space-y-12" aria-labelledby="tabs-1-tab-2" role="tabpanel"
-                        tabindex="0">
+                    <div id="tabs-1-panel-2" class="px-4 py-6 space-y-12" aria-labelledby="tabs-1-tab-2" role="tabpanel" tabindex="0">
                         <div class="grid grid-cols-2 gap-x-4 gap-y-10">
                             <div class="group relative">
-                                <div
-                                    class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-01.jpg"
-                                        alt="Hats and sweaters on wood shelves next to various colors of t-shirts on hangers."
-                                        class="object-center object-cover">
+                                <div class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
+                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-01.jpg" alt="Hats and sweaters on wood shelves next to various colors of t-shirts on hangers." class="object-center object-cover">
                                 </div>
                                 <a href="#" class="mt-6 block text-sm font-medium text-gray-900">
                                     <span class="absolute z-10 inset-0" aria-hidden="true"></span>
@@ -254,11 +229,8 @@
                             </div>
 
                             <div class="group relative">
-                                <div
-                                    class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-02.jpg"
-                                        alt="Model wearing light heather gray t-shirt."
-                                        class="object-center object-cover">
+                                <div class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
+                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-02.jpg" alt="Model wearing light heather gray t-shirt." class="object-center object-cover">
                                 </div>
                                 <a href="#" class="mt-6 block text-sm font-medium text-gray-900">
                                     <span class="absolute z-10 inset-0" aria-hidden="true"></span>
@@ -268,11 +240,8 @@
                             </div>
 
                             <div class="group relative">
-                                <div
-                                    class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-03.jpg"
-                                        alt="Grey 6-panel baseball hat with black brim, black mountain graphic on front, and light heather gray body."
-                                        class="object-center object-cover">
+                                <div class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
+                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-03.jpg" alt="Grey 6-panel baseball hat with black brim, black mountain graphic on front, and light heather gray body." class="object-center object-cover">
                                 </div>
                                 <a href="#" class="mt-6 block text-sm font-medium text-gray-900">
                                     <span class="absolute z-10 inset-0" aria-hidden="true"></span>
@@ -282,11 +251,8 @@
                             </div>
 
                             <div class="group relative">
-                                <div
-                                    class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-04.jpg"
-                                        alt="Model putting folded cash into slim card holder olive leather wallet with hand stitching."
-                                        class="object-center object-cover">
+                                <div class="aspect-w-1 aspect-h-1 rounded-md bg-gray-100 overflow-hidden group-hover:opacity-75">
+                                    <img src="https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-04.jpg" alt="Model putting folded cash into slim card holder olive leather wallet with hand stitching." class="object-center object-cover">
                                 </div>
                                 <a href="#" class="mt-6 block text-sm font-medium text-gray-900">
                                     <span class="absolute z-10 inset-0" aria-hidden="true"></span>
@@ -322,10 +288,8 @@
                     <form>
                         <div class="inline-block">
                             <label for="mobile-currency" class="sr-only">Currency</label>
-                            <div
-                                class="-ml-2 group relative border-transparent rounded-md focus-within:ring-2 focus-within:ring-white">
-                                <select id="mobile-currency" name="currency"
-                                    class="bg-none border-transparent rounded-md py-0.5 pl-2 pr-5 flex items-center text-sm font-medium text-gray-700 group-hover:text-gray-800 focus:outline-none focus:ring-0 focus:border-transparent">
+                            <div class="-ml-2 group relative border-transparent rounded-md focus-within:ring-2 focus-within:ring-white">
+                                <select id="mobile-currency" name="currency" class="bg-none border-transparent rounded-md py-0.5 pl-2 pr-5 flex items-center text-sm font-medium text-gray-700 group-hover:text-gray-800 focus:outline-none focus:ring-0 focus:border-transparent">
                                     <option>CAD</option>
 
                                     <option>USD</option>
@@ -337,10 +301,8 @@
                                     <option>GBP</option>
                                 </select>
                                 <div class="absolute right-0 inset-y-0 flex items-center pointer-events-none">
-                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 20 20" class="w-5 h-5 text-gray-500">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="1.5" d="M6 8l4 4 4-4" />
+                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" class="w-5 h-5 text-gray-500">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 8l4 4 4-4" />
                                     </svg>
                                 </div>
                             </div>
@@ -359,16 +321,13 @@
                     <div>
                         <div>
                             <h2 class="text-lg font-medium text-gray-900">Contact information</h2>
-                            <input
-                                class="order_total_input block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                                type="hidden" name="order_total">
+                            <input class="order_total_input block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" type="hidden" name="order_total">
 
                             <div class="mt-4">
                                 <label for="email-address" class="block text-sm font-medium text-gray-700">Email
                                     address</label>
                                 <div class="mt-1">
-                                    <input type="email" id="email-address" name="email" autocomplete="email"
-                                        class="email block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                    <input type="email" id="email-address" name="email" autocomplete="email" class="email block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                                 </div>
                             </div>
                         </div>
@@ -381,8 +340,7 @@
                                     <label for="first-name" class="block text-sm font-medium text-gray-700">First
                                         name</label>
                                     <div class="mt-1">
-                                        <input type="text" id="first-name" name="first_name" autocomplete="given-name"
-                                            class="first_name block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <input type="text" id="first-name" name="first_name" autocomplete="given-name" class="first_name block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
@@ -390,26 +348,21 @@
                                     <label for="last-name" class="block text-sm font-medium text-gray-700">Last
                                         name</label>
                                     <div class="mt-1">
-                                        <input type="text" id="last-name" name="last_name" autocomplete="family-name"
-                                            class="last_name block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <input type="text" id="last-name" name="last_name" autocomplete="family-name" class="last_name block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
                                 <div class="sm:col-span-2">
-                                    <label for="company"
-                                        class="block text-sm font-medium text-gray-700">Company</label>
+                                    <label for="company" class="block text-sm font-medium text-gray-700">Company</label>
                                     <div class="mt-1">
-                                        <input type="text" name="company" id="company"
-                                            class="company block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <input type="text" name="company" id="company" class="company block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
                                 <div class="sm:col-span-2">
-                                    <label for="address"
-                                        class="block text-sm font-medium text-gray-700">Address</label>
+                                    <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
                                     <div class="mt-1">
-                                        <input type="text" name="address" id="address" autocomplete="street-address"
-                                            class="address block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <input type="text" name="address" id="address" autocomplete="street-address" class="address block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
@@ -417,16 +370,14 @@
                                     <label for="apartment" class="block text-sm font-medium text-gray-700">Apartment,
                                         suite, etc.</label>
                                     <div class="mt-1">
-                                        <input type="text" name="apartment" id="apartment"
-                                            class="apartment first-of-type:block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <input type="text" name="apartment" id="apartment" class="apartment first-of-type:block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
                                 <div>
                                     <label for="city" class="block text-sm font-medium text-gray-700">City</label>
                                     <div class="mt-1">
-                                        <input type="text" name="city" id="city" autocomplete="address-level2"
-                                            class="city odd:block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <input type="text" name="city" id="city" autocomplete="address-level2" class="city odd:block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
@@ -448,8 +399,7 @@
                                     <label for="region" class="block text-sm font-medium text-gray-700">State /
                                         Province</label>
                                     <div class="mt-1">
-                                        <input type="text" name="state" id="region" autocomplete="address-level1"
-                                            class="state block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <input type="text" name="state" id="region" autocomplete="address-level1" class="state block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
@@ -457,17 +407,14 @@
                                     <label for="postal-code" class="block text-sm font-medium text-gray-700">Postal
                                         code</label>
                                     <div class="mt-1">
-                                        <input type="text" name="postal_code" id="postal-code"
-                                            autocomplete="postal-code"
-                                            class="postal_code block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <input type="text" name="postal_code" id="postal-code" autocomplete="postal-code" class="postal_code block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
 
                                 <div class="sm:col-span-2">
                                     <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
                                     <div class="mt-1">
-                                        <input type="text" name="phone" id="phone" autocomplete="tel"
-                                            class="phone block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <input type="text" name="phone" id="phone" autocomplete="tel" class="phone block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
                             </div>
@@ -644,27 +591,23 @@
                                         </script>
                                         <li class="relative flex py-6 px-4 sm:px-6">
                                             <div class=" flex-shrink-0">
-                                                <input type="hidden" class='product_id' name='product_id'
-                                                    value="{{ $data->product_id }}">
-                                                <img src="{{ $data->imageName }}"
-                                                    alt="Front of men&#039;s Basic Tee in black."
-                                                    class="w-20 rounded-md">
+                                                <input type="hidden" class='product_id' name='product_id' value="{{ $data->product_id }}">
+                                                <img src="{{ $data->imageName }}" alt="Front of men&#039;s Basic Tee in black." class="w-20 rounded-md">
                                             </div>
 
                                             <div class="ml-6 flex-1 flex flex-col">
                                                 <div class=" flex">
                                                     <div class="min-w-0 flex-1">
                                                         <h4 class="text-xl">
-                                                            <a href="http://{{ tenant('domain') }}/shopping_cart"
-                                                                class="font-medium text-gray-700 hover:text-gray-800">
-                                                                {{ $data->title }} </a>
+                                                            <div class="font-medium text-gray-700 hover:text-gray-800">
+                                                                {{ $data->title }} </d>
                                                         </h4>
-                                                        <input type="hidden" class="quantity" name="quantity"
-                                                            value="{{ $data->quantity }}">
+                                                        <a href="http://{{ tenant('domain') }}/shopping_cart">Product
+                                                            info</a>
+                                                        <input type="hidden" class="quantity" name="quantity" value="{{ $data->quantity }}">
                                                         <p class="mt-1 text-sm text-gray-500">
                                                             quantity: {{ $data->quantity }}</p>
-                                                        <input type="hidden" class="price" name="price"
-                                                            value="{{ $data->price ? sprintf('%0.2f', $data->price) : 0.0 }}">
+                                                        <input type="hidden" class="price" name="price" value="{{ $data->price ? sprintf('%0.2f', $data->price) : 0.0 }}">
                                                         <p class=" mt-1 text-sm text-gray-500">
                                                             price:
                                                             &nbsp{{ $theme->globle_currency }}{{ $data->price ? sprintf('%0.2f', $data->price) : 0.0 }}
@@ -687,12 +630,10 @@
                                                     </div>
                                                 </div> --}}
 
-                                                    <div
-                                                        class="absolute bottom-5 right-6 flex-1 pt-2 flex items-end justify-between">
+                                                    <div class="absolute bottom-5 right-6 flex-1 pt-2 flex items-end justify-between">
                                                         <p class="mt-1 text-sm font-medium text-gray-900">
                                                         </p>
-                                                        <input type="hidden" class='sub_total' name="sub_total"
-                                                            value="{{ $data->sub_total }}">
+                                                        <input type="hidden" class='sub_total' name="sub_total" value="{{ $data->sub_total }}">
                                                         <div class="ml-4">
                                                             <p class="mt-1 text-sm font-medium text-gray-900">
                                                                 Subtotal:
@@ -722,15 +663,15 @@
                                 <div class="flex items-center justify-between border-t border-gray-200 pt-6">
                                     <dt class="text-base font-medium">Total</dt>
                                     <div class="flex">
-                                        <dt class="currency_lable text-base font-medium">₹</dt>
+                                        <dt class="currency_lable text-base font-medium">
+                                            {{ $theme->globle_currency }}</dt>
                                         <dd class="order_total text-base font-medium text-gray-900"></dd>
                                     </div>
                                 </div>
                             </dl>
 
                             <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
-                                <button type="submit" onclick="submitOrder()"
-                                    class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">Confirm
+                                <button type="submit" onclick="submitOrder()" class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">Confirm
                                     order</button>
                             </div>
                         </div>
@@ -745,17 +686,14 @@
             <h2 id="footer-heading" class="sr-only">Footer</h2>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="py-20">
-                    <div
-                        class="grid grid-cols-1 md:grid-cols-12 md:grid-flow-col md:gap-x-8 md:gap-y-16 md:auto-rows-min">
+                    <div class="grid grid-cols-1 md:grid-cols-12 md:grid-flow-col md:gap-x-8 md:gap-y-16 md:auto-rows-min">
                         <!-- Image section -->
                         <div class="col-span-1 md:col-span-2 lg:row-start-1 lg:col-start-1">
-                            <img src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600" alt=""
-                                class="h-8 w-auto">
+                            <img src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600" alt="" class="h-8 w-auto">
                         </div>
 
                         <!-- Sitemap sections -->
-                        <div
-                            class="mt-10 col-span-6 grid grid-cols-2 gap-8 sm:grid-cols-3 md:mt-0 md:row-start-1 md:col-start-3 md:col-span-8 lg:col-start-2 lg:col-span-6">
+                        <div class="mt-10 col-span-6 grid grid-cols-2 gap-8 sm:grid-cols-3 md:mt-0 md:row-start-1 md:col-start-3 md:col-span-8 lg:col-start-2 lg:col-span-6">
                             <div class="grid grid-cols-1 gap-y-12 sm:col-span-2 sm:grid-cols-2 sm:gap-x-8">
                                 <div>
                                     <h3 class="text-sm font-medium text-gray-900">Products</h3>
@@ -846,19 +784,15 @@
                         </div>
 
                         <!-- Newsletter section -->
-                        <div
-                            class="mt-12 md:mt-0 md:row-start-2 md:col-start-3 md:col-span-8 lg:row-start-1 lg:col-start-9 lg:col-span-4">
+                        <div class="mt-12 md:mt-0 md:row-start-2 md:col-start-3 md:col-span-8 lg:row-start-1 lg:col-start-9 lg:col-span-4">
                             <h3 class="text-sm font-medium text-gray-900">Sign up for our newsletter</h3>
                             <p class="mt-6 text-sm text-gray-500">The latest deals and savings, sent to your inbox
                                 weekly.</p>
                             <form class="mt-2 flex sm:max-w-md">
                                 <label for="newsletter-email-address" class="sr-only">Email address</label>
-                                <input class='email' id="newsletter-email-address" type="text" autocomplete="email"
-                                    required
-                                    class="appearance-none min-w-0 w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                                <input class='email' id="newsletter-email-address" type="text" autocomplete="email" required class="appearance-none min-w-0 w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
                                 <div class="ml-4 flex-shrink-0">
-                                    <button type="submit"
-                                        class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Sign
+                                    <button type="submit" class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Sign
                                         up</button>
                                 </div>
                             </form>
@@ -881,6 +815,7 @@
     var orderItemData = [];
 
     console.log($('.first_name').val(), 'first_name');
+
 
 
     function submitOrder() {
@@ -937,7 +872,25 @@
                 // }
             },
             success: function(data) {
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
                 console.log(data, 'data');
+                toastr.success('Product successfully updated quantity');
                 if (data.status == 'success') {
                     alert('Order Successfully Placed');
                 }
@@ -952,7 +905,7 @@
     }
 
     console.log(count, '==count');
-    $('.order_total').text(count);
+    $('.order_total').text(parseFloat(count).toFixed(2));
     $('.email').text('sadada');
     console.log($('.email').val(), 'sdasdaasdasdasdsasa');
 
@@ -964,6 +917,14 @@
     //    change all *-indigo-* with currentColorTheme
     $(".globle_theme_attach").html($(".globle_theme_attach").html().replaceAll('indigo',
         currentColorTheme));
+
+    var user_info = {!! $user_info !!}
+    console.log(user_info, 'user_info');
+    $('.first_name').val(user_info['name']),
+        $('.last_name').val(user_info['name']),
+        $('#email-address').val(user_info['email']);
+    $('#email-address').val(user_info['email']);
+    $('#email-address').val(user_info['email']);
 </script>
 
 </html>

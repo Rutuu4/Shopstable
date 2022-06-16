@@ -20,7 +20,6 @@
 
     <!-- Scripts -->
     <script src="/js/app.js" defer></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"
         integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -35,6 +34,24 @@
 </head>
 
 <body class="globle_theme_attach">
+
+    {{-- Toster --}}
+    <div class="relative">
+        <div class="toast absolute w-fit hidden right-0">
+            <div class="toast-content shadow-xl z-10 bg-white px-4 py-2 rounded-xl flex items-center gap-4">
+                <img src="/Icons/check.svg" class="bg-green-400/50 p-1 rounded-full"></img>
+                <div class="message">
+                    <span class="text text-1 toster_text_1"></span>
+                    <p class="alert">
+                        {{ Session::get('message') }}</p>
+                    <span class="text text-2 toster_text_2"></span>
+                </div>
+            </div>
+            {{-- <i class="fa-solid fa-xmark close"></i> --}}
+            {{-- 3 second progress bar --}}
+
+        </div>
+    </div>
     <header class="text-gray-600 body-font">
         <div class="flex justify-between items-center ">
             <div class="flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -48,11 +65,6 @@
                         <span class="ml-3 text-xl">Shopstable</span>
                     </a>
                 </a>
-                <script>
-                    var count = 0;
-                    var shopping_item_count = {!! json_encode($purchase_product_count) !!};
-                </script>
-
                 @if (!empty($navbar))
                     <div
                         class="md:mr-auto md:ml-4 md:py-1 md:pl-4  md:border-gray-400 flex flex-wrap text-base justify-center">
@@ -128,22 +140,21 @@
                     <div class="flex justify-between">
 
                         <dl class="mt-12 text-sm font-medium">
-                            <dt class="text-gray-900">Order Number</dt>
-                            <dd class="text-indigo-600 mt-2">{{ $order->unique_order_number }}</dd>
+                            <dt class="text-gray-900 font-bold">Order Number</dt>
+                            <dd id='order_number_tip' class="order_number_tip text-indigo-600 mt-2">
+                                #{{ $order->unique_order_number }}</dd>
                         </dl>
                         <dl class="mt-12 text-sm font-medium">
-                            <dt class="text-gray-900">Tracking Number</dt>
-                            <dd class="text-indigo-600 mt-2">2ZiMOjRGFBTA3rHZpEpx</dd>
+                            <dt class="text-gray-900 font-bold">Tracking Number</dt>
+                            <dd class="text-indigo-600 mt-2">#SWSRVUO55VQW761</dd>
                         </dl>
                         <dl class="mt-12 text-sm font-medium">
-                            <dt class="text-gray-900">Order date</dt>
-                            <dd class="text-indigo-600 mt-2">{{ date_format($order->updated_at, 'd-m-Y') }}</dd>
+                            <dt class="text-gray-900 font-bold">Order date</dt>
+                            <dd class="text-indigo-600 mt-2">{{ date_format($order->updated_at, 'm-d-Y') }}</dd>
                         </dl>
                     </div>
                 </div>
-                <script>
-                    var count = 0;
-                </script>
+
                 <h2 class="sr-only">Your order</h2>
 
                 <h3 class="sr-only">Items</h3>
@@ -155,17 +166,21 @@
                                 class="flex-none object-center object-cover bg-gray-100 rounded-lg w-40 h-40">
 
                             <div class="flex-auto flex flex-col">
-                                <div>
-                                    <h4 class="font-medium text-gray-900 capitalize">
-                                        <a
-                                            href="http://{{ request()->getHttpHost() }}/product/detail/{{ $item->product_id }}">
-                                            {{ $item->title }} </a>
+                                <div class="">
+                                    <h4 class=" font-medium text-gray-900 capitalize">
+                                        {{ $item->title }}
                                     </h4>
                                     <p class="mt-2 text-sm comment more text-gray-600">
                                         {{ $item->shortDescription }}
                                     </p>
+
                                 </div>
-                                <div class="mt-6 flex-1 flex items-end">
+                                <div class="relative flex-1 flex items-start mt-9">
+                                    <p class="text-sm absolute bottom-0 text-indigo-600">
+                                        <a
+                                            href="http://{{ request()->getHttpHost() }}/product/detail/{{ $item->product_id }}">
+                                            Product Info</a>
+                                    </p>
                                     <dl class="flex text-sm divide-x divide-gray-200 space-x-4 sm:space-x-6">
                                         <div class="flex">
                                             <dt class="font-medium text-sm text-gray-900">Quantity</dt>
@@ -294,6 +309,9 @@
         display: none;
     }
 </style>
+
+<script src="https://unpkg.com/popper.js@1"></script>
+<script src="https://unpkg.com/tippy.js@5/dist/tippy-bundle.iife.js"></script>
 <script>
     $(document).ready(function() {
         var showChar = 100;
@@ -331,15 +349,22 @@
         });
     });
 
+    var count = 0;
+    var shopping_item_count = {!! json_encode($purchase_product_count) !!};
+
+    var counter = 0;
+    console.log(counter);
+    counter++;
+    console.log(counter);
     console.log(count, '==count');
+
     $('.order_total').text(count);
 
     $('.order_total_input').val($('.order_total').text());
     var currentColorTheme = {!! json_encode($theme->toArray()) !!};
-    m
     console.log(currentColorTheme['theme_color'], 'currentColorTheme');
     currentColorTheme = currentColorTheme['theme_color'];
-    //    change all *-indigo-* with currentColorTheme
+    // change all *-indigo-* with currentColorTheme
     $(".globle_theme_attach").html($(".globle_theme_attach").html().replaceAll('indigo',
         currentColorTheme));
 </script>

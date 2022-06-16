@@ -26,8 +26,8 @@ class OrderController extends Controller
     public function index()
     {
         // generate trackin number
-        $length = 20;
-        $unique_order_number = substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
+        $length = 15;
+        $unique_order_number = substr(str_shuffle(str_repeat($x = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
 
         $token = $_COOKIE['customer_token'];
         $user_info = Customer::where('remember_token', $token)->first();
@@ -55,7 +55,7 @@ class OrderController extends Controller
             return view('orders.order');
         }
         if (!empty($order)) {
-            return view('order.order', ['user_id' => $user_info->id, 'order' => $order, 'theme' => $theme, 'navbar' => $navbar, 'datas' => $purchase_items, 'purchase_product_count' => $purchase_product_count ? $purchase_product_count : 0, 'unique_order_number' => $unique_order_number]);
+            return view('order.order', ['user_info' => $user_info, 'user_id' => $user_info->id, 'order' => $order, 'theme' => $theme, 'navbar' => $navbar, 'datas' => $purchase_items, 'purchase_product_count' => $purchase_product_count ? $purchase_product_count : 0, 'unique_order_number' => $unique_order_number]);
         }
     }
 
@@ -78,8 +78,8 @@ class OrderController extends Controller
     {
         try {
 
-            $length = 20;
-            $unique_order_number = substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
+            $length = 15;
+            $unique_order_number = substr(str_shuffle(str_repeat($x = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
 
             $navbar = Menubuilder::orderBy('nav_item_order', 'ASC')->get();
             // User token

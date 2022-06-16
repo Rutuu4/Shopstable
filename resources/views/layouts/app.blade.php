@@ -16,12 +16,15 @@
         * {
             font-family: 'Poppins', sans-serif;
         }
-
     </style>
 
     <!-- Styles -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        
     {{-- <link rel="stylesheet" href="/css/app.css"> --}}
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
     <link href="https://unpkg.com/@tailwindcss/forms@0.2.1/dist/forms.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <!-- Scripts -->

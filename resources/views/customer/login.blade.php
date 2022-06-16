@@ -1,11 +1,31 @@
 <x-guest-layout>
+
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
     <div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+
+        {{-- Toster --}}
+        <div class="relative">
+            <div class="toast absolute w-fit hidden right-0">
+                <div class="toast-content shadow-xl z-10 bg-white px-4 py-2 rounded-xl flex items-center gap-4">
+                    <img src="/Icons/check.svg" class="bg-green-400/50 p-1 rounded-full"></img>
+                    <div class="message">
+                        <span class="text text-1 toster_text_1"></span>
+                        <p class="alert">
+                            {{ Session::get('message') }}</p>
+                        <span class="text text-2 toster_text_2"></span>
+                    </div>
+                </div>
+                {{-- <i class="fa-solid fa-xmark close"></i> --}}
+                {{-- 3 second progress bar --}}
+            </div>
+        </div>
         <div class="max-w-md w-full space-y-8 ">
             <div>
                 <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                     alt="Workflow">
                 <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
-
                 </p>
             </div>
 
@@ -64,6 +84,7 @@
                 </div>
             </form>
             <script>
+                toastr.success('Product successfully updated quantity');
                 // store jwt token in localStorage
                 // .ajaxSetup({
                 //     headers: {

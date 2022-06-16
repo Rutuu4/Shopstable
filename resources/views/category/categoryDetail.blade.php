@@ -110,7 +110,7 @@
                     </a>
                     {{-- @endif --}}
                     <div class="py-2 px-5">
-                        <x-button onclick="history.back()">
+                        <x-button onclick="window.location.reload(history.back())">
                             {{ __('Back') }}
                         </x-button>
                     </div>
@@ -139,7 +139,8 @@
                                     <div class="flex justify-between">
                                         <h3 class="text-sm font-medium text-gray-900">{{ $product->product_title }}
                                         </h3>
-                                        <p class="relative text-sm ">₹{{ $product->price }}
+                                        <p class="relative text-sm ">{{ $theme->globle_currency }}
+                                            {{ $product->price ? sprintf('%0.2f', $product->price) : 0.0 }}
                                         </p>
                                     </div>
                                     <p class="text-truncate category_description  mt-1 text-sm text-gray-500">

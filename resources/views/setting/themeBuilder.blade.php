@@ -35,29 +35,21 @@
                     <div class="grid grid-cols-2 gap-4 h-[30rem]">
                         <div class="">
                             <div class="flex gap-4 ml-2 mt-5 justify-start">
-                                <div onClick='changeGlobleColor("indigo", this)'
-                                    class="changeGlobleColorClass my-3 rounded-full bg-indigo-500 w-5 h-5" autoFocus>
+                                <div onClick='changeGlobleColor("indigo", this)' class="changeGlobleColorClass my-3 rounded-full bg-indigo-500 w-5 h-5" autoFocus>
                                 </div>
-                                <div onClick='changeGlobleColor("orange", this)'
-                                    class="changeGlobleColorClass my-3 rounded-full bg-orange-500 w-5 h-5" autoFocus>
+                                <div onClick='changeGlobleColor("orange", this)' class="changeGlobleColorClass my-3 rounded-full bg-orange-500 w-5 h-5" autoFocus>
                                 </div>
-                                <div onClick='changeGlobleColor("red", this)'
-                                    class="changeGlobleColorClass my-3 rounded-full bg-red-500 w-5 h-5" autoFocus></div>
-                                <div onClick='changeGlobleColor("blue", this)'
-                                    class="changeGlobleColorClass my-3 rounded-full bg-blue-500 w-5 h-5" autoFocus>
+                                <div onClick='changeGlobleColor("red", this)' class="changeGlobleColorClass my-3 rounded-full bg-red-500 w-5 h-5" autoFocus></div>
+                                <div onClick='changeGlobleColor("blue", this)' class="changeGlobleColorClass my-3 rounded-full bg-blue-500 w-5 h-5" autoFocus>
                                 </div>
-                                <div onClick='changeGlobleColor("pink", this)'
-                                    class="changeGlobleColorClass my-3 rounded-full bg-pink-500 w-5 h-5" autoFocus>
+                                <div onClick='changeGlobleColor("pink", this)' class="changeGlobleColorClass my-3 rounded-full bg-pink-500 w-5 h-5" autoFocus>
                                 </div>
-                                <div onClick='changeGlobleColor("green", this)'
-                                    class="changeGlobleColorClass my-3 rounded-full bg-green-500 w-5 h-5" autoFocus>
+                                <div onClick='changeGlobleColor("green", this)' class="changeGlobleColorClass my-3 rounded-full bg-green-500 w-5 h-5" autoFocus>
                                 </div>
                             </div>
                             <div class="mt-4">
                                 <x-label :value="__('header_size')" class="mb-1" />
-                                <select name="header_size"
-                                    class="header_size  w-[13rem] pr-8 pl-4 py-2 text-left rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                    id="status">
+                                <select name="header_size" class="header_size  w-[13rem] pr-8 pl-4 py-2 text-left rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="status">
                                     {{-- @foreach ($category_data as $item) --}}
                                     <option class="py-2 px-4 " value='text-xl'>Text xl</option>
                                     <option class="py-2 px-4 " value='text-2xl'>Text 2xl</option>
@@ -71,9 +63,7 @@
                             </div>
                             <div class="mt-4">
                                 <x-label :value="__('Lable size')" class="mb-1" />
-                                <select name="lable_size"
-                                    class="lable_size w-[13rem] pr-8 pl-4 py-2 text-left rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                    id="status">
+                                <select name="lable_size" class="lable_size w-[13rem] pr-8 pl-4 py-2 text-left rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="status">
                                     {{-- @foreach ($category_data as $item) --}}
                                     <option class="py-2 px-4 " value='text-xs'>Text xs</option>
                                     <option class="py-2 px-4 " value='text-sm'>Text sm</option>
@@ -86,9 +76,7 @@
                             </div>
                             <div class="mt-4">
                                 <x-label :value="__('Paragraph size')" class="mb-1" />
-                                <select name="paragraph_size"
-                                    class="paragraph_size w-[13rem] pr-8 pl-4 py-2 text-left rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                    id="status">
+                                <select name="paragraph_size" class="paragraph_size w-[13rem] pr-8 pl-4 py-2 text-left rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="status">
                                     {{-- @foreach ($category_data as $item) --}}
                                     <option class="py-2 px-4 " value='text-xs'>Text xs</option>
                                     <option class="py-2 px-4 " value='text-sm'>Text sm</option>
@@ -107,23 +95,19 @@
                                     <div class="relative">
                                         <main class="mx-auto max-w-7xl px-4">
                                             <div class="text-center">
-                                                <h1
-                                                    class=" tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                                                <h1 class=" tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
                                                     <span class="content_header [text-size]  block">Demo Page</span>
                                                     <span class="content_header [text-size] block text-indigo-600">For
                                                         globle theme</span>
                                                 </h1>
                                                 <br>
-                                                <p
-                                                    class="content_paragraph mt-3 max-w-md mx-auto text-gray-500 md:max-w-3xl">
+                                                <p class="content_paragraph mt-3 max-w-md mx-auto text-gray-500 md:max-w-3xl">
                                                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla unde
                                                     asperiores maxime molestiae
                                                     praesentium officiis suscipit tenetur, perspiciatis non ut.</p>
-                                                <div onclick="changeColor()"
-                                                    class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
+                                                <div onclick="changeColor()" class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
                                                     <div class="rounded-md shadow">
-                                                        <button href=""
-                                                            class="toster_button content_lable w-full flex items-center justify-center px-8 py-3 border border-transparent font-medium rounded-md text-white bg-indigo-600  content_theme_color">
+                                                        <button href="" class="toster_button content_lable w-full flex items-center justify-center px-8 py-3 border border-transparent font-medium rounded-md text-white bg-indigo-600  content_theme_color">
                                                             Get started </button>
                                                     </div>
                                                     {{-- <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
@@ -156,6 +140,26 @@
                             $('.paragraph_size').val(theme[0]['paragraph_size']).change();
 
                             function changeGlobleColor(color, el) {
+
+                                // toastr display
+                                toastr.options = {
+                                    "closeButton": true,
+                                    "debug": false,
+                                    "newestOnTop": false,
+                                    "progressBar": true,
+                                    "positionClass": "toast-top-right",
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "showDuration": "300",
+                                    "hideDuration": "1000",
+                                    "timeOut": "5000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                }
+                                toastr.success('Theme color changed successfully');
 
                                 console.log('color,', color);
                                 console.log('changeGlobleColorClass', currentGlobleColorTheme);
@@ -228,6 +232,7 @@
                 },
 
                 success: function(data) {
+                    toastr.success("Header Size Changed Successfully");
 
                     console.log(theme[0]['header_size']);
                     new_content_header_str = header_size
@@ -275,7 +280,7 @@
                 },
 
                 success: function(data) {
-
+                    toastr.success("Lable Size Changed Successfully");
                     console.log(theme[0]['lable_size']);
                     new_content_lable_str = lable_size
 
@@ -321,7 +326,7 @@
                 },
                 success: function(data) {
                     console.log(data);
-
+                    toastr.success("Paragraph Size Changed Successfully");
                     let str = $('.content_paragraph').attr("class");
                     console.log(theme[0]['paragraph_size']);
                     new_content_paragraph_str = paragraph_size
@@ -343,15 +348,15 @@
 
 
         // -------------------------start currency set-----------------------------//
-        let content_currency_str = $('.content_currency').attr("class");
-        content_currency_str = content_currency_str.split(/(\s+)/);
-        console.log(theme[0]['globle_currency'], '------------currency');
-        $('.content_currency').attr('class', $('.content_currency').attr('class').replace(content_currency_str[2], theme[0][
-            'globle_currency'
-        ]));
+        // let content_currency_str = $('.content_currency').attr("class");
+        // content_currency_str = content_currency_str.split(/(\s+)/);
+        // console.log(theme[0]['globle_currency'], '------------currency');
+        // $('.content_currency').attr('class', $('.content_currency').attr('class').replace(content_currency_str[2], theme[0][
+        //     'globle_currency'
+        // ]));
 
-        var temp_content_currency_str = theme[0]['globle_currency'];
-        // -------------------------end pharagraph set-----------------------------//
+        // var temp_content_currency_str = theme[0]['globle_currency'];
+        // -------------------------end currency set-----------------------------//
     </script>
 </x-app-layout>
 

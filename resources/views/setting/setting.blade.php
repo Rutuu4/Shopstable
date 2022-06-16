@@ -26,7 +26,7 @@
 
     <div class="py-12">
 
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-3 ">
             <a href='/menuBuilder' class="mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-gray-200">
@@ -54,7 +54,7 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white  border-gray-200">
                         <div class="flex justify-left items-center  pb-4 text-justify">
-                            <img src="/Icons/theme.svg" class="w-5 mr-2" alt="">
+                            <img src="/Icons/coin.svg" class="w-5 mr-2" alt="">
                             <h1 class="text-xl">Globle Currency</h1>
                             {{-- <x-label :value="__('')" class="mb-1" /> --}}
                         </div>
